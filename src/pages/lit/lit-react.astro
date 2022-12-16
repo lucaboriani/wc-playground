@@ -1,0 +1,20 @@
+---
+
+import Layout from '../../layouts/Layout.astro';
+import {App} from '../../components/react/callApi/App.jsx'
+
+
+---
+
+<Layout title="Lit React">
+	<main>
+		<h1>Lit React</h1>
+        <App client:load />
+	</main>
+</Layout>
+<style>
+	p{
+		font-size: 1.2em;
+	}
+</style>
+

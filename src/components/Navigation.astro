@@ -1,0 +1,123 @@
+---
+const pages = [
+    {
+        link:'/',
+        text:'Home'
+    },
+    {
+        link:'/expandinglist',
+        text:'Expanding list'
+    },
+    {
+        link:'/lit',
+        text:'LIT',
+        children:[
+            {
+                link:'/lit/lit-basic/',
+                text:'Lit basic',
+            },
+            {
+                link:'/lit/composing-templates',
+                text:'Composing templates',
+            },
+            {
+                link:'/lit/lit-react',
+                text:'using lit and react',
+            },
+            {
+                link:'/lit/lit-vue',
+                text:'using lit and vue',
+            }
+        ]
+    }
+]
+---
+<style>
+.nav-links {
+    width: 100%;
+    display: flex;
+    background-color: chocolate;
+    position: sticky;
+    top:0;
+}
+.nav-links ul {
+    list-style: none;
+    display: flex;
+}
+.nav-links ul li {
+    
+}
+.nav-links ul li a{
+    text-decoration: none;
+    color:black;
+    padding: 1em;
+}
+.nav-links ul li a:hover{
+    text-decoration: none;
+    background-color: white;
+}
+.sublinks{
+    display: none;
+    background-color: chocolate;
+    position: absolute;
+    top:3em;
+}
+
+.nav-links ul li:hover .sublinks{
+    display: flex;
+}
+.sublinks ul{
+    flex-direction: column;
+    padding-left: 0;
+
+}
+.sublinks small {
+    padding: 0 2em;
+}
+.sublinks ul li{
+   padding: .5em; 
+}
+.sublinks ul li a{
+   width: 100%; 
+   padding: 0;
+}
+.sublinks ul li:hover{
+   background-color:white;
+}
+.sublinks img{
+    height: 1em;
+    width: auto;
+}
+@media screen and (max-width: 1229px) {
+  .nav-links ul {
+    flex-direction: column;
+    
+  }
+  .sublinks{
+    display: block;
+  }
+
+}
+</style>
+<div class="nav-links">
+    <ul>
+        {pages.map(page => ((
+            <li>
+                <a href={page.link}>
+                    {page.text}
+                </a>
+                {page.children ? 
+                        <div class="sublinks">
+                            <ul>
+                                {page.children.map(child => (<li>
+                                    <a href={child.link}>{child.text}</a>
+                                </li>))}
+                                
+                            </ul>
+                        </div>
+                    : null
+                }
+            </li>
+        )))}
+    </ul>
+</div>

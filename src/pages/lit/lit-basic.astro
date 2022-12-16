@@ -1,0 +1,21 @@
+---
+// @ts-nocheck
+import Layout from '../../layouts/Layout.astro';
+
+import {MyElement} from '../../components/wc/lit/my-element';
+import {MyButton} from '../../components/wc/lit/my-button';
+
+---
+
+<Layout title="Lit Basic">
+	<main>
+		<h1>Lit Basic</h1>
+		<p>
+			<MyElement />
+		</p>
+       
+        <MyButton text="some text" />
+		
+	</main>
+</Layout>
+

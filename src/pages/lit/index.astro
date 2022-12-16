@@ -1,0 +1,68 @@
+---
+
+import Layout from '../../layouts/Layout.astro';
+
+
+
+---
+
+<Layout title="Lit Basic">
+    <div class="container">
+        <main>
+            <h1>Lit Element</h1>
+            <h2>(nesting routes example...)</h2>
+            <p>
+                LitElement (Lit) is a simple base class for creating fast, lightweight web components that work in any web page with any framework.
+    
+           </p>
+            <p>
+                LitElement uses lit-html to render into shadow DOM, and adds API to manage properties and attributes. Properties are observed by default, and elements update asynchronously when their properties change.
+            </p>
+            
+        </main>
+        <aside>
+            <ul>
+                <li>
+                    <a href="./lit/lit-basic">
+                        lit: basic
+                    </a>
+                </li>
+                <li>
+                    <a href="./lit/composing-templates">
+                        lit : composing templates
+                    </a>
+                </li>
+                <li>
+                    <a href="./lit/lit-react">
+                        lit : use lit in react
+                    </a>
+                </li>
+                <li>
+                    <a href="./lit/lit-vue">
+                        lit : use lit in vue
+                    </a>
+                </li>
+            </ul>
+        </aside>
+    </div>
+	
+</Layout>
+<style>
+a{
+    color: whitesmoke;
+}
+h1, h2{
+    text-align: left;
+}
+.container{
+    min-height: calc(100vh - 3em);
+    display: flex;
+}
+main{
+    max-width: 800px;
+}
+aside {
+    padding-top: 6em;
+}
+</style>
+
