@@ -1,0 +1,49 @@
+---
+
+import Layout from '../../layouts/Layout.astro';
+import { getPlanets } from './planetsApi';
+
+
+let results = await getPlanets();
+
+---
+<Layout title="all planets">
+    <div class="container">
+        <main>
+            <h1>
+                All Planets
+            </h1>
+            <ul>
+                {
+                    results.map((planet, index) =>(
+                        <li>
+                            <a href={`/planets/${index+1}`}>{planet.name}</a> 
+                        </li>
+                    ))
+                }
+            </ul>
+        </main>
+        <aside>
+            <ul>
+                <li>
+                    <a href="./lit/lit-basic">
+                        lit: basic
+                    </a>
+                </li>
+               
+            </ul>
+        </aside>
+    </div>
+	
+</Layout>
+<style>
+    .container{
+        display: flex;
+    }
+    main{
+        flex-grow: 1;
+    }
+    h1{
+        text-align: left;
+    }
+</style>
