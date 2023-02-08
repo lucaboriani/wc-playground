@@ -42,23 +42,21 @@ const PlanetDetail = ({planet, slug}) =>{
         <ul>
            <li>
               <a href={`/planets/${slug}`}>
-                <h5>{name}</h5>
-                <div>
-                  <span>Climate:</span>
-                  <span>{climate}</span>
+                <h2>{name}</h2>
+                <div style={{display:'flex'}}>
+                    <img src={'https://via.placeholder.com/300x180?text='+ name.replace(' ', '+')}/>
+                    <div style={{display:'flex', flexDirection:'column'}}>
+                      <span>Climate:</span>
+                      <span>{climate}</span>
+                      <span>Gravity:</span>
+                      <span>{gravity}</span>
+                      <span>Population:</span>
+                      <span>{population}</span>
+                      <span>terrain:</span>
+                      <span>{terrain}</span>
+                    </div>
+                  
                 </div> 
-                <div>
-                  <span>Gravity:</span>
-                  <span>{gravity}</span>
-                </div>
-                <div>
-                  <span>Population:</span>
-                  <span>{population}</span>
-                </div>
-                <div>
-                  <span>terrain:</span>
-                  <span>{terrain}</span>
-                </div>
               </a>
               
 
