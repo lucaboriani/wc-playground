@@ -1,17 +1,13 @@
 import { useState, useEffect } from 'react'
 import {MyButton} from '../../wc/lit/my-button';
-
-
-const url = "https://swapi.dev/api/planets";
+import { getPlanets } from '../../../pages/planets/planetsApi'
 
 export function App() {
   const [planetsData, setPlanetsData] = useState([]);
 
   const getPlanetsData = async () => {
-    const response = await fetch(url);
-    const jsonData = await response.json();
-    
-    setPlanetsData([...jsonData.results]);
+    const jsonData = await getPlanets();
+    setPlanetsData([...jsonData]);
   };
   
  return (

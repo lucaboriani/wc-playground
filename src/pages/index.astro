@@ -31,12 +31,63 @@ import Layout from '../layouts/Layout.astro';
 				<script type="module" src="./src/components/wc/buttons/CustomButton.js"></script>
 				<small>shadow dom - encapsulation</small>
 			</div>
+			<div class="tab">
+				<h2>Expanding List example</h2>
+				<p class="instructions">
+					<expanding-list></expanding-list>
+					<script type="module" src='./src/components/wc/expandingList.js'></script>
+				</p>
+			</div>
 		</section>
 	</main>
 </Layout>
+<script>
+    import { ExpandingList } from "../components/wc/expandingList"
+
+    const data = [
+        {
+            title: 'level 0 A',
+            nodes: [
+                {
+                    title: 'level 1 A',
+                    nodes: [
+                        {
+                            title: 'level 2 A'
+                        },
+                        {
+                            title: 'level 2 A',
+                            nodes:[
+                                {
+                                    title:'level 3 A'
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }, 
+        {
+            title: 'level 0 B',
+            nodes: [
+                {
+                    title: 'level 1 B',
+                    nodes: [
+                        {
+                            title: 'level 2 B'
+                        }
+                    ]
+                }
+            ]   
+        }
+    ]
+	const list = document.querySelector('expanding-list') as ExpandingList
+    
+    list.elements = data
+</script>
 <style>
 	#cont{
 		display: flex;
+		flex-direction: column;
 	}
 	.tab {
 		flex-grow: 1;

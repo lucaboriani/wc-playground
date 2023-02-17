@@ -1,65 +1,61 @@
 ---
-
+// @ts-nocheck
 import Layout from '../../layouts/Layout.astro';
-
-
-
+import {MyElement} from '../../components/wc/lit/my-element';
+import {MyButton} from '../../components/wc/lit/my-button';
+let posts = await Astro.glob('../../markdown/lit.md');
+let post = posts[0];
+let markdownUseless = await Astro.glob('../../markdown/useless-button.md');
+let useless = markdownUseless[0]
 ---
 
 <Layout title="Lit Basic">
-    <div class="container">
-        <main>
-            <h1>Lit Element</h1>
-            <h2>(nesting routes example...)</h2>
-            <p>
-                LitElement (Lit) is a simple base class for creating fast, lightweight web components that work in any web page with any framework.
+    <main class="main">
+        <post.Content />
+        <h2>Lit Basics:</h2>
+		<p>
+			a dummy element...
+		</p>
+       <MyElement />
+       <hr/>
+       <p>
+        ...and a useless button
+        </p>
+        <MyButton text="some text" />
+        <useless.Content/>
+      
+    </main>
     
-           </p>
-            <p>
-                LitElement uses lit-html to render into shadow DOM, and adds API to manage properties and attributes. Properties are observed by default, and elements update asynchronously when their properties change.
-            </p>
-            
-        </main>
-        <aside>
-            <ul>
-                <li>
-                    <a href="./lit/lit-basic">
-                        lit: basic
-                    </a>
-                </li>
-                <li>
-                    <a href="./lit/composing-templates">
-                        lit : composing templates
-                    </a>
-                </li>
-                <li>
-                    <a href="./lit/lit-react">
-                        lit : use lit in react
-                    </a>
-                </li>
-                <li>
-                    <a href="./lit/lit-vue">
-                        lit : use lit in vue
-                    </a>
-                </li>
-            </ul>
-        </aside>
-    </div>
+    <aside class="aside">
+        <ul>
+            <li>
+                <a href="./lit/lit-basic">
+                    lit: basic
+                </a>
+            </li>
+            <li>
+                <a href="./lit/composing-templates">
+                    lit : composing templates
+                </a>
+            </li>
+            <li>
+                <a href="./lit/lit-react">
+                    lit : use lit in react
+                </a>
+            </li>
+            <li>
+                <a href="./lit/lit-vue">
+                    lit : use lit in vue
+                </a>
+            </li>
+        </ul>
+    </aside>
 	
 </Layout>
+
 <style>
-a{
-    color: whitesmoke;
-}
-h1, h2{
-    text-align: left;
-}
-.container{
-    min-height: calc(100vh - 3em);
-    display: flex;
-}
-main{
-    max-width: 800px;
+.card {
+    margin: 1em;
 }
 aside {
     padding-top: 6em;

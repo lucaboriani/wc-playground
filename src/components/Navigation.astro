@@ -5,10 +5,6 @@ const pages = [
         text:'Home'
     },
     {
-        link:'/expandinglist',
-        text:'Expanding list'
-    },
-    {
         link:'/lit',
         text:'LIT',
         children:[
@@ -37,71 +33,42 @@ const pages = [
 ]
 ---
 <style>
-.nav-links {
-    width: 100%;
-    display: flex;
-    background-color: chocolate;
-    position: sticky;
-    top:0;
-}
-.nav-links ul {
-    list-style: none;
-    display: flex;
-}
-.nav-links ul li {
+    .nav-links ul {
+        list-style: none;
+        display: flex;
+    }
+    .sublinks{
+        display: none;
+        background-color: black;
+    }
     
-}
-.nav-links ul li a{
-    text-decoration: none;
-    color:black;
-    padding: 1em;
-}
-.nav-links ul li a:hover{
-    text-decoration: none;
-    background-color: white;
-}
-.sublinks{
-    display: none;
-    background-color: chocolate;
-    position: absolute;
-    top:3em;
-}
-
-.nav-links ul li:hover .sublinks{
-    display: flex;
-}
-.sublinks ul{
-    flex-direction: column;
-    padding-left: 0;
-
-}
-.sublinks small {
-    padding: 0 2em;
-}
-.sublinks ul li{
-   padding: .5em; 
-}
-.sublinks ul li a{
-   width: 100%; 
-   padding: 0;
-}
-.sublinks ul li:hover{
-   background-color:white;
-}
-.sublinks img{
-    height: 1em;
-    width: auto;
-}
-@media screen and (max-width: 1229px) {
-  .nav-links ul {
-    flex-direction: column;
+    .nav-links ul li:hover .sublinks{
+        display: block;
+    }
+    .sublinks ul{
+        flex-direction: column;
+        padding-left: .5em;
+    }
+    .sublinks small {
+        padding: 0 2em;
+    }
+    .sublinks ul li a{
+       width: 100%; 
+    }
+    .sublinks img{
+        height: 1em;
+        width: auto;
+    }
+    @media screen and (max-width: 1229px) {
+      .nav-links ul {
+        flex-direction: column;
+        
+      }
+      .sublinks{
+        display: block;
+      }
     
-  }
-  .sublinks{
-    display: block;
-  }
-
-}
+    }
 </style>
 <div class="nav-links">
     <ul>

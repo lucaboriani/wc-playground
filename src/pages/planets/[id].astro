@@ -4,9 +4,9 @@ import Layout from '../../layouts/Layout.astro';
 import { getPlanet } from './planetsApi';
 
 
-const { slug } = Astro.params;
+const { id } = Astro.params;
 
-let planet = await getPlanet(slug);
+let planet = await getPlanet(id);
 
 const excluded = ['residents', 'films', 'created', 'edited', 'url']
 const fields = Object.keys(planet).filter(key => {

@@ -23,8 +23,6 @@ export class MyCounter extends HTMLElement {
 
     style.textContent = `
         * {
-          font-size: 200%;
-          margin:0;
           box-sizing:border-box;
         }
 
@@ -35,15 +33,16 @@ export class MyCounter extends HTMLElement {
         }
 
         button {
-            width: 4rem;
-            height: 4rem;
-            border: none;
-            border-radius: 10px;
-            background-color: seagreen;
-            color: white;
-            display:flex;
-            align-items: center;
-            justify-content:center;
+          border: none;
+          font-size: 2em;
+          border-radius: 10px;
+          background-color: #425b4d;
+          color: white;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 0 0.5em;
+          cursor:pointer;
         }
         .container {
           display:flex;
