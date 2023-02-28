@@ -8,7 +8,7 @@ import ReactTasks from '../../components/react/tasks/Tasks'
 let tasks =  []
 
 try {
-	const response = await fetch('http://localhost:3000/api/tasks.json')
+	const response = await fetch('http://localhost:3000/api/tasks/tasks.json')
 	tasks = await response.json()
 } catch (error) {
 	console.log(error)

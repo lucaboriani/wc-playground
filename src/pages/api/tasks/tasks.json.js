@@ -1,6 +1,6 @@
 import consumers from 'stream/consumers'
-import Task from "../../models/Task";
-import dbConnect from "../../utils/dbConnect";
+import Task from "../../../models/Task";
+import dbConnect from "../../../utils/dbConnect";
 
 /**
  * Gets all Tasks

@@ -1,8 +1,6 @@
 import mongoose from "mongoose"
 
-const DB_URL = import.meta.env.SSR === true 
-	? import.meta.env.DB_URL
-	:	`${import.meta.env.VITE_DB_URL}`
+const DB_URL = import.meta.env.DB_URL
 
 if (!DB_URL) {
 	throw new Error(

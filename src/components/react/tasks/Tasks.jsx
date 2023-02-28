@@ -5,12 +5,15 @@ import Task from './Task'
 import Form from './Form'
 
 
-const url = 'http://localhost:3000/api/tasks'
+
+const base = import.meta.env.PUBLIC_API_BASE
+const url = base + '/tasks'
 
 export default function ReactTasks(props) {    
 	const [tasks, setTasks] = useState(props.tasks);
 	const [task, setTask] = useState({ task: "" });
 	const handleChange = ({ currentTarget: input }) => {
+		console.log(base)
 		input.value === ""
 			? setTask({ task: "" })
 			: setTask((prev) => ({ ...prev, task: input.value }));
