@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import {MyButton} from '../../wc/lit/my-button';
-import { getPlanets } from '../../../pages/planets/planetsApi'
+import { getPlanets } from '../../../api/planetsApi'
 
 export function App() {
   const [planetsData, setPlanetsData] = useState([]);
