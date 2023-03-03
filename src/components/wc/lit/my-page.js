@@ -11,7 +11,6 @@ export class MyPage extends LitElement {
   constructor() {
     super();
     this.article = {};
-    console.log("shgshgshgs")
   }
   
   render() {

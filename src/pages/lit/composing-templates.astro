@@ -8,11 +8,15 @@ export const prerender = true;
 ---
 
 <Layout title="Composing templates">
-	<MyPage
-        client:load 
-        article={{
-            title: 'Composing Templates',
-            text: 'Some awesome text.'
-        }}
-    />
+    <main class="main" slot="main">
+		<MyPage
+            client:load 
+            article={{
+                title: 'Composing Templates',
+                text: 'Some awesome text.'
+            }}
+        />
+		
+	</main>
+	
 </Layout>
