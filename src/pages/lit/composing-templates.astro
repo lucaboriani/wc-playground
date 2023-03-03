@@ -4,11 +4,12 @@ import Layout from '../../layouts/Layout.astro';
 
 import {MyPage} from '../../components/wc/lit/my-page';
 
-
+export const prerender = true;
 ---
 
 <Layout title="Composing templates">
-	<MyPage 
+	<MyPage
+        client:load 
         article={{
             title: 'Composing Templates',
             text: 'Some awesome text.'

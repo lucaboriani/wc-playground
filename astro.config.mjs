@@ -8,6 +8,9 @@ import vue from "@astrojs/vue";
 import netlify from "@astrojs/netlify/functions";
 
 // https://astro.build/config
+import tailwind from "@astrojs/tailwind";
+
+// https://astro.build/config
 export default defineConfig({
   integrations: [lit(), react(), vue({
     template: {
@@ -16,7 +19,7 @@ export default defineConfig({
         isCustomElement: tag => tag.includes('-')
       }
     }
-  })],
+  }), tailwind()],
   output: "server",
   adapter: netlify()
 });

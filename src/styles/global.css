@@ -94,14 +94,7 @@ h3{
   flex-direction: column;
 }
 
-.header{
-  position: fixed;
-  height: 80px;
-  width: 100%;
-  background-color: black;
-  z-index: 9;
-  top: 0;
-}
+
 .footer {
   padding: 2em;
   display: flex;

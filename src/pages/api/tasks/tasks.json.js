@@ -7,24 +7,31 @@ import dbConnect from "../../../utils/dbConnect";
  * @returns Response
  */
 export async function get() {
+	let responseBody
+	let responseStatus
+	let isResponseOk
 	try {
 		await dbConnect();
 		const tasks = await Task.find()
-		const body =tasks.map(task => {
+		responseStatus = 200
+		isResponseOk = true
+		responseBody = tasks.map(task => {
 			return {
 				task: task.task,
 				_id: task._id.toString(),
 				completed:task.completed
 			} 
 		})
-		return  new Response(JSON.stringify(body), {
-			status: 200,
-			ok: true
-		}); 
+		
 	} catch (error) {
-		console.log(error.message)
-	  throw new Error(error.message);
+		responseBody = { error:error }
+		responseStatus = 500
+		isResponseOk = false
 	}
+	return  new Response(JSON.stringify(responseBody), {
+		status: responseStatus,
+		ok: isResponseOk
+	}); 
 };
 
 /**
@@ -34,27 +41,35 @@ export async function get() {
  * @returns Response
  */
 export async function post({ params, request }) {
-	let result, message
+	let result
+	let responseBody
+	let responseStatus
+	let isResponseOk
+
 	let data = await consumers.json(request.body)
 	try {
 		await dbConnect();
 		result = await new Task(data).save();
-		message = 'Task Created Successfully'
-		return new Response(JSON.stringify({ 
+		responseBody = { 
 			data: result, 
-			message: message 
-		}), {
-			status: 200,
-			headers: {
-				"Content-Type": "application/json"
-			}
-		});
+			message: 'Task Created Successfully' 
+		}
+		responseStatus = 200
+		isResponseOk = true
 	} catch (error) {
-		return new Response(JSON.stringify({error:error, message:'could not save Task'}), {
-			status: 500,
-			headers: {
-			  "Content-Type": "application/json"
-			}
-		});	
+		responseStatus = 500
+		isResponseOk = false
+		responseBody = { 
+			error:error, 
+			message: 'could not save Task' 
+		}
+		
 	}
+	return new Response(JSON.stringify(responseBody), {
+		status: responseStatus,
+		ok: isResponseOk,
+		headers: {
+			"Content-Type": "application/json"
+		}
+	});
 }
