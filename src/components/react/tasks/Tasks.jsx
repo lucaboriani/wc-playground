@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import styles from "../../../styles/tasks.module.css";
+
 import Task from './Task'
 import Form from './Form'
 
@@ -12,7 +12,6 @@ export default function ReactTasks(props) {
 	const [tasks, setTasks] = useState(props.tasks);
 	const [task, setTask] = useState({ task: "" });
 	const handleChange = ({ currentTarget: input }) => {
-		console.log(base)
 		input.value === ""
 			? setTask({ task: "" })
 			: setTask((prev) => ({ ...prev, task: input.value }));
@@ -72,28 +71,27 @@ export default function ReactTasks(props) {
 	};
 
 	return (
-		<main className={styles.main}>
-			<h1 className={styles.heading}>Yess, another TodoList :( </h1>
-			<div className={styles.container}>
+		<div className={'flex flex-col w-full items-center justify-center bg-slate-700 rounded-xl'}>
+			<h1 className={'text-3xl text-slate-100 m-2'}>Yess, another TodoList :( </h1>
+			<div className={'flex flex-col w-full items-center md:max-w-xl p-2 rounded-xl bg-slate-400 box-border mb-5'}>
 				<Form 
 					task={task} 
-					styles={styles} 
 					addTask={addTask} 
 					handleChange={handleChange}
 				/>
 				{tasks.map((task) => (
 					<Task 
 						key={task._id}
-						task={task} 
-						styles={styles} 
+						task={task}  
 						updateTask={updateTask} 
 						editTask={editTask} 
 						deleteTask={deleteTask}
 					/>
 					
 				))}
-				{tasks.length === 0 && <h2 className={styles.no_tasks}>No tasks</h2>}
+				{tasks.length === 0 && 
+					<h2 className={'flex items-center justify-center capitalize rounded-xl bg-slate-300 text-slate-800 text-2xl h-16'}>No tasks</h2>}
 			</div>
-		</main>
+		</div>
 	);
 }

@@ -1,15 +1,14 @@
 ---
 
 import Layout from '../../layouts/Layout.astro';
-import ReactTasks from '../../components/react/tasks/Tasks'
-
-
-
-let tasks =  []
+import ReactTasksRedo from '../../components/react/tasks/TasksRedo'
+let tasks
 
 try {
-	const response = await fetch('http://localhost:3000/api/tasks/tasks.json')
+    const response = await fetch('http://localhost:3000/api/tasks/tasks.json')
 	tasks = await response.json()
+	
+	// initTaskItems(tasks)
 } catch (error) {
 	console.log(error)
 }
@@ -20,8 +19,8 @@ try {
 
 <Layout title="Lit React">
 	<main class="max-w-4xl relative grow pt-20" slot="main">
-		<h1>React Task List</h1>
-        <ReactTasks 
+		<h1>Redo React Task List</h1>
+        <ReactTasksRedo 
             client:load 
             tasks={tasks}
         />
