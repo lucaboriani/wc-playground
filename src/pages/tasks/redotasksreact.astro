@@ -8,18 +8,14 @@ try {
     const response = await fetch('http://localhost:3000/api/tasks/tasks.json')
 	tasks = await response.json()
 	
-	// initTaskItems(tasks)
 } catch (error) {
 	console.log(error)
 }
-
-
-
 ---
 
 <Layout title="Lit React">
 	<main class="max-w-4xl relative grow pt-20" slot="main">
-		<h1>Redo React Task List</h1>
+		<h1>Redo Task List</h1>
         <ReactTasksRedo 
             client:load 
             tasks={tasks}

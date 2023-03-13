@@ -14,8 +14,6 @@ import loadTasks from './loadTasks';
 export const taskItems = map({});
 
 export const initTaskItems = (tasks) => {
-    console.log('init t i')
-    console.log(tasks)
     tasks.forEach(task => {
         taskItems.setKey(
             task._id,
@@ -27,14 +25,11 @@ export const initTaskItems = (tasks) => {
         );
     })
 }
-
-
 export const itemSelected = atom({task:''});
 
 export const selectTaskItem = (id) =>{
     itemSelected.set(taskItems.get()[id])
 }
-
 
 export const postTaskItem = action(
     taskItems, 
@@ -45,17 +40,17 @@ export const postTaskItem = action(
         const existingEntry = store.get()[_id];
         if (existingEntry) {
             store.setKey(_id, {
-            ...existingEntry,
-            task: task,
-            completed: existingEntry.completed,
-        })
+                ...existingEntry,
+                task: task,
+                completed: existingEntry.completed,
+            })
         } else {
-            store.setKey(
-            _id,
-            { _id, task, completed: false }
-        );
+            store.setKey(_id,{ 
+                _id, 
+                task, 
+                completed: false 
+            })
         }
-    
         return store.get()
     }
 )

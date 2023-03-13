@@ -18,9 +18,11 @@ export default function ReactTasksRedo({tasks}) {
 	const $itemSelected = useStore(itemSelected)
 	
     useEffect(()=>{
-		initTaskItems(tasks)
-		console.log($taskItems)
-	},[])
+		const num = Object.keys($taskItems).length
+		if(num === 0){
+			initTaskItems(tasks)
+		}
+	},[$taskItems])
 	
 	const handleChange = ({ currentTarget: input }) => {
 		if(input.value === ""){
@@ -65,16 +67,29 @@ export default function ReactTasksRedo({tasks}) {
 					addTask={addTask} 
 					handleChange={handleChange}
 				/>
-				{Object.values($taskItems).map(task => (
-					<Task 
-						key={task._id}
-						task={task}  
-						updateTask={updateTask} 
-						editTask={editTask} 
-						deleteTask={deleteTask}
-					/>
-				))}
-				{Object.values($taskItems).length === 0 && 
+				{
+					Object.keys($taskItems).length < tasks.length 
+					?	tasks.map(task => (
+						<Task 
+							key={task._id}
+							task={task}  
+							updateTask={updateTask} 
+							editTask={editTask} 
+							deleteTask={deleteTask}
+						/>
+					))
+					: Object.values($taskItems).map(task => (
+						<Task 
+							key={task._id}
+							task={task}  
+							updateTask={updateTask} 
+							editTask={editTask} 
+							deleteTask={deleteTask}
+						/>
+					))
+				}
+				{}
+				{(Object.values($taskItems).length === 0 && tasks.length === 0) && 
 					<h2 className={'flex items-center justify-center capitalize rounded-xl bg-slate-300 text-slate-800 text-2xl h-16'}>No tasks</h2>}
 			</div>
 		</div>
