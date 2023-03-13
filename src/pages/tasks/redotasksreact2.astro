@@ -1,0 +1,30 @@
+---
+
+import Layout from '../../layouts/Layout.astro';
+import ReactTasksThree from '../../components/react/tasks/TasksThree'
+let tasks
+
+try {
+    const response = await fetch('http://localhost:3000/api/tasks/tasks.json')
+	tasks = await response.json()
+	
+} catch (error) {
+	console.log(error)
+}
+---
+
+<Layout title="Lit React">
+	<main class="max-w-4xl relative grow pt-20" slot="main">
+		<h1>3rd Task List</h1>
+        <ReactTasksThree 
+            client:load 
+            tasks={tasks}
+        />
+	</main>
+</Layout>
+<style>
+	p{
+		font-size: 1.2em;
+	}
+</style>
+
