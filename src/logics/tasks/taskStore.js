@@ -13,8 +13,8 @@ import loadTasks from './loadTasks';
 /** @type {import('nanostores').MapStore<Record<string, TaskItem>>} */
 export const taskItems = map({});
 
-export const initTaskItems = (tasks) => {
-    tasks.forEach(task => {
+/* export const initTaskItems = (tasks) => {
+    Object.values(tasks).forEach(task => {
         taskItems.setKey(
             task._id,
             { 
@@ -24,11 +24,32 @@ export const initTaskItems = (tasks) => {
             }
         );
     })
-}
+} */
+export const initTaskItems = action(
+    taskItems, 
+    'initTaskItems', 
+    async (store, tasks) => {
+        Object.values(tasks).forEach(task => {
+            store.setKey(
+                task._id,
+                { 
+                    _id:task._id, 
+                    task:task.task, 
+                    completed: task.completed 
+                }
+            );
+        })
+        return store.get()
+    }
+)
+
+
 export const itemSelected = atom({task:''});
 
 export const selectTaskItem = (id) =>{
+    console.log('select task item', id)
     itemSelected.set(taskItems.get()[id])
+    console.log(itemSelected.get())
 }
 
 export const postTaskItem = action(
@@ -59,17 +80,26 @@ export const updateTaskItem = action(
     taskItems, 
     'updateTaskItem',
     async (store, taskData) => {
+        console.log('updateTaskItem')
         const { data } = await updateTask(taskData._id, taskData.completed) 
+        console.log(data)
+        
         const { _id, task, completed } = data
         const existingEntry = store.get()[_id];
         if (existingEntry) {
+            console.log('existingEntry')
+            console.log(existingEntry)
+            console.log('_id')
+            console.log(_id)
             store.setKey(_id, {
                 ...existingEntry,
                 task: task,
                 completed: completed,
             })
+            console.log('final')
+            console.log(store.get())
         } 
-    
+        
         return store.get()
     } 
 )

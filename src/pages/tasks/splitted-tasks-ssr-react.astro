@@ -1,0 +1,49 @@
+---
+
+import Layout from '../../layouts/Layout.astro';
+import FormRedo from '../../components/react/tasks/FormRedo';
+import TaskRedo from '../../components/react/tasks/TaskRedo';
+
+let tasks = []
+
+try {
+	const response = await fetch('http://localhost:3000/api/tasks/tasks.json')
+	tasks = await response.json()
+} catch (error) {
+	console.log(error)
+}
+
+
+
+---
+
+<Layout title="Lit React">
+	<main class="max-w-4xl relative grow pt-20" slot="main">
+		<h1>Ssr Task List</h1>
+        <div class={'flex flex-col w-full items-center justify-center bg-slate-700 rounded-xl'}>
+			<h1 class={'text-3xl text-slate-100 m-2'}>Yess, another TodoList :( </h1>
+			<div class={'flex flex-col w-full items-center md:max-w-xl p-2 rounded-xl bg-slate-400 box-border mb-5'}>
+				<FormRedo 
+					task={{task:''}} 
+					tasks={tasks} 
+                    client:load 
+				/>
+				{tasks.map(task => (
+					<TaskRedo 
+						task={task} 
+						client:load 
+					/>
+				))}
+				
+				{tasks.length === 0 && 
+					<h2 class={'flex items-center justify-center capitalize rounded-xl bg-slate-300 text-slate-800 text-2xl h-16'}>No tasks</h2>}
+			</div>
+		</div>
+	</main>
+</Layout>
+<style>
+	p{
+		font-size: 1.2em;
+	}
+</style>
+

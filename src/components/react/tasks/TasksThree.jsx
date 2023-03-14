@@ -42,7 +42,6 @@ export default function ReactTasksThree({tasks}) {
 						/>
 					))
 				}
-				{}
 				{(Object.values($taskItems).length === 0 && tasks.length === 0) && 
 					<h2 className={'flex items-center justify-center capitalize rounded-xl bg-slate-300 text-slate-800 text-2xl h-16'}>No tasks</h2>}
 			</div>

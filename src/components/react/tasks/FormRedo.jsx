@@ -1,34 +1,39 @@
+import { useEffect } from 'react';
 import { useStore } from '@nanostores/react';
 import { 
-    taskItems,
-	postTaskItem, 
-	itemSelected, 
+    postTaskItem, 
+	itemSelected,
+    initTaskItems 
 } from '../../../logics/tasks/taskStore';
 
-const FormRedo = ({ task }) => {
+const FormRedo = ({ task, tasks }) => {
     const $itemSelected = useStore(itemSelected)
-    const $taskItems = useStore(taskItems)
+    useEffect(()=>{
+        initTaskItems(tasks)
+    },[])
     const handleChange = ({ currentTarget: input }) => {
 		if(input.value === ""){
 			itemSelected.set({ task: "" })
 		} else {
 			itemSelected.set({ 
-				...$taskItems[$itemSelected._id], 
+				...$itemSelected, 
 				task: input.value 
 			})
 		}
 	};
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        try {
+            await postTaskItem($itemSelected)
+            itemSelected.set({ task: "" })
+            window.location.reload()
+        } catch (error) {
+            console.log(error);
+        }
+    }
     return (
         <form 
-            onSubmit={async (e)=>{
-                e.preventDefault()
-                try {
-                    await postTaskItem(task)
-                    itemSelected.set({ task: "" })
-                } catch (error) {
-                    console.log(error);
-                }
-            }} 
+            onSubmit={handleSubmit} 
             className={'flex w-full items-center h-10 mb-5'}
         >
             <input
@@ -37,14 +42,14 @@ const FormRedo = ({ task }) => {
                 type="text"
                 placeholder="Task to be done..."
                 onChange={handleChange}
-                value={task.task}
+                value={$itemSelected.task}
             />
             <button 
                 type="submit" 
                 className={'text-xl font-bold cursor-pointer w-24 bg-slate-600 text-white rounded-tr rounded-br border-solid border-2 border-slate-900'} 
                 style={{height: 'inherit'}}
             >
-                {task._id ? "Update" : "Add"}
+                {$itemSelected._id ? "Update" : "Add"}
             </button>
         </form>
     )
