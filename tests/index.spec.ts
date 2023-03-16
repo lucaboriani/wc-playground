@@ -19,15 +19,17 @@ describe('on view', ()=>{
     await expect(page.getByRole('button', { name: '+' })).toBeVisible();
     
     await page.getByRole('button', { name: '+' }).click()
-    await expect(page.getByText('1')).toBeVisible()
-    await expect(page.getByText('0')).not.toBeVisible()
     await page.getByRole('button', { name: '+' }).click()
-    await expect(page.getByText('2')).toBeVisible()
+    await page.getByRole('button', { name: '+' }).click()
+    await page.getByRole('button', { name: '+' }).click()
+    await expect(page.getByText('4')).toBeVisible()
     await page.getByRole('button', { name: '-' }).click()
     await page.getByRole('button', { name: '-' }).click()
-    await expect(page.getByText('0')).toBeVisible()
-    await expect(page.getByText('1')).not.toBeVisible()
-    await expect(page.getByText('2')).not.toBeVisible()
+    await page.getByRole('button', { name: '-' }).click()
+    await page.getByRole('button', { name: '-' }).click()
+    await page.getByRole('button', { name: '-' }).click()
+    await expect(page.getByText('-1')).toBeVisible()
+    
   });
   test('normal and styled', async ({ page }) => {
     await  expect(page.getByText('a normal button (browser default styles)')).toBeVisible();

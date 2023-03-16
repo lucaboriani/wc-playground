@@ -9,10 +9,6 @@ const pages = [
         text:'LIT',
         children:[
             {
-                link:'/lit/lit-basic',
-                text:'Lit basic',
-            },
-            {
                 link:'/lit/composing-templates',
                 text:'Composing templates',
             },
@@ -32,7 +28,17 @@ const pages = [
     },
     {
         link:'/tasks',
-        text:'Tasklist'
+        text:'Tasklist',
+        children:[
+            {
+                link:'/tasks/redotasksreact',
+                text:'Redo react',
+            },
+            {
+                link:'/tasks/splitted-tasks-ssr-react',
+                text:'Ssr react',
+            }
+        ]
     }
 ]
 ---

@@ -13,18 +13,6 @@ import loadTasks from './loadTasks';
 /** @type {import('nanostores').MapStore<Record<string, TaskItem>>} */
 export const taskItems = map({});
 
-/* export const initTaskItems = (tasks) => {
-    Object.values(tasks).forEach(task => {
-        taskItems.setKey(
-            task._id,
-            { 
-                _id:task._id, 
-                task:task.task, 
-                completed: task.completed 
-            }
-        );
-    })
-} */
 export const initTaskItems = action(
     taskItems, 
     'initTaskItems', 
@@ -47,9 +35,7 @@ export const initTaskItems = action(
 export const itemSelected = atom({task:''});
 
 export const selectTaskItem = (id) =>{
-    console.log('select task item', id)
     itemSelected.set(taskItems.get()[id])
-    console.log(itemSelected.get())
 }
 
 export const postTaskItem = action(

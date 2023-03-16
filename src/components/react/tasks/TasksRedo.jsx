@@ -41,7 +41,9 @@ export default function ReactTasksRedo({tasks}) {
 			console.log(error);
 		}
 	};
+
 	const editTask = id => selectTaskItem(id)
+	
 	const updateTask = async (id) => {
 		try {
 			await updateTaskItem({_id:id, completed:$taskItems[id].completed})

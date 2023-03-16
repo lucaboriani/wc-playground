@@ -28,7 +28,7 @@ const TaskRedo = (props) =>{
         await deleteTaskItem(task._id)
         window.location.reload()
     }
-    // state handled on client, there should be something "smarter..."
+    // state handled on client, have to find something "smarter..."
     const handleSelect = () => {
         selectTaskItem(task._id)
         setTask(itemSelected.get())
