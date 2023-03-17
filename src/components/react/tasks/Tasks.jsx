@@ -8,7 +8,8 @@ import Form from './Form'
 const base = import.meta.env.PUBLIC_API_BASE
 const url = base + '/tasks'
 
-export default function ReactTasks(props) {    
+export default function ReactTasks(props) {  
+	console.log(props)  
 	const [tasks, setTasks] = useState(props.tasks);
 	const [task, setTask] = useState({ task: "" });
 	const handleChange = ({ currentTarget: input }) => {
