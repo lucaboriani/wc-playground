@@ -54,7 +54,6 @@ export async function post({ params, request }) {
 	let responseBody
 	let responseStatus
 	let isResponseOk
-
 	let data = await consumers.json(request.body)
 	try {
 		const url = import.meta.env.MONGO_ENDPOINT + '/action/insertOne'
