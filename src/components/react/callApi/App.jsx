@@ -40,7 +40,7 @@ const PlanetDetail = ({planet, slug}) =>{
               <a href={`/planets/${slug}`}>
                 <h2>{name}</h2>
                 <div style={{display:'flex'}}>
-                    <img src={'https://via.placeholder.com/300x180?text='+ name.replace(' ', '+')}/>
+                    <img loading="lazy" src={'https://via.placeholder.com/300x180?text='+ name.replace(' ', '+')}/>
                     <div style={{display:'flex', flexDirection:'column'}}>
                       <span>Climate:</span>
                       <span>{climate}</span>

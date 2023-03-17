@@ -66,24 +66,15 @@ export const updateTaskItem = action(
     taskItems, 
     'updateTaskItem',
     async (store, taskData) => {
-        console.log('updateTaskItem')
         const { data } = await updateTask(taskData._id, taskData.completed) 
-        console.log(data)
-        
         const { _id, task, completed } = data
         const existingEntry = store.get()[_id];
         if (existingEntry) {
-            console.log('existingEntry')
-            console.log(existingEntry)
-            console.log('_id')
-            console.log(_id)
             store.setKey(_id, {
                 ...existingEntry,
                 task: task,
                 completed: completed,
             })
-            console.log('final')
-            console.log(store.get())
         } 
         
         return store.get()

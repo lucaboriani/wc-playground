@@ -1,9 +1,10 @@
 ---
-
+//
 import Layout from '../../layouts/Layout.astro';
 import TasksLayout from '../../layouts/TasksLayout.astro';
-import FormRedo from '../../components/react/tasks/FormRedo';
-import TaskRedo from '../../components/react/tasks/TaskRedo';
+import Form from '../../components/svelte/tasks/Form.svelte';
+// @ts-ignore
+import Task from '../../components/vue/tasks/Task.vue';
 import NoTasks from '../../components/NoTasks.astro';
 let tasks = []
 
@@ -22,12 +23,12 @@ try {
 	<main class="max-w-4xl relative grow pt-20" slot="main">
 		<h1>Ssr Task List</h1>
 		<TasksLayout>
-			<FormRedo 
+			<Form 
 				tasks={tasks} 
 				client:idle 
 			/>
 			{tasks.map(task => (
-				<TaskRedo 
+				<Task 
 					task={task} 
 					client:load 
 				/>

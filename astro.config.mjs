@@ -11,6 +11,9 @@ import netlify from "@astrojs/netlify/functions";
 import tailwind from "@astrojs/tailwind";
 
 // https://astro.build/config
+import svelte from "@astrojs/svelte";
+
+// https://astro.build/config
 export default defineConfig({
   integrations: [lit(), react(), vue({
     template: {
@@ -19,7 +22,7 @@ export default defineConfig({
         isCustomElement: tag => tag.includes('-')
       }
     }
-  }), tailwind()],
+  }), tailwind(), svelte()],
   output: "server",
   adapter: netlify()
 });
