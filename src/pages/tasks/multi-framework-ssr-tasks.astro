@@ -6,11 +6,14 @@ import Form from '../../components/svelte/tasks/Form.svelte';
 // @ts-ignore
 import Task from '../../components/vue/tasks/Task.vue';
 import NoTasks from '../../components/NoTasks.astro';
+
 let tasks = []
 
 try {
 	const response = await fetch('http://localhost:3000/api/tasks/tasks.json')
-	tasks = await response.json()
+	const data = await response.json()
+	tasks = data.documents
+	console.log(tasks)
 } catch (error) {
 	console.log(error)
 }

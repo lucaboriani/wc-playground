@@ -2,7 +2,6 @@ import axios from "axios";
 const base = import.meta.env.PUBLIC_API_BASE
 const url = base + '/tasks'
 const addTask = async (task) => {
-    
     try {
         if (task._id) {
             const { data } = await axios.post(url + "/" + task._id + '.json', {

@@ -42,18 +42,18 @@ export const postTaskItem = action(
     taskItems, 
     'postTaskItem', 
     async (store, taskData) => {
-        const { data } = await addTask(taskData) 
-        const { _id, task } = data
-        const existingEntry = store.get()[_id];
+        const { insertedId } = await addTask(taskData)
+        const { task } = taskData
+        const existingEntry = store.get()[insertedId];
         if (existingEntry) {
-            store.setKey(_id, {
+            store.setKey(insertedId, {
                 ...existingEntry,
                 task: task,
                 completed: existingEntry.completed,
             })
         } else {
-            store.setKey(_id,{ 
-                _id, 
+            store.setKey(insertedId,{ 
+                insertedId, 
                 task, 
                 completed: false 
             })
