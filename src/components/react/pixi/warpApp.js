@@ -44,9 +44,9 @@ export async function initWarp (mount){
     }
 
     // Change flight speed every 5 seconds
-    setInterval(() => {
+   /*  setInterval(() => {
         warpSpeed = warpSpeed > 0 ? 0 : 1;
-    }, 15000);
+    }, 15000); */
 
     // Listen for animate update
     app.ticker.add((delta) => {
