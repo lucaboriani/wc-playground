@@ -1,0 +1,239 @@
+---
+
+---
+<section class="flex my-20 justify-between">
+    <div id="stars-container" class="mt-12">
+        <div id='stars'></div>
+        <div id='stars2'></div>
+        <div id='stars3'></div>
+    </div>
+    <div class="flex flex-col grow">
+        <h2 class="text-4xl text-red-400 mb-2 glitched min-w-[340px]" title="Animations and VFX"><a href="#">Animations and VFX</a></h2>
+        <ul class="pl-4">
+            <li class="my-1 flex flex-col">
+                <h3 class="text-3xl">CSS</h3>
+                <ul class="pl-8">
+                    <li>Filters</li>
+                    <li>Animations</li>
+                    <li>Transitions</li>
+                </ul>
+            </li>
+            <li class="my-1 flex flex-col">
+                <h3 class="text-3xl">JS</h3>
+                <ul class="pl-8">
+                    <li>GSAP Animations</li>
+                    <li>PIXI.JS : vfx and Games</li>
+                </ul>
+            </li>
+        </ul>	
+    </div>
+    	
+</section>
+<style>
+   
+
+.glitched{
+  animation: glitch 4s linear infinite;
+}
+
+@keyframes glitch{
+  2%,64%{
+    transform: translate(2px,0) skew(0deg);
+  }
+  4%,60%{
+    transform: translate(-2px,0) skew(0deg);
+  }
+  62%{
+    transform: translate(0,0) skew(5deg); 
+  }
+}
+
+.glitched:before,
+.glitched:after{
+  content: attr(title);
+  position: absolute;
+  left: 0;
+}
+
+.glitched:before{
+  animation: glitchTop 1s linear infinite;
+  clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
+  -webkit-clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
+}
+
+@keyframes glitchTop{
+  2%,64%{
+    transform: translate(2px,-2px);
+  }
+  4%,60%{
+    transform: translate(-2px,2px);
+  }
+  62%{
+    transform: translate(13px,-1px) skew(-13deg); 
+  }
+}
+
+.glitched:after{
+  animation: glitchBotom 1.5s linear infinite;
+  clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
+  -webkit-clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
+}
+
+@keyframes glitchBotom{
+  2%,64%{
+    transform: translate(-2px,0);
+  }
+  4%,60%{
+    transform: translate(-2px,0);
+  }
+  62%{
+    transform: translate(-22px,5px) skew(21deg); 
+  }
+}
+</style>
+<style lang="scss">
+    @mixin translate50
+{
+  -webkit-transform: translate(-50, -50%);
+  -ms-transform: translate(-50, -50%);
+  -o-transform: translate(-50, -50%);
+  transform: translate(-50, -50%);
+}
+
+@mixin roundedCorners
+{
+  -webkit-border-radius: 50%; 
+  -moz-border-radius: 50%; 
+  border-radius: 50%;
+}
+
+@mixin rotateBase
+{
+  -webkit-transform: rotate3d(-1, 1, 0, 0deg);
+  -ms-transform: rotate3d(-1, 1, 0, 0deg);
+  -o-transform: rotate3d(-1, 1, 0, 0deg);
+  transform: rotate3d(-1, 1, 0, 0deg);
+}
+
+@mixin rotateRight
+{
+  -webkit-transform: rotate3d(-1, 1, 0, 30deg);
+  -ms-transform: rotate3d(-1, 1, 0, 30deg);
+  -o-transform: rotate3d(-1, 1, 0, 30deg);
+  transform: rotate3d(-1, 1, 0, 30deg);
+}
+
+@mixin rotateLeft
+{
+  -webkit-transform: rotate3d(-1, 1, 0, -30deg);
+  -ms-transform: rotate3d(-1, 1, 0, -30deg);
+  -o-transform: rotate3d(-1, 1, 0, -30deg);
+  transform: rotate3d(-1, 1, 0, -30deg);
+}
+
+// n is number of stars generated
+@function generateStars ($n)
+{ 
+  $value: '#{0} #{random(2000)}px #{random(2000)}px #FFF';
+
+  @for $i from 2 through $n
+  {
+    $value: '#{$value} , #{random(2000)}px #{random(2000)}px #FFF';
+  }
+
+  @return unquote($value);
+}
+
+$stars-small:  generateStars(700);
+$stars-medium: generateStars(200);
+$stars-big:    generateStars(100);
+
+
+#stars-container
+{
+  height: 50vh;
+  width: 100%;
+  margin-right: 1em;
+  background: radial-gradient(ellipse at bottom, #000000 0%, #191F24 100%);
+  overflow: hidden;
+  @include translate50;
+}
+    
+#stars
+{
+  width: 1px;
+  height: 1px;
+  background: transparent;
+  box-shadow: $stars-small;
+  animation : animateStars 28.5s ease-in-out infinite;
+  @include roundedCorners;
+
+  &::after
+  {
+    content: " ";
+    position: absolute;
+    margin: auto;
+    top: 0; left: 0; right: 0; bottom: 0;
+    width: 1px;
+    height: 1px;
+    background: transparent;
+    box-shadow: $stars-small;
+    @include roundedCorners;
+  }
+}
+    
+#stars2
+{
+  width: 2px;
+  height: 2px;
+  background: transparent;
+  box-shadow: $stars-medium;
+  animation : animateStars 30s ease-in-out infinite;
+  @include roundedCorners;
+    
+  &::after
+  {
+    content: " ";
+    position: absolute;
+    margin: auto;
+    top: 0; left: 0; right: 0; bottom: 0;
+    width: 2px;
+    height: 2px;
+    background: transparent;
+    box-shadow: $stars-medium;
+    @include roundedCorners;
+  }
+}
+    
+#stars3
+{
+  width: 3px;
+  height: 3px;
+  background: transparent;
+  box-shadow: $stars-big;
+  animation : animateStars 31.5s ease-in-out infinite;
+  @include roundedCorners;
+    
+  &:after
+  {
+    content: " ";
+    position: absolute;
+    margin: auto;
+    top: 0; left: 0; right: 0; bottom: 0;
+    width: 3px;
+    height: 3px;
+    background: transparent;
+    box-shadow: $stars-big;
+    @include roundedCorners;
+  }
+}
+
+@keyframes animateStars
+{
+  0%{@include rotateBase;}
+  25%{@include rotateRight;}
+  50%{@include rotateBase;}
+  75%{@include rotateLeft;}
+  100%{@include rotateBase;}
+}
+</style>

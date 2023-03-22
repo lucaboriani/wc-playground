@@ -46,7 +46,7 @@ export async function initWarp (mount){
     // Change flight speed every 5 seconds
     setInterval(() => {
         warpSpeed = warpSpeed > 0 ? 0 : 1;
-    }, 5000);
+    }, 15000);
 
     // Listen for animate update
     app.ticker.add((delta) => {
@@ -77,11 +77,13 @@ export async function initWarp (mount){
 }
 
 export function start(){
-    console.log('warp start')
     app.start()
 }
 
 export function stop(){
-    console.log('warp stop')
     app.stop()
+}
+export function destroy(){
+    app.stop()
+    app.destroy()
 }

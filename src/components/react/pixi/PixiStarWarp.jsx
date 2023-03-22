@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { initWarp, start, stop } from "./warpApp";
+import { initWarp, start, stop, destroy } from "./warpApp";
 import IntersectionHandler from '../../../scripts/observer/IntersectionHandler'
 const PixiStarWarp = () => {
     const app = useRef(null);
@@ -11,6 +11,18 @@ const PixiStarWarp = () => {
             stop()
         }
     }
+    const handleVisibilityChange = () => {
+        if (document.visibilityState === "visible") {
+            const rect = app.current.getBoundingClientRect()
+            const isVisible = (rect.top + window.innerHeight) > 0 
+            if(isVisible){
+                start()
+            }
+        } else {
+            stop()
+        }
+    }
+
     useEffect(() => {
         const options = {
 			root: null,
@@ -21,16 +33,13 @@ const PixiStarWarp = () => {
 		IntersectionHandler.init(options) 
 		IntersectionHandler.observe(app.current, handleAppIntersection)
         initWarp(app.current)
-        document.addEventListener("visibilitychange", () => {
-			if (document.visibilityState === "visible") {
-				const isVisible = (app.current.getBoundingClientRect().top + window.innerHeight) > 0 
-				if(isVisible){
-					start()
-				}
-			} else {
-				stop()
-			}
-		});
+        document.addEventListener("visibilitychange", handleVisibilityChange);
+        
+        return () => {
+            document.removeEventListener("visibilitychange", handleVisibilityChange);
+            IntersectionHandler.unobserve(app.current)
+            destroy()
+        }
     }, [])
   
   

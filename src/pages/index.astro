@@ -2,6 +2,8 @@
 import HomeLayout from '../layouts/HomeLayout.astro';
 import MetaFrameworks from '../components/MetaFrameworks.astro';
 import TheAstroFramework from '../components/TheAstroFramework.astro';
+import Animations from '../components/Animations.astro';
+import WebComponents from '../components/WebComponents.astro';
 import Intro from '../components/Intro.astro';
 
 
@@ -11,7 +13,7 @@ import Intro from '../components/Intro.astro';
 	<main class="w-full relative grow pt-20" slot="main">
 		<Intro/>
 		<div id="cont" class="flex flex-col mt-20 mx-20 min-h-screen">
-			<h1 class="self-start">Here youll' find a few goodies</h1>
+			<h1 class="self-start text-red-400 glitch">Here youll' find a few goodies</h1>
 			<h2>Made with different styles and techniques </h2>
 			<p>As it's built with 
 				<a href="https://astro.build/" target="_blank">Astro</a>
@@ -20,8 +22,8 @@ import Intro from '../components/Intro.astro';
 
 			<MetaFrameworks/>
 			<TheAstroFramework/>
-			<h2 class="self-start text-3xl"> <a href="#">Animations</a></h2>
-			<h2 class="self-start text-3xl"> <a href="/web-components">Web Components</a></h2>
+			<Animations/>
+			<WebComponents/>
 			<h2 class="self-start text-3xl"> <a href="#">Testing!</a></h2>
 			<h2 class="self-start text-3xl"> <a href="#">State Management</a></h2>
 			
