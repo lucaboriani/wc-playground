@@ -1,104 +1,33 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import HomeLayout from '../layouts/HomeLayout.astro';
+import MetaFrameworks from '../components/MetaFrameworks.astro';
+import TheAstroFramework from '../components/TheAstroFramework.astro';
+import Intro from '../components/Intro.astro';
 
 
 ---
 
-<Layout title="Welcome to The playground">
-	<main class="main" slot="main">
-		<h1>Welcome to the Playground</h1>
-		<section id="cont">
-			<div class="tab">
-				<h2>... the nth counter</h2>
-				<p class="instructions">
-					<my-counter></my-counter>
-					<script type="module" src='./src/components/wc/counter.js'></script>
-				</p>
-			</div>
-			<div class="tab">
-				<h2>
-					<span>a normal button (browser default styles)</span>
-				</h2>
-				<button>
-					hello
-				</button>
+<HomeLayout title="Welcome to The playground">
+	<main class="w-full relative grow pt-20" slot="main">
+		<Intro/>
+		<div id="cont" class="flex flex-col mt-20 mx-20 min-h-screen">
+			<h1 class="self-start">Here youll' find a few goodies</h1>
+			<h2>Made with different styles and techniques </h2>
+			<p>As it's built with 
+				<a href="https://astro.build/" target="_blank">Astro</a>
+				and you can literally throw almost <em class="text-2xl"> Whatever</em> at it !
+			</p>
 
-				<h2>
-					<span>A styled but useless Custom button :(</span>
-				</h2>
+			<MetaFrameworks/>
+			<TheAstroFramework/>
+			<h2 class="self-start text-3xl"> <a href="#">Animations</a></h2>
+			<h2 class="self-start text-3xl"> <a href="/web-components">Web Components</a></h2>
+			<h2 class="self-start text-3xl"> <a href="#">Testing!</a></h2>
+			<h2 class="self-start text-3xl"> <a href="#">State Management</a></h2>
+			
 				
-				<custom-button title="a styled button"></custom-button>
-				<script type="module" src="./src/components/wc/buttons/CustomButton.js"></script>
-				<small>shadow dom - encapsulation</small>
-			</div>
-			<div class="tab">
-				<h2>Expanding List example</h2>
-				<p class="instructions">
-					<expanding-list></expanding-list>
-					<script type="module" src='./src/components/wc/expandingList.js'></script>
-				</p>
-			</div>
-		</section>
+		</div>
 	</main>
-</Layout>
-<script>
-    import { ExpandingList } from "../components/wc/expandingList"
+</HomeLayout>
 
-    const data = [
-        {
-            title: 'level 0 A',
-            nodes: [
-                {
-                    title: 'level 1 A',
-                    nodes: [
-                        {
-                            title: 'level 2 A'
-                        },
-                        {
-                            title: 'level 2 A',
-                            nodes:[
-                                {
-                                    title:'level 3 A'
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ]
-        }, 
-        {
-            title: 'level 0 B',
-            nodes: [
-                {
-                    title: 'level 1 B',
-                    nodes: [
-                        {
-                            title: 'level 2 B'
-                        }
-                    ]
-                }
-            ]   
-        }
-    ]
-	const list = document.querySelector('expanding-list') as ExpandingList
-    
-    list.elements = data
-</script>
-<style>
-	#cont{
-		display: flex;
-		flex-direction: column;
-	}
-	.tab {
-		flex-grow: 1;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		border: solid 1px whitesmoke;
-		border-radius: 5px;
-		margin: 1em;
-		padding: 1em;
-	}
-	
-</style>
+

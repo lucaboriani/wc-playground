@@ -1,0 +1,103 @@
+<div class="w-screen h-screen" id="splash"></div>
+<h1 id="intro"><img class="w-40 relative mx-auto" src="/favicon.svg"> Frankenstein Experiment</h1>
+<script>
+	import gsap from 'gsap'
+	import { Application, Sprite, ColorMatrixFilter, Assets } from 'pixi.js';
+	import IntersectionHandler from '../scripts/observer/IntersectionHandler'
+	(async function () {
+		const options = {
+			root: null,
+			rootMargin: '0px',
+			threshold: 0.01
+		}
+
+		IntersectionHandler.init(options) 
+		const mount = document.getElementById('splash')
+    	const app = new Application({ background: '#000000', resizeTo:mount });	
+		// @ts-ignore
+		mount.appendChild(app.view);
+
+		const img = await Assets.load('./thumb-1920-301840.jpg')
+		const frank = Sprite.from(img);
+		const originalW = frank.texture.orig.width
+		const originalH = frank.texture.orig.height
+		
+		app.stage.addChild(frank);
+		app.stop()
+		const time = 50.0;
+	   
+
+		const filter = new ColorMatrixFilter();
+		frank.filters = [filter];
+		gsap.set(filter, {
+			brightness: 0
+		})
+
+		const animation = gsap.to(filter, {
+			brightness: 20.0, 
+			duration: time, 
+			yoyo: true, 
+			repeat: -1,
+			ease:'power2.in'
+		});
+
+		
+
+		function start(){
+			console.log("start")
+			app.start()
+			animation.play()
+		}
+		function stop (){
+			console.log("stop")
+			app.stop()
+			animation.pause()
+		}
+		
+		function handleAppIntersection (entry){
+			const { isIntersecting } = entry
+			if(isIntersecting){
+				start()
+			} else {
+				stop()
+			}
+		}
+		IntersectionHandler.observe(mount, handleAppIntersection)
+
+		document.addEventListener("visibilitychange", () => {
+			if (document.visibilityState === "visible") {
+				const isVisible = (mount.getBoundingClientRect().top + window.innerHeight) > 0 
+				if(isVisible){
+					start()
+				}
+			} else {
+				stop()
+			}
+		});
+
+		function onResize(){
+			frank.x = (window.innerWidth - originalW) / 2;
+			frank.y = -(originalH - window.innerHeight) / 2;
+		}
+		window.addEventListener('resize', onResize)
+		onResize()
+		
+	})();
+	
+</script>
+<style>
+	
+	#intro{
+		color: #dbd9d9;
+		position: absolute;
+		mix-blend-mode: difference;
+		font-size: 4em;
+		text-align: center;
+		width: 100%;
+		margin: auto;
+		top: 50vh;
+		transform: translate(0, -50%);
+		
+	}
+	
+</style>

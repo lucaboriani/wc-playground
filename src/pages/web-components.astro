@@ -1,0 +1,125 @@
+---
+// @ts-nocheck
+import Layout from '../layouts/Layout.astro';
+import Tab from '../components/Tab.astro';
+let counter = await Astro.glob('../markdown/a-counter.md');
+let counterTxt = counter[0];
+
+---
+
+<Layout title="Web Components">
+    <main class="max-w-4xl relative grow pt-20" slot="main">
+        <h1>Web Components</h1>
+        <p>What the hell is that and why should you care</p>
+        <div class="flex">
+            <Tab>
+                <h3>... The nth counter</h3>
+                <p>A "beautifully" styled Web component example</p>
+                <p class="instructions">
+                    <my-counter></my-counter>
+                    <script type="module" src='./src/components/wc/counter.js'></script>
+                </p>
+            </Tab>
+            <counterTxt.Content />
+        </div>
+        <div class="flex">
+            <Tab>
+                <h3>
+                    We'll get to know the existence of <span>shadow dom - encapsulation</span>
+                </h3>
+                <button class="border-1  text-slate-100 border-solid">
+                    hello
+                </button>
+
+                <h3>
+                    <span>A styled but useless Custom button :(</span>
+                </h3>
+                
+                <custom-button title="a styled button"></custom-button>
+                <script type="module" src="./src/components/wc/buttons/CustomButton.js"></script>
+                
+            </Tab>
+            <Tab>
+                <h3>Expanding List example</h3>
+                <p class="instructions">
+                    <expanding-list></expanding-list>
+                    <script type="module" src='./src/components/wc/expandingList.js'></script>
+                </p>
+            </Tab>
+        </div>	
+      
+    </main>
+    
+    <aside class="aside" slot="aside">
+        <ul>
+            <li>
+                <a href="./lit/composing-templates">
+                    lit : composing templates
+                </a>
+            </li>
+            <li>
+                <a href="./lit/lit-react">
+                    lit : use lit in react
+                </a>
+            </li>
+            <li>
+                <a href="./lit/lit-vue">
+                    lit : use lit in vue
+                </a>
+            </li>
+        </ul>
+    </aside>
+	
+</Layout>
+<script>
+    import { ExpandingList } from "../components/wc/expandingList"
+
+    const data = [
+        {
+            title: 'level 0 A',
+            nodes: [
+                {
+                    title: 'level 1 A',
+                    nodes: [
+                        {
+                            title: 'level 2 A'
+                        },
+                        {
+                            title: 'level 2 A',
+                            nodes:[
+                                {
+                                    title:'level 3 A'
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }, 
+        {
+            title: 'level 0 B',
+            nodes: [
+                {
+                    title: 'level 1 B',
+                    nodes: [
+                        {
+                            title: 'level 2 B'
+                        }
+                    ]
+                }
+            ]   
+        }
+    ]
+	const list = document.querySelector('expanding-list') as ExpandingList
+    
+    list.elements = data
+</script>
+<style>
+.card {
+    margin: 1em;
+}
+aside {
+    padding-top: 6em;
+}
+</style>
+
