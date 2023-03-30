@@ -22,7 +22,7 @@ const loadUsers = async () => {
   <div class="app">
       <div class="content">
         
-        Vue component + webcomponent button 
+        <p>Vue component + webcomponent button </p>
        
         <my-button 
           text="load users" 

@@ -1,48 +1,9 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import MFMenuLink from '../../components/utility/MFMenuLink.astro';
+import MetaFrameworksNavigation from '../../components/MetaFrameworksNavigation.astro';
 const title = "What is a JavaScript Meta-framework?"
 let posts = await Astro.glob('../../markdown/metaframeworks/what-is-a-javascript-meta-framework.md');
 let post = posts[0];
-
-const navigation = [
-    {
-        txt:'Concepts',
-        link:'#meta-frameworks-concepts--typical-features'
-    },
-    {
-        txt:'Rendering',
-        link:'#static-site-generation-andor-server-side-rendering'
-    },
-    {
-        txt:'SSR',
-        link:'#ssr'
-    },
-    {
-        txt:'SSG',
-        link:'#ssg'
-    },
-    {
-        txt:'Hybrid Rendering',
-        link:'#hybrid-rendering'
-    },
-    {
-        txt:'Routing',
-        link:'#routing'
-    },
-    {
-        txt:'Data Fetching',
-        link:'#data-fetching'
-    },
-    {
-        txt:'Most common Meta frameworks',
-        link:'#list-of-most-common-meta-frameworks'
-    },
-    {
-        txt:'Next Generation',
-        link:'#the-new-generation-yess-already'
-    },
-]
 ---
 
 <Layout title={title}>
@@ -50,14 +11,7 @@ const navigation = [
         <post.Content />
 	</main>
     <aside class="mt-24 grow" slot="aside">
-        <ul class="sticky top-24">
-            {navigation.map((el) => (
-                <MFMenuLink 
-                    txt={el.txt} 
-                    link={el.link}
-                />
-            ))}
-        </ul>
+        <MetaFrameworksNavigation/>
     </aside>
 </Layout>
 <style is:global>
