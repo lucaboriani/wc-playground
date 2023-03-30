@@ -1,3 +1,4 @@
+```vue
 <script setup>
 import {reactive, onMounted} from 'vue'
 import {MyButton} from '../../wc/lit/my-button.js';
@@ -57,3 +58,4 @@ span{
 }
 
 </style>
+```

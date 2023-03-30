@@ -1,3 +1,4 @@
+```jsx
 import { useState, useEffect } from 'react'
 import {MyButton} from '../../wc/lit/my-button';
 import { getPlanets } from '../../../pages/api/planetsApi'
@@ -16,18 +17,17 @@ export function App() {
         <h2>
           React component + webcomponent button 
         </h2>
-        <div>
-        <my-button 
-          text="get planets" 
-          onClick={e => getPlanetsData()}
-          ></my-button>
-      </div>
         {planetsData.length > 0 && <h3>A nice nerd list:</h3>}
         {planetsData.map((planet, index) => (
           <PlanetDetail planet={planet} slug={index + 1} key={planet.name.replace(' ', '-')}/>
         )) }
       </div>
-      
+      <div>
+        <my-button 
+          text="get planets" 
+          onClick={e => getPlanetsData()}
+          ></my-button>
+      </div>
     </div>
   );
 }
@@ -64,3 +64,5 @@ const PlanetDetail = ({planet, slug}) =>{
     )
 }
 
+
+```

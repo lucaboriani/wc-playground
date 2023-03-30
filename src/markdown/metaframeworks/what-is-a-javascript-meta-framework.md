@@ -4,7 +4,7 @@
 
 What most developers call JavaScript frameworks (React, Vue, Svelte, etc) can more accurately be thought of as UI Libraries. While they can make writing the front end of websites and apps simpler, they have no opinions at all regarding what goes on further back in the stack. They don’t even have prescribed methods of organizing the folders and files in your projects.
 
-Full-fledged frameworks (think Rails or Django), on the other hand, will usually be very opinionated and expect the code to be organized in a certain way, with the hope that this will lead to shorter development time by getting rid of analysis paralysis and bikeshedding.
+Full-fledged frameworks (think Rails or Django, Laravel or Symphony), on the other hand, will usually be very opinionated and expect the code to be organized in a certain way, with the hope that this will lead to shorter development time by getting rid of analysis paralysis and bikeshedding.
 
 Thankfully, there are libraries available to fill that role in the JavaScript ecosystem. Since most UI libraries are called “frameworks”, these more full-featured libraries have taken to calling themselves “meta-frameworks”.
 
