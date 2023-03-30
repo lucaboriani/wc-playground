@@ -41,3 +41,11 @@ export class MyButton extends LitElement {
 }
 customElements.define('my-button', MyButton);
 ```
+
+is used like :
+
+```js
+ <MyButton text="some text" />
+```
+
+ok maybe this wasn't the best example :S

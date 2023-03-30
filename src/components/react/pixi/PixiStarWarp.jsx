@@ -4,6 +4,7 @@ import IntersectionHandler from '../../../scripts/observer/IntersectionHandler'
 const PixiStarWarp = () => {
     const app = useRef(null);
     const handleAppIntersection = (entry) => {
+        console.log('handleAppIntersection')
         const { isIntersecting } = entry
         if(isIntersecting){
             start()
@@ -12,6 +13,7 @@ const PixiStarWarp = () => {
         }
     }
     const handleVisibilityChange = () => {
+        console.log('handleVisibilityChange')
         if (document.visibilityState === "visible") {
             const rect = app.current.getBoundingClientRect()
             const isVisible = (rect.top + window.innerHeight) > 0 
