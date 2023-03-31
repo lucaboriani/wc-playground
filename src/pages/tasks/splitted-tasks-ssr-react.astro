@@ -7,8 +7,16 @@ import TaskRedo from '../../components/react/tasks/TaskRedo';
 import NoTasks from '../../components/NoTasks.astro';
 let tasks = []
 
+let url = location.protocol + '//' + location.hostname
+
+
+if(import.meta.env.MODE === "development"){
+	url+=':3000'
+}
 try {
-	const response = await fetch(location.origin+'/api/tasks/tasks.json')
+
+	
+	const response = await fetch(url+'/api/tasks/tasks.json')
 	const data = await response.json()
 	tasks = data.documents
 } catch (error) {
