@@ -8,7 +8,7 @@ import NoTasks from '../../components/NoTasks.astro';
 let tasks = []
 
 try {
-	const response = await fetch('http://localhost:3000/api/tasks/tasks.json')
+	const response = await fetch(location.origin+'/api/tasks/tasks.json')
 	const data = await response.json()
 	tasks = data.documents
 } catch (error) {
