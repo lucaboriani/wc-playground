@@ -1,0 +1,20 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import TestingNavigation from "../../components/TestingNavigation.astro";
+const {slug} = Astro.params
+const posts = await Astro.glob('../../markdown/testing/*.md');
+
+const post = posts.find(post => 
+    post.file.split('/')
+    .pop()
+    .slice(0, -3) === slug
+)
+---
+<Layout title={slug}>
+	<main class="max-w-4xl relative grow pt-20" slot="main">
+       <post.Content/>
+	</main>
+    <aside class="mt-24 grow" slot="aside">
+        <TestingNavigation/>
+    </aside>
+</Layout>

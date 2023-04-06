@@ -1,0 +1,59 @@
+---
+import MFMenuLink from "./utility/MFMenuLink.astro"; 
+const navigation = [
+    {
+        txt:'Intro',
+        link:'/testing'
+    },
+    {
+        txt:'Concepts',
+        link:'/testing/concepts'
+    },
+    {
+        txt:'Types of testing',
+        link:'/testing/types-of-testing'
+    },
+    {
+        txt:'Unit test with Jest',
+        link:'/testing/unit-testing-with-jest'
+    },
+    {
+        txt:'End to end testing',
+        link:'/testing/end-to-end'
+    },
+    {
+        txt:'End to end testing with Cypress',
+        link:'/testing/intro-to-cypress'
+    },
+    {
+        txt:'Components testing',
+        link:'/testing/component-test'
+    },
+    {
+        txt:'react - testing library',
+        link:'/testing/testing-react-components-react-testing-library'
+    },
+    {
+        txt:'react - cypress',
+        link:'/testing/testing-react-components-cypress'
+    },
+    {
+        txt:'vue - testing library',
+        link:'/testing/testing-vue-components-vue-testing-library'
+    },
+    {
+        txt:'vue - cypress',
+        link:'/testing/testing-vue-components-cypress'
+    }
+]
+
+---
+<ul class="sticky top-20">
+    {navigation.map((el) => (
+        <MFMenuLink 
+            txt={el.txt} 
+            link={el.link}
+        />
+    ))}
+    <slot></slot>
+</ul>

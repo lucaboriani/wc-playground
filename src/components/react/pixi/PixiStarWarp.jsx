@@ -35,6 +35,7 @@ const PixiStarWarp = () => {
 		IntersectionHandler.init(options) 
 		IntersectionHandler.observe(app.current, handleAppIntersection)
         initWarp(app.current)
+        
         document.addEventListener("visibilitychange", handleVisibilityChange);
         
         return () => {

@@ -90,9 +90,12 @@ let post = posts[0];
     
 </style>
 <script async >
-    document.querySelector('main h1').classList.add('glitched')
+    const h1 = document.querySelector('main h1')
+    h1.classList.add('glitched')
+    h1.setAttribute('title', h1.textContent)
     Array.from(document.querySelectorAll('main h2'))
     .forEach(h2 => {
         h2.classList.add('glitched')
+        h2.setAttribute('title', h2.textContent)
     })
 </script>

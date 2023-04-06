@@ -1,0 +1,24 @@
+---
+// @ts-nocheck
+import Layout from "../../layouts/Layout.astro";
+
+const {slug} = Astro.params
+console.log(Astro.props)
+
+const content = await Astro.glob("../../markdown/testing/intro.md")
+
+const post = content[0]
+
+export const prerender = true
+
+const posts = await Astro.glob('../../markdown/testing/*.md');
+console.log(posts)
+---
+<Layout title={slug}>
+	<main class="max-w-4xl relative grow pt-20" slot="main">
+        <post.Content/>
+	</main>
+    <aside class="mt-24 grow" slot="aside">
+        nav
+    </aside>
+</Layout>

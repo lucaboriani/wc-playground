@@ -182,3 +182,12 @@ Okay that was a lot. Not enough ?
 - [Astro](https://astro.build/)
 - [Qwik](https://qwik.builder.io/)
 - [Enhance](https://enhance.dev/docs/)
+
+
+## Useful links
+
+- [The new wave of Javascript web frameworks](https://frontendmastery.com/posts/the-new-wave-of-javascript-web-frameworks/)  (Make sense of the proliferation of new Javascript web frameworks. A deep dive into the problems at scale and the recent evolution of innovation)
+
+- [Composable Decoupled Frontends aka microfrontends](https://microfrontend.dev/) 
+
+- [12 Days of Enhancing](https://dev.to/macdonst/series/21146) (enhance meta framework)
