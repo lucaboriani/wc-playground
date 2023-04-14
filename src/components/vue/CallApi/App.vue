@@ -21,9 +21,15 @@ const loadUsers = async () => {
 <template>
   <div class="app">
       <div class="content">
-        <h2>
-          Vue component + webcomponent button 
-        </h2>
+        
+        <p>Vue component + webcomponent button </p>
+       
+        <my-button 
+          text="load users" 
+          @click="loadUsers"
+        >
+        </my-button>
+        
         <ul>
           <li v-for="user in state.users" :key="user.id">
             <span>{{ user.name }}</span>
@@ -33,20 +39,12 @@ const loadUsers = async () => {
           </li>
         </ul> 
       </div>
-      <div class="aside">
-        <my-button 
-          text="load users" 
-          @click="loadUsers"
-        >
-        </my-button>
-      </div>
+      
     </div>
 </template>
 
 <style scoped>
-.app{
-  display: flex;
-}
+
 .content{
   flex-grow: 1;
   padding: 1em;

@@ -1,4 +1,4 @@
-import { Application, Texture, Sprite, Assets } from 'pixi.js';
+import { Application, Texture, Sprite } from 'pixi.js';
 
 let app
 export async function initWarp (mount){
@@ -43,8 +43,8 @@ export async function initWarp (mount){
         star.y = Math.sin(deg) * distance;
     }
 
-    // Change flight speed every 5 seconds
-   /*  setInterval(() => {
+    // Change flight speed every 15 seconds
+    /* setInterval(() => {
         warpSpeed = warpSpeed > 0 ? 0 : 1;
     }, 15000); */
 
@@ -77,10 +77,12 @@ export async function initWarp (mount){
 }
 
 export function start(){
+    console.log('app start')
     app.start()
 }
 
 export function stop(){
+    console.log('app stop')
     app.stop()
 }
 export function destroy(){

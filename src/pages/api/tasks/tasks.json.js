@@ -30,6 +30,7 @@ export async function get() {
 		responseStatus = 200
 		isResponseOk = true
 		responseBody = apiData
+		console.log('apiData')
 		console.log(apiData)
 		
 	} catch (error) {

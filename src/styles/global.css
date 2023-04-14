@@ -121,14 +121,14 @@ h3{
 .aside ul, .aside ul li {
   list-style: none;
 }
-.aside ul li a {
+/* .aside ul li a {
   color: darkseagreen;
   text-decoration: none;
 }
 .aside ul li a:hover {
   text-decoration: underline;
   filter: brightness(110%);
-}
+} */
 
 @media screen and (min-width: 1230px) {
   .nav-links {
@@ -165,12 +165,4 @@ h3{
     flex-direction: column;
     justify-content: flex-start;
   }
-}
-
-pre {
-    padding: 1em;
-}
-
-iframe{
-  max-width: 100%;
 }
