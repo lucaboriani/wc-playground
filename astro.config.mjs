@@ -4,7 +4,7 @@ import lit from '@astrojs/lit';
 import react from '@astrojs/react';
 import vue from "@astrojs/vue";
 
-import netlify from "@astrojs/netlify/functions";
+// import netlify from "@astrojs/netlify/functions";
 
 // https://astro.build/config
 import tailwind from "@astrojs/tailwind";
