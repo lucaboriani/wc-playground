@@ -10,6 +10,7 @@ const headers = {
  * @returns Response
  */
 export async function get() {
+	console.log('CALLED GET', import.meta.env.MONGO_ENDPOINT + '/action/find')
 	let responseBody
 	let responseStatus
 	let isResponseOk
@@ -52,10 +53,12 @@ export async function get() {
  * @returns Response
  */
 export async function post({ params, request }) {
+	console.log('POST CALLED', import.meta.env.MONGO_ENDPOINT + '/action/insertOne')
 	let responseBody
 	let responseStatus
 	let isResponseOk
 	let data = await consumers.json(request.body)
+	console.log(data)
 	try {
 		const url = import.meta.env.MONGO_ENDPOINT + '/action/insertOne'
 		const dbParams = {

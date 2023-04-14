@@ -1,5 +1,6 @@
 ---
 import LitNavigation from "./LitNavigation.astro";
+import VueMouseTrail from "./vue/pixi/VueMouseTrail.vue";
 ---
 <section class="flex my-20 items-start">
     <div class="flex flex-col">
@@ -18,8 +19,8 @@ import LitNavigation from "./LitNavigation.astro";
           
         </ul>	
     </div>
-    <div class="flex self-center items-center align-center grow">
-      
+    <div class="flex h-full grow">
+      <VueMouseTrail client:visible/>
     </div>
     
 </section>
