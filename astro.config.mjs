@@ -17,14 +17,20 @@ import node from "@astrojs/node";
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [lit(), react(), vue({
-    template: {
-      compilerOptions: {
-        // treat all tags with a dash as custom elements
-        isCustomElement: tag => tag.includes('-')
+  integrations: [
+    lit(), 
+    react(), 
+    vue({
+      template: {
+        compilerOptions: {
+          // treat all tags with a dash as custom elements
+          isCustomElement: tag => tag.includes('-')
+        }
       }
-    }
-  }), tailwind(), svelte()],
+    }),
+    tailwind(), 
+    svelte()
+  ],
   output: "server",
   adapter: node({
     mode: "standalone"
