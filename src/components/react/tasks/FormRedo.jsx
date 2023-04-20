@@ -33,7 +33,7 @@ const FormRedo = ({ tasks }) => {
             <FormTextInput/>
             <button 
                 type="submit" 
-                className={'text-xl font-bold cursor-pointer w-24 bg-slate-600 text-white rounded-tr rounded-br border-solid border-2 border-slate-900'} 
+                className={'text-xl font-bold cursor-pointer w-24 bg-red-400 hover:bg-red-500 text-black'} 
                 style={{height: 'inherit'}}
             >
                 {$itemSelected._id ? "Update" : "Add"}

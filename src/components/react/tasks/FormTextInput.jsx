@@ -16,7 +16,7 @@ const FormTextInput = () => {
     return (
         
         <input
-            className={'pl-2 grow outline-0 rounded-tl rounded-bl border-solid border-2 border-slate-800 text-slate-800'}
+            className={'pl-2 grow outline-0 text-slate-800'}
             style={{height: 'inherit'}}
             type="text"
             placeholder="Task to be done..."
