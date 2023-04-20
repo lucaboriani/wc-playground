@@ -33,7 +33,7 @@ export default function ReactTasks(props) {
 				setTasks(originalTasks);
 				setTask({ task: "" });
 			} else {
-                const { data } = await axios.post(url + ".json", {
+                const { data } = await axios.post(url + "/tasks/" + ".json", {
 					task: task.task,
 				});
 				setTasks((prev) => [...prev, data.data]);
