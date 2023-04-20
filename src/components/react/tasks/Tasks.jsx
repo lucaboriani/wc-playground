@@ -24,7 +24,7 @@ export default function ReactTasks(props) {
         
 		try {
 			if (task._id) {
-                const { data } = await axios.post(url + "/" + task._id + '.json', {
+                const { data } = await axios.post(url + "/tasks/" + task._id + '.json', {
 					task: task.task,
 				})
 				const originalTasks = [...tasks];
