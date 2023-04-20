@@ -17,6 +17,7 @@ import svelte from "@astrojs/svelte";
 
 // https://astro.build/config
 export default defineConfig({
+  site:'https://wc-lit-playground.netlify.app/',
   integrations: [
     lit(), 
     react(), 

@@ -7,22 +7,11 @@ import TaskRedo from '../../components/react/tasks/TaskRedo';
 import NoTasks from '../../components/NoTasks.astro';
 let tasks = []
 
-let url = location.protocol + '//' + location.hostname
 
-console.log('location')
-console.log(location)
-console.log('url')
-console.log(url)
-console.log('env')
-console.log(import.meta.env)
-/* if(import.meta.env.MODE === "development"){
-	url+=':3000'
-} */
-url+=':3000'
 try {
 
-	
-	const response = await fetch(url+'/api/tasks/tasks.json')
+	const base = import.meta.env.MODE === 'development' ? 'http://localhost:3000' : import.meta.env.SITE
+	const response = await fetch(base + '/api/tasks/tasks.json')
 	const data = await response.json()
 	tasks = data.documents
 } catch (error) {

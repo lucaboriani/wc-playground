@@ -10,7 +10,9 @@ import NoTasks from '../../components/NoTasks.astro';
 let tasks = []
 
 try {
-	const response = await fetch('http://localhost:3000/api/tasks/tasks.json')
+	
+	const base = import.meta.env.MODE === 'development' ? 'http://localhost:3000' : import.meta.env.SITE
+	const response = await fetch(base + '/api/tasks/tasks.json')
 	const data = await response.json()
 	tasks = data.documents
 	console.log(tasks)
