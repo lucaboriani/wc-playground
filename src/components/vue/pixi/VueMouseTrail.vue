@@ -18,18 +18,18 @@ const handleAppIntersection = (entry) => {
             stop()
         }
     }
-    const handleVisibilityChange = () => {
-        console.log('handleVisibilityChange')
-        if (document.visibilityState === "visible") {
-            const rect = app.current.getBoundingClientRect()
-            const isVisible = (rect.top + window.innerHeight) > 0 
-            if(isVisible){
-                start()
-            }
-        } else {
-            stop()
+const handleVisibilityChange = () => {
+    console.log('handleVisibilityChange')
+    if (document.visibilityState === "visible") {
+        const rect = app.current.getBoundingClientRect()
+        const isVisible = (rect.top + window.innerHeight) > 0 
+        if(isVisible){
+            start()
         }
+    } else {
+        stop()
     }
+}
 
 onMounted(()=>{
     console.log(app.value)
