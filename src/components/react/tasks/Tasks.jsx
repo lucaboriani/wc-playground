@@ -37,7 +37,9 @@ export default function ReactTasks(props) {
 					task: task.task,
 				});
 				console.log(data)
-				setTasks((prev) => [...prev, data.data]);
+				const insertedId = data.data.insertedId
+				task._id = insertedId
+				setTasks((prev) => [...prev, task]);
 				setTask({ task: "" });
 			}
 		} catch (error) {
