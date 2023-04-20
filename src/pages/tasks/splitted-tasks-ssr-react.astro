@@ -9,10 +9,16 @@ let tasks = []
 
 let url = location.protocol + '//' + location.hostname
 
-
-if(import.meta.env.MODE === "development"){
+console.log('location')
+console.log(location)
+console.log('url')
+console.log(url)
+console.log('env')
+console.log(import.meta.env)
+/* if(import.meta.env.MODE === "development"){
 	url+=':3000'
-}
+} */
+url+=':3000'
 try {
 
 	
