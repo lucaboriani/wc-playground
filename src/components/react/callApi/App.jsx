@@ -11,22 +11,23 @@ export function App() {
   };
   
  return (
-    <div className="App" style={{display:'flex'}}>
+    <div className="App">
       <div style={{flexGrow:1}}>
         <h2>
           React component + webcomponent button 
         </h2>
-        {planetsData.length > 0 && <h3>A nice nerd list:</h3>}
-        {planetsData.map((planet, index) => (
-          <PlanetDetail planet={planet} slug={index + 1} key={planet.name.replace(' ', '-')}/>
-        )) }
-      </div>
-      <div>
+        <div>
         <my-button 
           text="get planets" 
           onClick={e => getPlanetsData()}
           ></my-button>
       </div>
+        {planetsData.length > 0 && <h3>A nice nerd list:</h3>}
+        {planetsData.map((planet, index) => (
+          <PlanetDetail planet={planet} slug={index + 1} key={planet.name.replace(' ', '-')}/>
+        )) }
+      </div>
+      
     </div>
   );
 }
@@ -39,7 +40,7 @@ const PlanetDetail = ({planet, slug}) =>{
            <li>
               <a href={`/planets/${slug}`}>
                 <h2>{name}</h2>
-                <div style={{display:'flex'}}>
+                <div>
                     <img loading="lazy" src={'https://via.placeholder.com/300x180?text='+ name.replace(' ', '+')}/>
                     <div style={{display:'flex', flexDirection:'column'}}>
                       <span>Climate:</span>

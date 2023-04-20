@@ -6,10 +6,10 @@ import Form from './Form'
 
 
 const base = import.meta.env.PUBLIC_API_BASE
-const url = base + '/tasks'
+const url = base + '/tasks/tasks'
 
 export default function ReactTasks(props) {  
-	console.log(props)  
+	
 	const [tasks, setTasks] = useState(props.tasks);
 	const [task, setTask] = useState({ task: "" });
 	const handleChange = ({ currentTarget: input }) => {
@@ -19,7 +19,7 @@ export default function ReactTasks(props) {
 	};
 
 	const addTask = async (e) => {
-		e.preventDefault();
+		// e.preventDefault();
         
 		try {
 			if (task._id) {

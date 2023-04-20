@@ -1,0 +1,52 @@
+---
+import MFMenuLink from "./utility/MFMenuLink.astro"; 
+
+const navigation = [
+    {
+        txt:'Concepts',
+        link:'/metaframeworks#meta-frameworks-concepts--typical-features'
+    },
+    {
+        txt:'Rendering',
+        link:'/metaframeworks#static-site-generation-andor-server-side-rendering'
+    },
+    {
+        txt:'SSR',
+        link:'/metaframeworks#ssr'
+    },
+    {
+        txt:'SSG',
+        link:'/metaframeworks#ssg'
+    },
+    {
+        txt:'Hybrid Rendering',
+        link:'/metaframeworks#hybrid-rendering'
+    },
+    {
+        txt:'Routing',
+        link:'/metaframeworks#routing'
+    },
+    {
+        txt:'Data Fetching',
+        link:'/metaframeworks#data-fetching'
+    },
+    {
+        txt:'Most common Meta frameworks',
+        link:'/metaframeworks#list-of-most-common-meta-frameworks'
+    },
+    {
+        txt:'Next Generation',
+        link:'/metaframeworks#the-new-generation-yess-already'
+    },
+]
+
+---
+<ul class="sticky top-20">
+    {navigation.map((el) => (
+        <MFMenuLink 
+            txt={el.txt} 
+            link={el.link}
+        />
+    ))}
+    <slot></slot>
+</ul>

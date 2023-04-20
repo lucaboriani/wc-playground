@@ -1,8 +1,14 @@
-<div class="w-screen h-screen" id="splash"></div>
-<h1 id="intro"><img height="160" width="160" class="w-40 relative mx-auto" src="/favicon.svg"> Frankenstein Experiment</h1>
-<script>
-	import gsap from 'gsap'
-	import { Application, Sprite, ColorMatrixFilter, Assets } from 'pixi.js';
+<div class="w-screen h-screen" id="splash">
+	<img 
+		id="frank" 
+		loading="eager" 
+		class="w-screen h-screen object-cover" 
+		src="./thumb-1920-301840.webp" 
+		alt="Frank" 
+	/>
+	<h1 id="intro"><img height="160" width="160" class="w-40 relative mx-auto" src="/favicon.svg" alt="Astro logo"> Frankenstein Experiment</h1>
+</div>
+<!-- <script>
 	import IntersectionHandler from '../scripts/observer/IntersectionHandler'
 	(async function () {
 		const options = {
@@ -13,45 +19,16 @@
 
 		IntersectionHandler.init(options) 
 		const mount = document.getElementById('splash')
-    	const app = new Application({ background: '#000000', resizeTo:mount });	
-		// @ts-ignore
-		mount.appendChild(app.view);
-
-		const img = await Assets.load('./thumb-1920-301840.jpg')
-		const frank = Sprite.from(img);
-		const originalW = frank.texture.orig.width
-		const originalH = frank.texture.orig.height
-		
-		app.stage.addChild(frank);
-		app.stop()
-		const time = 15.0;
-	   
-
-		const filter = new ColorMatrixFilter();
-		frank.filters = [filter];
-		gsap.set(filter, {
-			brightness: 0
-		})
-
-		const animation = gsap.to(filter, {
-			brightness: 5.0, 
-			duration: time, 
-			yoyo: true, 
-			repeat: -1,
-			ease:'power2.in'
-		});
-
+    
 		
 
 		function start(){
-			console.log("start")
-			app.start()
-			animation.play()
+			console.log("intro start")
+			
 		}
 		function stop (){
-			console.log("stop")
-			app.stop()
-			animation.pause()
+			console.log("intro stop")
+			
 		}
 		
 		function handleAppIntersection (entry){
@@ -74,17 +51,10 @@
 				stop()
 			}
 		});
-
-		function onResize(){
-			frank.x = (window.innerWidth - originalW) / 2;
-			frank.y = -(originalH - window.innerHeight) / 2;
-		}
-		window.addEventListener('resize', onResize)
-		onResize()
 		
 	})();
 	
-</script>
+</script> -->
 <style>
 	
 	#intro{
@@ -97,7 +67,20 @@
 		margin: auto;
 		top: 50vh;
 		transform: translate(0, -50%);
-		
+		/* filter: brightness(0); */
 	}
-	
+
+	#splash {
+		/* background-image: url('./thumb-1920-301840.jpg');
+		background-size: cover; */
+	}
+	#frank{
+		animation: frank 60s infinite;
+		animation-direction: alternate;
+	}
+
+	@keyframes frank {
+		from { filter: brightness(0)}
+		to { filter: brightness(5)}
+	}
 </style>

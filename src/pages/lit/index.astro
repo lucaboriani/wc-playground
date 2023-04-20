@@ -3,6 +3,7 @@
 import Layout from '../../layouts/Layout.astro';
 import {MyElement} from '../../components/wc/lit/my-element';
 import {MyButton} from '../../components/wc/lit/my-button';
+import LitNavigation from '../../components/LitNavigation.astro';
 let posts = await Astro.glob('../../markdown/lit.md');
 let post = posts[0];
 let markdownUseless = await Astro.glob('../../markdown/useless-button.md');
@@ -10,40 +11,23 @@ let useless = markdownUseless[0]
 ---
 
 <Layout title="Lit Elements">
-    <main class="main" slot="main">
+    <main class="max-w-4xl relative grow pt-20" slot="main">
         <post.Content />
         <h2>Lit Basics:</h2>
 		<p>
 			a dummy element...
 		</p>
-       <MyElement />
+       <MyElement client:visible/>
        <hr/>
        <p>
         ...and a useless button
         </p>
-        <MyButton text="some text" />
+        <MyButton text="some text" client:idle />
         <useless.Content/>
-      
     </main>
     
-    <aside class="aside" slot="aside">
-        <ul>
-            <li>
-                <a href="./lit/composing-templates">
-                    lit : composing templates
-                </a>
-            </li>
-            <li>
-                <a href="./lit/lit-react">
-                    lit : use lit in react
-                </a>
-            </li>
-            <li>
-                <a href="./lit/lit-vue">
-                    lit : use lit in vue
-                </a>
-            </li>
-        </ul>
+    <aside class="mt-24 grow" slot="aside">
+        <LitNavigation/>
     </aside>
 	
 </Layout>

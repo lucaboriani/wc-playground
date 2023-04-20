@@ -2,72 +2,73 @@
 // @ts-nocheck
 import Layout from '../layouts/Layout.astro';
 import Tab from '../components/Tab.astro';
+import MFMenuLink from '../components/utility/MFMenuLink.astro';
+import LitNavigation from '../components/LitNavigation.astro';
 let counter = await Astro.glob('../markdown/a-counter.md');
 let counterTxt = counter[0];
+
+let wcTxts = await Astro.glob('../markdown/web-components.md');
+let wcTxt = wcTxts[0];
+
+let vanillaTxts = await Astro.glob('../markdown/vanilla-wc.md');
+let vanillaTxt = vanillaTxts[0];
 
 ---
 
 <Layout title="Web Components">
     <main class="max-w-4xl relative grow pt-20" slot="main">
-        <h1>Web Components</h1>
-        <p>What the hell is that and why should you care</p>
-        <div class="flex">
-            <Tab>
-                <h3>... The nth counter</h3>
-                <p>A "beautifully" styled Web component example</p>
-                <p class="instructions">
-                    <my-counter></my-counter>
-                    <script type="module" src='./src/components/wc/counter.js'></script>
-                </p>
-            </Tab>
-            <counterTxt.Content />
+        <wcTxt.Content/>
+        <hr>
+        This code:
+        <counterTxt.Content />	
+        <span class="block my-4">produces:</span>
+        <div class="my-4">
+            <my-counter></my-counter>
+            <script src='../components/wc/counter.js'></script>
+                    
         </div>
-        <div class="flex">
-            <Tab>
-                <h3>
-                    We'll get to know the existence of <span>shadow dom - encapsulation</span>
-                </h3>
-                <button class="border-1  text-slate-100 border-solid">
-                    hello
-                </button>
-
-                <h3>
-                    <span>A styled but useless Custom button :(</span>
-                </h3>
-                
-                <custom-button title="a styled button"></custom-button>
-                <script type="module" src="./src/components/wc/buttons/CustomButton.js"></script>
-                
-            </Tab>
-            <Tab>
-                <h3>Expanding List example</h3>
-                <p class="instructions">
-                    <expanding-list></expanding-list>
-                    <script type="module" src='./src/components/wc/expandingList.js'></script>
-                </p>
-            </Tab>
-        </div>	
-      
+        <vanillaTxt.Content />
     </main>
     
     <aside class="aside" slot="aside">
-        <ul>
-            <li>
-                <a href="./lit/composing-templates">
-                    lit : composing templates
-                </a>
-            </li>
-            <li>
-                <a href="./lit/lit-react">
-                    lit : use lit in react
-                </a>
-            </li>
-            <li>
-                <a href="./lit/lit-vue">
-                    lit : use lit in vue
-                </a>
-            </li>
+        <ul class="sticky top-20">
+            <LitNavigation>
+                <Tab>
+                    <h3>... The nth counter</h3>
+                    <p>A "beautifully" styled Web component example</p>
+                    <p class="instructions">
+                        <my-counter></my-counter>
+                        <script src='../components/wc/counter.js'></script>
+                    </p>
+                </Tab>
+                
+                <Tab>
+                    <h3>
+                        <span class="font-bold text-3xl">shadow dom & encapsulation</span>
+                    </h3>
+                    <button class="border-1  text-slate-100 border-solid">
+                        hello
+                    </button>
+        
+                    <h3>
+                        <span>A styled but useless Custom button :(</span>
+                    </h3>
+                    
+                    <custom-button title="a styled button"></custom-button>
+                    <script src="../components/wc/buttons/CustomButton.js"></script>
+                    
+                </Tab>
+                <Tab>
+                    <h3>Expanding List example</h3>
+                    <p class="instructions">
+                        <expanding-list></expanding-list>
+                        <script src='../components/wc/expandingList.js'></script>
+                    </p>
+                </Tab>
+            </LitNavigation>
+            
         </ul>
+        
     </aside>
 	
 </Layout>
@@ -122,4 +123,83 @@ aside {
     padding-top: 6em;
 }
 </style>
+<style is:global>
+    h2, a{
+        color:rgb(248,113,113);
+    }
+    a:hover{
+        color:rgb(202, 176, 176);
+    }
+    p{
+		font-size: 1.2em;
+        margin-top: 1em;
+        margin-bottom: 1em;
+	}
+    .glitched{
+      animation: glitch 4s linear infinite;
+    }
+    
+    @keyframes glitch{
+      2%,64%{
+        transform: translate(2px,0) skew(0deg);
+      }
+      4%,60%{
+        transform: translate(-2px,0) skew(0deg);
+      }
+      62%{
+        transform: translate(0,0) skew(5deg); 
+      }
+    }
+    
+    .glitched:before,
+    .glitched:after{
+      content: attr(title);
+      position: absolute;
+      left: 0;
+    }
+    
+    .glitched:before{
+      animation: glitchTop 1s linear infinite;
+      clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
+      -webkit-clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
+    }
+    
+    @keyframes glitchTop{
+      2%,64%{
+        transform: translate(2px,-2px);
+      }
+      4%,60%{
+        transform: translate(-2px,2px);
+      }
+      62%{
+        transform: translate(13px,-1px) skew(-13deg); 
+      }
+    }
+    
+    .glitched:after{
+      animation: glitchBotom 1.5s linear infinite;
+      clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
+      -webkit-clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
+    }
+    
+    @keyframes glitchBotom{
+      2%,64%{
+        transform: translate(-2px,0);
+      }
+      4%,60%{
+        transform: translate(-2px,0);
+      }
+      62%{
+        transform: translate(-22px,5px) skew(21deg); 
+      }
+    }
+    
+</style>
+<script async >
+    document.querySelector('main h1').classList.add('glitched')
+    Array.from(document.querySelectorAll('main h2'))
+    .forEach(h2 => {
+        h2.classList.add('glitched')
+    })
+</script>
 
