@@ -36,8 +36,52 @@ export const prerender = true;
 			/>
 		</footer>
 	</main>
-	
 </HomeLayout>
+<script>
+	import IntersectionHandler from '../scripts/observer/IntersectionHandler'
+	(async function () {
+		const options = {
+			root: null,
+			rootMargin: '0px',
+			threshold: 0.01
+		}
+    
+		IntersectionHandler.init(options) 
+		const mount = document.getElementById('feets').parentNode  as HTMLElement
+		const cont =  document.getElementById('feets') as HTMLElement
+		
+
+		function start(){
+			cont.style.display = 'initial'
+		}
+		function stop (){
+			cont.style.display = 'hidden'
+		}
+		
+		function handleAppIntersection (entry){
+      const { isIntersecting } = entry
+			if(isIntersecting){
+				start()
+			} else {
+				stop()
+			}
+		}
+		IntersectionHandler.observe(mount, handleAppIntersection)
+
+		document.addEventListener("visibilitychange", () => {
+			if (document.visibilityState === "visible") {
+				const isVisible = (mount.getBoundingClientRect().top + window.innerHeight) > 0 
+				if(isVisible){
+					start()
+				}
+			} else {
+				stop()
+			}
+		});
+		
+	})();
+	
+</script>
 <style>
 	#feets{
 		animation: blur-fx 10s infinite; 

@@ -8,7 +8,7 @@
 	/>
 	<h1 id="intro"><img height="160" width="160" class="w-40 relative mx-auto" src="/favicon.svg" alt="Astro logo"> Frankenstein Experiment</h1>
 </div>
-<!-- <script>
+<script>
 	import IntersectionHandler from '../scripts/observer/IntersectionHandler'
 	(async function () {
 		const options = {
@@ -19,16 +19,16 @@
 
 		IntersectionHandler.init(options) 
 		const mount = document.getElementById('splash')
-    
+		const frank = mount.querySelector('#frank')
 		
 
 		function start(){
 			console.log("intro start")
-			
+			frank.classList.add('frank')
 		}
 		function stop (){
 			console.log("intro stop")
-			
+			frank.classList.remove('frank')
 		}
 		
 		function handleAppIntersection (entry){
@@ -54,7 +54,7 @@
 		
 	})();
 	
-</script> -->
+</script>
 <style>
 	
 	#intro{
@@ -70,14 +70,19 @@
 		/* filter: brightness(0); */
 	}
 
+	#frank{
+		filter: brightness(0)
+	}
+
 	#splash {
 		/* background-image: url('./thumb-1920-301840.jpg');
 		background-size: cover; */
 	}
-	#frank{
+	.frank{
 		animation: frank 60s infinite;
 		animation-direction: alternate;
 	}
+
 
 	@keyframes frank {
 		from { filter: brightness(0)}
