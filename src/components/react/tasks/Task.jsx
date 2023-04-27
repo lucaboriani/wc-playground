@@ -2,7 +2,7 @@
 const Task = ({task, styles, updateTask, editTask, deleteTask}) =>{
     
     return (
-        <div className={'flex items-center w-full p-2 m-2 mt-0 border-solid border-slate-900 border-2 rounded-xl'}>
+        <div className={'cursor-pointer group flex items-center w-full p-2 m-2 mt-0 border-b hover:bg-red-400 hover:text-black hover:border-black'}>
             <div className="flex align-center grow">
                 <input
                     type="checkbox"
@@ -13,8 +13,8 @@ const Task = ({task, styles, updateTask, editTask, deleteTask}) =>{
                 <p
                     className={
                         task.completed
-                            ? 'grow px-2 line-through text-slate-800'
-                            : 'grow px-2 text-slate-900'
+                            ? 'grow px-2 line-through text-red-300 group-hover:text-black'
+                            : 'grow px-2 text-red-400 group-hover:text-gray-800'
                     }
                     
                 >
@@ -24,13 +24,13 @@ const Task = ({task, styles, updateTask, editTask, deleteTask}) =>{
             <div className="flex">
                 <button
                     onClick={() => editTask(task._id)}
-                    className={'outline-none bg-transparent text-black text-xl cursor-pointer px-2'}
+                    className={'outline-none bg-transparent text-slate-100 group-hover:text-black text-xl cursor-pointer px-2'}
                 >
                     &#9998;
                 </button>
                 <button
                     onClick={() => deleteTask(task._id)}
-                    className={'outline-none bg-transparent text-black text-xl cursor-pointer px-2'}
+                    className={'outline-none bg-transparent text-slate-100 group-hover:text-black text-xl cursor-pointer px-2'}
                 >
                     &#10006;
                 </button>

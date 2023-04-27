@@ -20,15 +20,18 @@
 		IntersectionHandler.init(options) 
 		const mount = document.getElementById('splash')
 		const frank = mount.querySelector('#frank')
-		
+		const header = document.getElementById('site-header') as HTMLElement
 
 		function start(){
 			console.log("intro start")
 			frank.classList.add('frank')
+			header.classList.add('bg-opacity-50')
+
 		}
 		function stop (){
 			console.log("intro stop")
 			frank.classList.remove('frank')
+			header.classList.remove('bg-opacity-50')
 		}
 		
 		function handleAppIntersection (entry){

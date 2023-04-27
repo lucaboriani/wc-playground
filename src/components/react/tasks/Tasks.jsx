@@ -76,9 +76,9 @@ export default function ReactTasks(props) {
 	};
 
 	return (
-		<div className={'flex flex-col w-full items-center justify-center bg-slate-700 rounded-xl'}>
+		<div className={'flex flex-col w-full  justify-center bg-black  rounded-xl'}>
 			<h1 className={'text-3xl text-slate-100 m-2'}>Yess, another TodoList :( </h1>
-			<div className={'flex flex-col w-full items-center md:max-w-xl p-2 rounded-xl bg-slate-400 box-border mb-5'}>
+			<div className={'flex flex-col w-full items-center  p-2 rounded-xl box-border mb-5'}>
 				<Form 
 					task={task} 
 					addTask={addTask} 

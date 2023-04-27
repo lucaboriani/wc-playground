@@ -8,7 +8,7 @@ const Form = ({task, styles, addTask, handleChange }) => {
             className={'flex w-full items-center h-10 mb-5'}
         >
             <input
-                className={'pl-2 grow outline-0 rounded-tl rounded-bl border-solid border-2 border-slate-800 text-slate-800'}
+                className={'pl-2 grow outline-0 text-slate-800'}
                 style={{height: 'inherit'}}
                 type="text"
                 placeholder="Task to be done..."
@@ -17,7 +17,7 @@ const Form = ({task, styles, addTask, handleChange }) => {
             />
             <button 
                 type="submit" 
-                className={'text-xl font-bold cursor-pointer w-24 bg-slate-600 text-white rounded-tr rounded-br border-solid border-2 border-slate-900'} 
+                className={'text-xl font-bold cursor-pointer w-24 bg-red-400 hover:bg-red-500 text-black'} 
                 style={{height: 'inherit'}}
             >
                 {task._id ? "Update" : "Add"}
