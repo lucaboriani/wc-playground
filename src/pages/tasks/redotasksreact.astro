@@ -1,7 +1,14 @@
 ---
-
+import { getSession } from 'auth-astro/server';
 import Layout from '../../layouts/Layout.astro';
 import ReactTasksRedo from '../../components/react/tasks/TasksRedo'
+
+const session = await getSession(Astro.request)
+
+if (! session?.user) {
+  return Astro.redirect('/please-login');
+}
+
 let tasks
 
 try {
