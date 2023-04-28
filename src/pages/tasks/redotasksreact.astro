@@ -10,7 +10,6 @@ if (! session?.user) {
 }
 
 let tasks
-
 try {
 	const base = import.meta.env.MODE === 'development' ? 'http://localhost:3000' : import.meta.env.SITE
 	const response = await fetch(base + '/api/tasks/tasks.json')
