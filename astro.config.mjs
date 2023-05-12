@@ -25,5 +25,8 @@ export default defineConfig({
     }
   }), tailwind(), svelte(), auth()],
   output: "server",
-  adapter: netlify()
+  adapter: netlify(),
+  esbuildOptions: {
+    external: ['crypto'],
+  },
 });
