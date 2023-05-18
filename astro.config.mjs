@@ -1,11 +1,9 @@
-import "sass"
-// https://astro.build/config
+import "sass";
 import { defineConfig } from 'astro/config';
 import lit from '@astrojs/lit';
 import react from '@astrojs/react';
 import vue from "@astrojs/vue";
-import netlify from "@astrojs/netlify/functions";
-
+//import netlify from "@astrojs/netlify/functions";
 import tailwind from "@astrojs/tailwind";
 
 // https://astro.build/config
@@ -13,6 +11,9 @@ import svelte from "@astrojs/svelte";
 
 // https://astro.build/config
 import auth from "auth-astro";
+
+// https://astro.build/config
+import vercel from "@astrojs/vercel/serverless";
 
 // https://astro.build/config
 export default defineConfig({
@@ -26,5 +27,5 @@ export default defineConfig({
     }
   }), tailwind(), svelte(), auth()],
   output: "server",
-  adapter: netlify()
+  adapter: vercel()
 });
