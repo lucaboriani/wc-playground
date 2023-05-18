@@ -1,0 +1,43 @@
+---
+// @ts-nocheck
+import Layout from '../../layouts/Layout.astro';
+import {MyElement} from '../../components/wc/lit/my-element';
+import {MyButton} from '../../components/wc/lit/my-button';
+import LitNavigation from '../../components/LitNavigation.astro';
+let posts = await Astro.glob('../../markdown/lit.md');
+let post = posts[0];
+let markdownUseless = await Astro.glob('../../markdown/useless-button.md');
+let useless = markdownUseless[0]
+---
+
+<Layout title="Lit Elements">
+    <main class="max-w-4xl relative grow pt-20" slot="main">
+        <post.Content />
+        <h2>Lit Basics:</h2>
+		<p>
+			a dummy element...
+		</p>
+       <MyElement client:visible/>
+       <hr/>
+       <p>
+        ...and a useless button
+        </p>
+        <MyButton text="some text" client:idle />
+        <useless.Content/>
+    </main>
+    
+    <aside class="mt-24 grow" slot="aside">
+        <LitNavigation/>
+    </aside>
+	
+</Layout>
+
+<style>
+.card {
+    margin: 1em;
+}
+aside {
+    padding-top: 6em;
+}
+</style>
+

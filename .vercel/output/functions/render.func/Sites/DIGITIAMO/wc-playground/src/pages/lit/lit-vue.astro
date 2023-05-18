@@ -1,0 +1,25 @@
+---
+
+import Layout from '../../layouts/Layout.astro';
+import App from '../../components/vue/CallApi/App.vue';
+import LitNavigation from '../../components/LitNavigation.astro';
+let posts = await Astro.glob('../../markdown/lit-vue.md');
+let post = posts[0];
+
+---
+
+<Layout title="Lit vue">
+	<main class="main" slot="main">
+		<h1>Lit and Vue</h1>
+		Example usage
+		<post.Content/>
+	</main>
+	<aside class="mt-24 grow" slot="aside">
+        <LitNavigation/>
+		<App client:load />
+    </aside>
+</Layout>
+<script>
+
+</script>
+

@@ -1,0 +1,27 @@
+---
+// @ts-nocheck
+import Layout from '../../layouts/Layout.astro';
+import {MyPage} from '../../components/wc/lit/my-page';
+import LitNavigation from '../../components/LitNavigation.astro';
+let posts = await Astro.glob('../../markdown/lit-composing-templates.md');
+let post = posts[0];
+
+//export const prerender = true;
+---
+
+<Layout title="Composing templates">
+    <main class="max-w-4xl relative grow pt-20" slot="main">
+        <post.Content/>
+	</main>
+    <aside class="mt-24 grow" slot="aside">
+        <LitNavigation>
+            <MyPage
+                client:load 
+                article={{
+                    title: 'Composing Templates',
+                    text: 'Some awesome text.'
+                }}
+            />
+        </LitNavigation>
+    </aside>
+</Layout>

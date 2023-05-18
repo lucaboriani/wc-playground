@@ -1,0 +1,56 @@
+---
+
+import Layout from '../../layouts/Layout.astro';
+import { getPlanet } from '../api/planetsApi';
+
+
+const { id } = Astro.params;
+
+let planet = await getPlanet(id);
+
+const excluded = ['residents', 'films', 'created', 'edited', 'url']
+const fields = Object.keys(planet).filter(key => {
+    if(!excluded.includes(key)){
+        return key
+    }
+})
+---
+<Layout title={planet.name}>
+    
+    <main class="main" slot="main">
+        <h1>
+            {planet.name}
+        </h1>
+        <div>
+            {
+                fields.map(key =>(
+                    <div>
+                        <span>{key.replace('_',' ')}</span> 
+                        <span>{planet[key]}</span>
+                    </div>
+                ))
+            }
+        </div>
+    </main>
+    <aside class="aside" slot="asied">
+        <ul>
+            <li>
+                <a href="./lit/lit-basic">
+                    lit: basic
+                </a>
+            </li>
+            
+        </ul>
+    </aside>
+</Layout>
+<style>
+    .container{
+        display: flex;
+    }
+    main{
+        flex-grow: 1;
+    }
+    h1{
+        text-align: left;
+    }
+</style>
