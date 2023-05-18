@@ -4,6 +4,7 @@ import MetaFrameworksNavigation from '../../components/MetaFrameworksNavigation.
 const title = "What is a JavaScript Meta-framework?"
 let posts = await Astro.glob('../../markdown/metaframeworks/what-is-a-javascript-meta-framework.md');
 let post = posts[0];
+export const prerender = true;
 ---
 
 <Layout title={title}>
