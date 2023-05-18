@@ -1,22 +1,119 @@
-/* empty css                           */import { c as createAstro, a as createComponent, r as renderTemplate, m as maybeRenderHead, b as addAttribute, d as renderComponent, e as renderSlot, f as renderHead, _ as __astro_tag_component__ } from '../astro.cc494cb9.mjs';
-import 'html-escaper';
+import { c as createAstro, a as createComponent, r as renderTemplate, m as maybeRenderHead, b as addAttribute, d as renderComponent, u as unescapeHTML, F as Fragment, e as defineScriptVars, f as renderSlot, s as spreadAttributes, g as renderHead, _ as __astro_tag_component__ } from '../astro.67ba37b7.mjs';
 /* empty css                           *//* empty css                                    *//* empty css                           *//* empty css                          *//* empty css                            */import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { jsxs, jsx } from 'react/jsx-runtime';
-/* empty css                           */import { useSSRContext, ref, mergeProps, reactive, onMounted } from 'vue';
-import { ssrRenderAttrs, ssrIncludeBooleanAttr, ssrRenderClass, ssrInterpolate, ssrRenderList } from 'vue/server-renderer';
-/* empty css                                               */import { useStore } from '@nanostores/react';
+import { useStore } from '@nanostores/react';
 /* empty css                                              */import { map, action, atom } from 'nanostores';
 /* empty css                                    */import consumers from 'stream/consumers';
 import mongoose from 'mongoose';
-import '@lit/reactive-element';
-import 'lit-html';
-import { LitElement, html, css } from 'lit-element/lit-element.js';
-import 'lit-html/is-server.js';
-/* empty css                           *//* empty css                               *//* empty css                                         *//* empty css                             */
-const $$Astro$o = createAstro();
+/* empty css                           */import { LitElement, html, css } from 'lit';
+/* empty css                               *//* empty css                           */import crypto from 'node:crypto';
+import { Auth } from '@auth/core';
+import { splitCookiesString, parseString } from 'set-cookie-parser';
+import { serialize } from 'cookie';
+import GitHub from '@auth/core/providers/github';
+/* empty css                                         */import { useSSRContext, reactive, mergeProps, onMounted } from 'vue';
+import { ssrRenderAttrs, ssrRenderList, ssrInterpolate } from 'vue/server-renderer';
+/* empty css                             */
+const authConfig = {
+  providers: [
+    GitHub({
+      clientId: "c15f9107de105aa2a4fd",
+      clientSecret: "a63767859c79a9a934b00bbe554667ffb7827e9a"
+    })
+  ]
+};
+
+const actions = [
+  "providers",
+  "session",
+  "csrf",
+  "signin",
+  "signout",
+  "callback",
+  "verify-request",
+  "error"
+];
+const getSetCookieCallback = (cook) => {
+  if (!cook)
+    return;
+  const splitCookie = splitCookiesString(cook);
+  for (const cookName of [
+    "__Secure-next-auth.session-token",
+    "next-auth.session-token",
+    "next-auth.pkce.code_verifier",
+    "__Secure-next-auth.pkce.code_verifier"
+  ]) {
+    const temp = splitCookie.find((e) => e.startsWith(`${cookName}=`));
+    if (temp) {
+      return parseString(temp);
+    }
+  }
+  return parseString(splitCookie?.[0] ?? "");
+};
+function AstroAuthHandler(prefix, options = authConfig) {
+  return async ({ request }) => {
+    const url = new URL(request.url);
+    const action = url.pathname.slice(prefix.length + 1).split("/")[0];
+    if (!actions.includes(action) || !url.pathname.startsWith(prefix + "/"))
+      return;
+    const res = await Auth(request, options);
+    if (["callback", "signin", "signout"].includes(action)) {
+      const parsedCookie = getSetCookieCallback(res.clone().headers.get("Set-Cookie"));
+      if (parsedCookie) {
+        res.headers.set(
+          "Set-Cookie",
+          serialize(parsedCookie.name, parsedCookie.value, parsedCookie)
+        );
+      }
+    }
+    return res;
+  };
+}
+function AstroAuth(options = authConfig) {
+  const { AUTH_SECRET, AUTH_TRUST_HOST, VERCEL, NODE_ENV } = Object.assign({"PUBLIC_API_BASE":"http://localhost:3000/api","BASE_URL":"/","MODE":"production","DEV":false,"PROD":true,"SSR":true,"SITE":"https://wc-lit-playground.netlify.app/","ASSETS_PREFIX":undefined}, { AUTH_SECRET: "1f40b3033ff15d26850c06101aa26def", AUTH_TRUST_HOST: "true", NODE: process.env.NODE, _: process.env._, NODE_ENV: process.env.NODE_ENV });
+  options.secret ??= AUTH_SECRET;
+  options.trustHost ??= !!(AUTH_TRUST_HOST ?? VERCEL ?? NODE_ENV !== "production");
+  const { prefix = "/api/auth", ...authOptions } = options;
+  const handler = AstroAuthHandler(prefix, authOptions);
+  return {
+    async get(event) {
+      return await handler(event);
+    },
+    async post(event) {
+      return await handler(event);
+    }
+  };
+}
+async function getSession(req, options = authConfig) {
+  options.secret ??= "1f40b3033ff15d26850c06101aa26def";
+  options.trustHost ??= true;
+  const url = new URL(`${options.prefix}/session`, req.url);
+  const response = await Auth(new Request(url, { headers: req.headers }), options);
+  const { status = 200 } = response;
+  const data = await response.json();
+  if (!data || !Object.keys(data).length)
+    return null;
+  if (status === 200)
+    return data;
+  throw new Error(data.message);
+}
+
+const { get: get$2, post: post$2 } = AstroAuth();
+
+const _page0 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+  __proto__: null,
+  get: get$2,
+  post: post$2
+}, Symbol.toStringTag, { value: 'Module' }));
+
+if (!globalThis.crypto) globalThis.crypto = crypto;
+if (typeof globalThis.crypto.subtle === "undefined") globalThis.crypto.subtle = crypto.webcrypto.subtle;
+if (typeof globalThis.crypto.randomUUID === "undefined") globalThis.crypto.randomUUID = crypto.randomUUID;
+
+const $$Astro$s = createAstro("https://wc-lit-playground.netlify.app/");
 const $$Navigation = createComponent(async ($$result, $$props, $$slots) => {
-  const Astro2 = $$result.createAstro($$Astro$o, $$props, $$slots);
+  const Astro2 = $$result.createAstro($$Astro$s, $$props, $$slots);
   Astro2.self = $$Navigation;
   const pages = [
     {
@@ -75,9 +172,9 @@ ${maybeRenderHead($$result)}<div class="nav-links astro-PUX6A34N">
 </div>`;
 }, "/Users/zp/Sites/DIGITIAMO/wc-playground/src/components/Navigation.astro");
 
-const $$Astro$n = createAstro();
+const $$Astro$r = createAstro("https://wc-lit-playground.netlify.app/");
 const $$Hamburger = createComponent(async ($$result, $$props, $$slots) => {
-  const Astro2 = $$result.createAstro($$Astro$n, $$props, $$slots);
+  const Astro2 = $$result.createAstro($$Astro$r, $$props, $$slots);
   Astro2.self = $$Hamburger;
   return renderTemplate`${maybeRenderHead($$result)}<div class="hamburger">
     <span class="line"></span>
@@ -86,29 +183,77 @@ const $$Hamburger = createComponent(async ($$result, $$props, $$slots) => {
 </div>`;
 }, "/Users/zp/Sites/DIGITIAMO/wc-playground/src/components/Hamburger.astro");
 
-const $$Astro$m = createAstro();
+const $$Astro$q = createAstro("https://wc-lit-playground.netlify.app/");
+const $$Auth = createComponent(async ($$result, $$props, $$slots) => {
+  const Astro2 = $$result.createAstro($$Astro$q, $$props, $$slots);
+  Astro2.self = $$Auth;
+  const { authConfig: authConfig$1 = authConfig } = Astro2.props;
+  let session = await getSession(Astro2.request, authConfig$1);
+  return renderTemplate`${maybeRenderHead($$result)}<div>
+	${renderComponent($$result, "Fragment", Fragment, {}, { "default": ($$result2) => renderTemplate`${unescapeHTML(Astro2.slots.render("default", [session]))}` })}
+</div>`;
+}, "/Users/zp/Sites/DIGITIAMO/wc-playground/node_modules/auth-astro/src/components/Auth.astro");
+
+var __freeze$5 = Object.freeze;
+var __defProp$5 = Object.defineProperty;
+var __template$5 = (cooked, raw) => __freeze$5(__defProp$5(cooked, "raw", { value: __freeze$5(raw || cooked.slice()) }));
+var _a$5;
+const $$Astro$p = createAstro("https://wc-lit-playground.netlify.app/");
+const $$SignIn = createComponent(async ($$result, $$props, $$slots) => {
+  const Astro2 = $$result.createAstro($$Astro$p, $$props, $$slots);
+  Astro2.self = $$SignIn;
+  const key = Math.random().toString(36).slice(2, 11);
+  const { provider, options, authParams, ...attrs } = Astro2.props;
+  attrs.class = `signin-${key} ${attrs.class ?? ""}`;
+  return renderTemplate(_a$5 || (_a$5 = __template$5(["", "<button", ">\n	", "\n</button>\n\n\n\n<script>(function(){", "\n	document\n		.querySelector(`.signin-${key}`)\n		?.addEventListener('click', () => signIn(provider, options, authParams))\n})();<\/script>"], ["", "<button", ">\n	", "\n</button>\n\n\n\n<script>(function(){", "\n	document\n		.querySelector(\\`.signin-\\${key}\\`)\n		?.addEventListener('click', () => signIn(provider, options, authParams))\n})();<\/script>"])), maybeRenderHead($$result), spreadAttributes(attrs), renderSlot($$result, $$slots["default"]), defineScriptVars({ provider, options, authParams, key }));
+}, "/Users/zp/Sites/DIGITIAMO/wc-playground/node_modules/auth-astro/src/components/SignIn.astro");
+
+var __freeze$4 = Object.freeze;
+var __defProp$4 = Object.defineProperty;
+var __template$4 = (cooked, raw) => __freeze$4(__defProp$4(cooked, "raw", { value: __freeze$4(raw || cooked.slice()) }));
+var _a$4;
+const $$Astro$o = createAstro("https://wc-lit-playground.netlify.app/");
+const $$SignOut = createComponent(async ($$result, $$props, $$slots) => {
+  const Astro2 = $$result.createAstro($$Astro$o, $$props, $$slots);
+  Astro2.self = $$SignOut;
+  const key = Math.random().toString(36).slice(2, 11);
+  const { params, ...attrs } = Astro2.props;
+  attrs.class = `signout-${key} ${attrs.class ?? ""}`;
+  return renderTemplate(_a$4 || (_a$4 = __template$4(["", "<button", ">\n	", "\n</button>\n\n\n\n<script>(function(){", "\n	document.querySelector(`.signout-${key}`)?.addEventListener('click', () => signOut(params))\n})();<\/script>"], ["", "<button", ">\n	", "\n</button>\n\n\n\n<script>(function(){", "\n	document.querySelector(\\`.signout-\\${key}\\`)?.addEventListener('click', () => signOut(params))\n})();<\/script>"])), maybeRenderHead($$result), spreadAttributes(attrs), renderSlot($$result, $$slots["default"]), defineScriptVars({ params, key }));
+}, "/Users/zp/Sites/DIGITIAMO/wc-playground/node_modules/auth-astro/src/components/SignOut.astro");
+
+const $$Astro$n = createAstro("https://wc-lit-playground.netlify.app/");
 const $$Header = createComponent(async ($$result, $$props, $$slots) => {
-  const Astro2 = $$result.createAstro($$Astro$m, $$props, $$slots);
+  const Astro2 = $$result.createAstro($$Astro$n, $$props, $$slots);
   Astro2.self = $$Header;
-  return renderTemplate`${maybeRenderHead($$result)}<header class="fixed w-full bg-black bg-opacity-50 z-10 top-0">
+  const session = await getSession(Astro2.request);
+  return renderTemplate`${maybeRenderHead($$result)}<header id="site-header" class="fixed w-full bg-black bg-opacity-50 z-10 top-0 flex justify-between">
     <nav>
         ${renderComponent($$result, "Hamburger", $$Hamburger, {})}
         ${renderComponent($$result, "Navigation", $$Navigation, {})}
     </nav>
+    <div class="flex flex-col items-end pr-4 justify-center">
+        ${session ? renderTemplate`<div class="flex">
+                ${renderComponent($$result, "SignOut", $$SignOut, { "class": "mx-2" }, { "default": ($$result2) => renderTemplate`log out` })}
+                <img loading="lazy"${addAttribute(session.user?.image, "src")} class="w-12">
+            </div>` : renderTemplate`${renderComponent($$result, "SignIn", $$SignIn, { "provider": "github", "class": "text-red-300 hover:text-red-400" }, { "default": ($$result2) => renderTemplate`
+                login
+            ` })}`}
+    </div>
 </header>`;
 }, "/Users/zp/Sites/DIGITIAMO/wc-playground/src/components/Header.astro");
 
-const $$Astro$l = createAstro();
+const $$Astro$m = createAstro("https://wc-lit-playground.netlify.app/");
 const $$MFMenuLink = createComponent(async ($$result, $$props, $$slots) => {
-  const Astro2 = $$result.createAstro($$Astro$l, $$props, $$slots);
+  const Astro2 = $$result.createAstro($$Astro$m, $$props, $$slots);
   Astro2.self = $$MFMenuLink;
   const { txt, link } = Astro2.props;
   return renderTemplate`${maybeRenderHead($$result)}<li class="flex w-full bg-black"><a class="w-full p-1 text-red-400 hover:bg-red-400 hover:text-black"${addAttribute(link, "href")}>${txt}</a></li>`;
 }, "/Users/zp/Sites/DIGITIAMO/wc-playground/src/components/utility/MFMenuLink.astro");
 
-const $$Astro$k = createAstro();
+const $$Astro$l = createAstro("https://wc-lit-playground.netlify.app/");
 const $$MetaFrameworksNavigation = createComponent(async ($$result, $$props, $$slots) => {
-  const Astro2 = $$result.createAstro($$Astro$k, $$props, $$slots);
+  const Astro2 = $$result.createAstro($$Astro$l, $$props, $$slots);
   Astro2.self = $$MetaFrameworksNavigation;
   const navigation = [
     {
@@ -154,9 +299,9 @@ const $$MetaFrameworksNavigation = createComponent(async ($$result, $$props, $$s
 </ul>`;
 }, "/Users/zp/Sites/DIGITIAMO/wc-playground/src/components/MetaFrameworksNavigation.astro");
 
-const $$Astro$j = createAstro();
+const $$Astro$k = createAstro("https://wc-lit-playground.netlify.app/");
 const $$LitNavigation = createComponent(async ($$result, $$props, $$slots) => {
-  const Astro2 = $$result.createAstro($$Astro$j, $$props, $$slots);
+  const Astro2 = $$result.createAstro($$Astro$k, $$props, $$slots);
   Astro2.self = $$LitNavigation;
   const navigation = [
     {
@@ -194,9 +339,9 @@ const _export_sfc = (sfc, props) => {
   return target;
 };
 
-const $$Astro$i = createAstro();
+const $$Astro$j = createAstro("https://wc-lit-playground.netlify.app/");
 const $$TestingNavigation = createComponent(async ($$result, $$props, $$slots) => {
-  const Astro2 = $$result.createAstro($$Astro$i, $$props, $$slots);
+  const Astro2 = $$result.createAstro($$Astro$j, $$props, $$slots);
   Astro2.self = $$TestingNavigation;
   const navigation = [
     {
@@ -250,9 +395,9 @@ const $$TestingNavigation = createComponent(async ($$result, $$props, $$slots) =
 </ul>`;
 }, "/Users/zp/Sites/DIGITIAMO/wc-playground/src/components/TestingNavigation.astro");
 
-const $$Astro$h = createAstro();
+const $$Astro$i = createAstro("https://wc-lit-playground.netlify.app/");
 const $$Layout = createComponent(async ($$result, $$props, $$slots) => {
-  const Astro2 = $$result.createAstro($$Astro$h, $$props, $$slots);
+  const Astro2 = $$result.createAstro($$Astro$i, $$props, $$slots);
   Astro2.self = $$Layout;
   const { title } = Astro2.props;
   return renderTemplate`<html lang="en">
@@ -280,12 +425,12 @@ var __freeze$3 = Object.freeze;
 var __defProp$3 = Object.defineProperty;
 var __template$3 = (cooked, raw) => __freeze$3(__defProp$3(cooked, "raw", { value: __freeze$3(raw || cooked.slice()) }));
 var _a$3;
-const $$Astro$g = createAstro();
+const $$Astro$h = createAstro("https://wc-lit-playground.netlify.app/");
 const $$Index$3 = createComponent(async ($$result, $$props, $$slots) => {
-  const Astro2 = $$result.createAstro($$Astro$g, $$props, $$slots);
+  const Astro2 = $$result.createAstro($$Astro$h, $$props, $$slots);
   Astro2.self = $$Index$3;
   const title = "What is a JavaScript Meta-framework?";
-  let posts = await Astro2.glob(/* #__PURE__ */ Object.assign({"../../markdown/metaframeworks/what-is-a-javascript-meta-framework.md": () => import('../what-is-a-javascript-meta-framework.d10974a5.mjs')}), () => "../../markdown/metaframeworks/what-is-a-javascript-meta-framework.md");
+  let posts = await Astro2.glob(/* #__PURE__ */ Object.assign({"../../markdown/metaframeworks/what-is-a-javascript-meta-framework.md": () => import('../what-is-a-javascript-meta-framework.a0b08db1.mjs')}), () => "../../markdown/metaframeworks/what-is-a-javascript-meta-framework.md");
   let post = posts[0];
   return renderTemplate(_a$3 || (_a$3 = __template$3(["", "\n\n<script async>\n    const h1 = document.querySelector('main h1')\n    h1.classList.add('glitched')\n    h1.setAttribute('title', h1.textContent)\n    Array.from(document.querySelectorAll('main h2'))\n    .forEach(h2 => {\n        h2.classList.add('glitched')\n        h2.setAttribute('title', h2.textContent)\n    })\n<\/script>"])), renderComponent($$result, "Layout", $$Layout, { "title": title }, { "aside": ($$result2) => renderTemplate`${maybeRenderHead($$result2)}<aside class="mt-24 grow">
         ${renderComponent($$result2, "MetaFrameworksNavigation", $$MetaFrameworksNavigation, {})}
@@ -294,19 +439,19 @@ const $$Index$3 = createComponent(async ($$result, $$props, $$slots) => {
 	</main>` }));
 }, "/Users/zp/Sites/DIGITIAMO/wc-playground/src/pages/metaframeworks/index.astro");
 
-const $$file$d = "/Users/zp/Sites/DIGITIAMO/wc-playground/src/pages/metaframeworks/index.astro";
-const $$url$d = "/metaframeworks";
+const $$file$e = "/Users/zp/Sites/DIGITIAMO/wc-playground/src/pages/metaframeworks/index.astro";
+const $$url$e = "/metaframeworks";
 
-const _page1 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
-    __proto__: null,
-    default: $$Index$3,
-    file: $$file$d,
-    url: $$url$d
+const _page2 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+  __proto__: null,
+  default: $$Index$3,
+  file: $$file$e,
+  url: $$url$e
 }, Symbol.toStringTag, { value: 'Module' }));
 
-const $$Astro$f = createAstro();
+const $$Astro$g = createAstro("https://wc-lit-playground.netlify.app/");
 const $$Tab = createComponent(async ($$result, $$props, $$slots) => {
-  const Astro2 = $$result.createAstro($$Astro$f, $$props, $$slots);
+  const Astro2 = $$result.createAstro($$Astro$g, $$props, $$slots);
   Astro2.self = $$Tab;
   return renderTemplate`${maybeRenderHead($$result)}<div class="flex flex-col grow items-center border border-solid border-slate-100 rounded m-2 p-2 self-start">
     ${renderSlot($$result, $$slots["default"])}
@@ -317,15 +462,15 @@ var __freeze$2 = Object.freeze;
 var __defProp$2 = Object.defineProperty;
 var __template$2 = (cooked, raw) => __freeze$2(__defProp$2(cooked, "raw", { value: __freeze$2(raw || cooked.slice()) }));
 var _a$2;
-const $$Astro$e = createAstro();
+const $$Astro$f = createAstro("https://wc-lit-playground.netlify.app/");
 const $$WebComponents = createComponent(async ($$result, $$props, $$slots) => {
-  const Astro2 = $$result.createAstro($$Astro$e, $$props, $$slots);
+  const Astro2 = $$result.createAstro($$Astro$f, $$props, $$slots);
   Astro2.self = $$WebComponents;
-  let counter = await Astro2.glob(/* #__PURE__ */ Object.assign({"../markdown/a-counter.md": () => import('../a-counter.60d1f386.mjs')}), () => "../markdown/a-counter.md");
+  let counter = await Astro2.glob(/* #__PURE__ */ Object.assign({"../markdown/a-counter.md": () => import('../a-counter.8cbc76f4.mjs')}), () => "../markdown/a-counter.md");
   let counterTxt = counter[0];
-  let wcTxts = await Astro2.glob(/* #__PURE__ */ Object.assign({"../markdown/web-components.md": () => import('../web-components.c4de6402.mjs')}), () => "../markdown/web-components.md");
+  let wcTxts = await Astro2.glob(/* #__PURE__ */ Object.assign({"../markdown/web-components.md": () => import('../web-components.b64102d5.mjs')}), () => "../markdown/web-components.md");
   let wcTxt = wcTxts[0];
-  let vanillaTxts = await Astro2.glob(/* #__PURE__ */ Object.assign({"../markdown/vanilla-wc.md": () => import('../vanilla-wc.fd4821aa.mjs')}), () => "../markdown/vanilla-wc.md");
+  let vanillaTxts = await Astro2.glob(/* #__PURE__ */ Object.assign({"../markdown/vanilla-wc.md": () => import('../vanilla-wc.0cc0a76e.mjs')}), () => "../markdown/vanilla-wc.md");
   let vanillaTxt = vanillaTxts[0];
   return renderTemplate(_a$2 || (_a$2 = __template$2(["", "\n\n\n\n<script async>\n    document.querySelector('main h1').classList.add('glitched')\n    Array.from(document.querySelectorAll('main h2'))\n    .forEach(h2 => {\n        h2.classList.add('glitched')\n    })\n<\/script>"])), renderComponent($$result, "Layout", $$Layout, { "title": "Web Components", "class": "astro-LSJJWIS5" }, { "aside": ($$result2) => renderTemplate`${maybeRenderHead($$result2)}<aside class="aside astro-LSJJWIS5">
         <ul class="sticky top-20 astro-LSJJWIS5">
@@ -381,21 +526,41 @@ const $$WebComponents = createComponent(async ($$result, $$props, $$slots) => {
     </main>` }));
 }, "/Users/zp/Sites/DIGITIAMO/wc-playground/src/pages/web-components.astro");
 
-const $$file$c = "/Users/zp/Sites/DIGITIAMO/wc-playground/src/pages/web-components.astro";
-const $$url$c = "/web-components";
+const $$file$d = "/Users/zp/Sites/DIGITIAMO/wc-playground/src/pages/web-components.astro";
+const $$url$d = "/web-components";
 
-const _page2 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
-    __proto__: null,
-    default: $$WebComponents,
-    file: $$file$c,
-    url: $$url$c
+const _page3 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+  __proto__: null,
+  default: $$WebComponents,
+  file: $$file$d,
+  url: $$url$d
+}, Symbol.toStringTag, { value: 'Module' }));
+
+const $$Astro$e = createAstro("https://wc-lit-playground.netlify.app/");
+const $$PleaseLogin = createComponent(async ($$result, $$props, $$slots) => {
+  const Astro2 = $$result.createAstro($$Astro$e, $$props, $$slots);
+  Astro2.self = $$PleaseLogin;
+  return renderTemplate`${renderComponent($$result, "Layout", $$Layout, { "title": "React Task List" }, { "main": ($$result2) => renderTemplate`${maybeRenderHead($$result2)}<main class="max-w-4xl relative grow pt-20">
+		<h1 class="text-red-400 text-3xl mb-2">The page you have requested is protected</h1>
+        <h2>please login to access content</h2>
+	</main>` })}`;
+}, "/Users/zp/Sites/DIGITIAMO/wc-playground/src/pages/please-login.astro");
+
+const $$file$c = "/Users/zp/Sites/DIGITIAMO/wc-playground/src/pages/please-login.astro";
+const $$url$c = "/please-login";
+
+const _page4 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+  __proto__: null,
+  default: $$PleaseLogin,
+  file: $$file$c,
+  url: $$url$c
 }, Symbol.toStringTag, { value: 'Module' }));
 
 var __freeze$1 = Object.freeze;
 var __defProp$1 = Object.defineProperty;
 var __template$1 = (cooked, raw) => __freeze$1(__defProp$1(cooked, "raw", { value: __freeze$1(raw || cooked.slice()) }));
 var _a$1;
-const $$Astro$d = createAstro();
+const $$Astro$d = createAstro("https://wc-lit-playground.netlify.app/");
 const $$Spectrum = createComponent(async ($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro$d, $$props, $$slots);
   Astro2.self = $$Spectrum;
@@ -420,11 +585,11 @@ const $$Spectrum = createComponent(async ($$result, $$props, $$slots) => {
 const $$file$b = "/Users/zp/Sites/DIGITIAMO/wc-playground/src/pages/spectrum.astro";
 const $$url$b = "/spectrum";
 
-const _page3 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
-    __proto__: null,
-    default: $$Spectrum,
-    file: $$file$b,
-    url: $$url$b
+const _page5 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+  __proto__: null,
+  default: $$Spectrum,
+  file: $$file$b,
+  url: $$url$b
 }, Symbol.toStringTag, { value: 'Module' }));
 
 async function getPlanets() {
@@ -441,13 +606,13 @@ async function getPlanet(slug) {
     return results
 }
 
-const _page12 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
-    __proto__: null,
-    getPlanet,
-    getPlanets
+const _page13 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+  __proto__: null,
+  getPlanet,
+  getPlanets
 }, Symbol.toStringTag, { value: 'Module' }));
 
-const $$Astro$c = createAstro();
+const $$Astro$c = createAstro("https://wc-lit-playground.netlify.app/");
 const $$Index$2 = createComponent(async ($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro$c, $$props, $$slots);
   Astro2.self = $$Index$2;
@@ -476,14 +641,14 @@ const $$Index$2 = createComponent(async ($$result, $$props, $$slots) => {
 const $$file$a = "/Users/zp/Sites/DIGITIAMO/wc-playground/src/pages/planets/index.astro";
 const $$url$a = "/planets";
 
-const _page4 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
-    __proto__: null,
-    default: $$Index$2,
-    file: $$file$a,
-    url: $$url$a
+const _page6 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+  __proto__: null,
+  default: $$Index$2,
+  file: $$file$a,
+  url: $$url$a
 }, Symbol.toStringTag, { value: 'Module' }));
 
-const $$Astro$b = createAstro();
+const $$Astro$b = createAstro("https://wc-lit-playground.netlify.app/");
 const $$id = createComponent(async ($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro$b, $$props, $$slots);
   Astro2.self = $$id;
@@ -520,23 +685,23 @@ const $$id = createComponent(async ($$result, $$props, $$slots) => {
 const $$file$9 = "/Users/zp/Sites/DIGITIAMO/wc-playground/src/pages/planets/[id].astro";
 const $$url$9 = "/planets/[id]";
 
-const _page5 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
-    __proto__: null,
-    default: $$id,
-    file: $$file$9,
-    url: $$url$9
+const _page7 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+  __proto__: null,
+  default: $$id,
+  file: $$file$9,
+  url: $$url$9
 }, Symbol.toStringTag, { value: 'Module' }));
 
 var __freeze = Object.freeze;
 var __defProp = Object.defineProperty;
 var __template = (cooked, raw) => __freeze(__defProp(cooked, "raw", { value: __freeze(raw || cooked.slice()) }));
 var _a;
-const $$Astro$a = createAstro();
+const $$Astro$a = createAstro("https://wc-lit-playground.netlify.app/");
 const $$slug = createComponent(async ($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro$a, $$props, $$slots);
   Astro2.self = $$slug;
   const { slug } = Astro2.params;
-  const posts = await Astro2.glob(/* #__PURE__ */ Object.assign({"../../markdown/testing/component-test.md": () => import('../component-test.6fd0d245.mjs'),"../../markdown/testing/concepts.md": () => import('../concepts.f09ad083.mjs'),"../../markdown/testing/end-to-end.md": () => import('../end-to-end.2e16c59f.mjs'),"../../markdown/testing/intro-to-cypress.md": () => import('../intro-to-cypress.780ed681.mjs'),"../../markdown/testing/intro.md": () => import('../intro.3da75edc.mjs'),"../../markdown/testing/testing-react-components-cypress.md": () => import('../testing-react-components-cypress.c83f729b.mjs'),"../../markdown/testing/testing-react-components-react-testing-library.md": () => import('../testing-react-components-react-testing-library.b0534919.mjs'),"../../markdown/testing/testing-vue-components-cypress.md": () => import('../testing-vue-components-cypress.6f02ca8c.mjs'),"../../markdown/testing/testing-vue-components-vue-testing-library.md": () => import('../testing-vue-components-vue-testing-library.8aa57fb3.mjs'),"../../markdown/testing/types-of-testing.md": () => import('../types-of-testing.4f16571b.mjs'),"../../markdown/testing/unit-testing-with-jest.md": () => import('../unit-testing-with-jest.57f7ccd4.mjs')}), () => "../../markdown/testing/*.md");
+  const posts = await Astro2.glob(/* #__PURE__ */ Object.assign({"../../markdown/testing/component-test.md": () => import('../component-test.97a1c034.mjs'),"../../markdown/testing/concepts.md": () => import('../concepts.4d2850c6.mjs'),"../../markdown/testing/end-to-end.md": () => import('../end-to-end.86bf106b.mjs'),"../../markdown/testing/intro-to-cypress.md": () => import('../intro-to-cypress.da8fdff2.mjs'),"../../markdown/testing/intro.md": () => import('../intro.bc44a5af.mjs'),"../../markdown/testing/testing-react-components-cypress.md": () => import('../testing-react-components-cypress.c6247714.mjs'),"../../markdown/testing/testing-react-components-react-testing-library.md": () => import('../testing-react-components-react-testing-library.8d8b83f3.mjs'),"../../markdown/testing/testing-vue-components-cypress.md": () => import('../testing-vue-components-cypress.8f6ba812.mjs'),"../../markdown/testing/testing-vue-components-vue-testing-library.md": () => import('../testing-vue-components-vue-testing-library.817883d4.mjs'),"../../markdown/testing/types-of-testing.md": () => import('../types-of-testing.d47b85c5.mjs'),"../../markdown/testing/unit-testing-with-jest.md": () => import('../unit-testing-with-jest.78975c8f.mjs')}), () => "../../markdown/testing/*.md");
   const post = posts.find(
     (post2) => post2.file.split("/").pop().slice(0, -3) === slug
   );
@@ -550,14 +715,14 @@ const $$slug = createComponent(async ($$result, $$props, $$slots) => {
 const $$file$8 = "/Users/zp/Sites/DIGITIAMO/wc-playground/src/pages/testing/[slug].astro";
 const $$url$8 = "/testing/[slug]";
 
-const _page7 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
-    __proto__: null,
-    default: $$slug,
-    file: $$file$8,
-    url: $$url$8
+const _page9 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+  __proto__: null,
+  default: $$slug,
+  file: $$file$8,
+  url: $$url$8
 }, Symbol.toStringTag, { value: 'Module' }));
 
-const Task$2 = ({
+const Task$1 = ({
   task,
   styles,
   updateTask,
@@ -565,7 +730,7 @@ const Task$2 = ({
   deleteTask
 }) => {
   return /* @__PURE__ */ jsxs("div", {
-    className: "flex items-center w-full p-2 m-2 mt-0 border-solid border-slate-900 border-2 rounded-xl",
+    className: "cursor-pointer group flex items-center w-full p-2 m-2 mt-0 border-b hover:bg-red-400 hover:text-black hover:border-black",
     children: [/* @__PURE__ */ jsxs("div", {
       className: "flex align-center grow",
       children: [/* @__PURE__ */ jsx("input", {
@@ -574,26 +739,26 @@ const Task$2 = ({
         checked: task.completed,
         onChange: () => updateTask(task._id)
       }), /* @__PURE__ */ jsx("p", {
-        className: task.completed ? "grow px-2 line-through text-slate-800" : "grow px-2 text-slate-900",
+        className: task.completed ? "grow px-2 line-through text-red-300 group-hover:text-black" : "grow px-2 text-red-400 group-hover:text-gray-800",
         children: task.task
       })]
     }), /* @__PURE__ */ jsxs("div", {
       className: "flex",
       children: [/* @__PURE__ */ jsx("button", {
         onClick: () => editTask(task._id),
-        className: "outline-none bg-transparent text-black text-xl cursor-pointer px-2",
+        className: "outline-none bg-transparent text-slate-100 group-hover:text-black text-xl cursor-pointer px-2",
         children: "✎"
       }), /* @__PURE__ */ jsx("button", {
         onClick: () => deleteTask(task._id),
-        className: "outline-none bg-transparent text-black text-xl cursor-pointer px-2",
+        className: "outline-none bg-transparent text-slate-100 group-hover:text-black text-xl cursor-pointer px-2",
         children: "✖"
       })]
     })]
   });
 };
-__astro_tag_component__(Task$2, "@astrojs/react");
+__astro_tag_component__(Task$1, "@astrojs/react");
 
-const Form$1 = ({
+const Form = ({
   task,
   styles,
   addTask,
@@ -606,7 +771,7 @@ const Form$1 = ({
     },
     className: "flex w-full items-center h-10 mb-5",
     children: [/* @__PURE__ */ jsx("input", {
-      className: "pl-2 grow outline-0 rounded-tl rounded-bl border-solid border-2 border-slate-800 text-slate-800",
+      className: "pl-2 grow outline-0 text-slate-800",
       style: {
         height: "inherit"
       },
@@ -616,7 +781,7 @@ const Form$1 = ({
       value: task.task
     }), /* @__PURE__ */ jsx("button", {
       type: "submit",
-      className: "text-xl font-bold cursor-pointer w-24 bg-slate-600 text-white rounded-tr rounded-br border-solid border-2 border-slate-900",
+      className: "text-xl font-bold cursor-pointer w-24 bg-red-400 hover:bg-red-500 text-black",
       style: {
         height: "inherit"
       },
@@ -624,10 +789,10 @@ const Form$1 = ({
     })]
   });
 };
-__astro_tag_component__(Form$1, "@astrojs/react");
+__astro_tag_component__(Form, "@astrojs/react");
 
 const base$4 = "http://localhost:3000/api";
-const url$4 = base$4 + "/tasks/tasks";
+const url$5 = base$4 + "/tasks";
 function ReactTasks(props) {
   const [tasks, setTasks] = useState(props.tasks);
   const [task, setTask] = useState({
@@ -648,7 +813,7 @@ function ReactTasks(props) {
       if (task._id) {
         const {
           data
-        } = await axios.post(url$4 + "/" + task._id + ".json", {
+        } = await axios.post(url$5 + "/tasks/" + task._id + ".json", {
           task: task.task
         });
         const originalTasks = [...tasks];
@@ -661,10 +826,13 @@ function ReactTasks(props) {
       } else {
         const {
           data
-        } = await axios.post(url$4 + ".json", {
+        } = await axios.post(url$5 + "/tasks.json", {
           task: task.task
         });
-        setTasks((prev) => [...prev, data.data]);
+        console.log(data);
+        const insertedId = data.data.insertedId;
+        task._id = insertedId;
+        setTasks((prev) => [...prev, task]);
         setTask({
           task: ""
         });
@@ -683,7 +851,7 @@ function ReactTasks(props) {
       const index = originalTasks.findIndex((t) => t._id === id);
       const {
         data
-      } = await axios.post(url$4 + "/" + id + ".json", {
+      } = await axios.post(url$5 + "/" + id + ".json", {
         completed: !originalTasks[index].completed
       });
       originalTasks[index] = data.data;
@@ -696,24 +864,24 @@ function ReactTasks(props) {
     try {
       const {
         data
-      } = await axios.delete(url$4 + "/" + id + ".json");
+      } = await axios.delete(url$5 + "/" + id + ".json");
       setTasks((prev) => prev.filter((task2) => task2._id !== id));
     } catch (error) {
       console.log(error);
     }
   };
   return /* @__PURE__ */ jsxs("div", {
-    className: "flex flex-col w-full items-center justify-center bg-slate-700 rounded-xl",
+    className: "flex flex-col w-full  justify-center bg-black  rounded-xl",
     children: [/* @__PURE__ */ jsx("h1", {
       className: "text-3xl text-slate-100 m-2",
       children: "Yess, another TodoList :( "
     }), /* @__PURE__ */ jsxs("div", {
-      className: "flex flex-col w-full items-center md:max-w-xl p-2 rounded-xl bg-slate-400 box-border mb-5",
-      children: [/* @__PURE__ */ jsx(Form$1, {
+      className: "flex flex-col w-full items-center  p-2 rounded-xl box-border mb-5",
+      children: [/* @__PURE__ */ jsx(Form, {
         task,
         addTask,
         handleChange
-      }), tasks.map((task2) => /* @__PURE__ */ jsx(Task$2, {
+      }), tasks.map((task2) => /* @__PURE__ */ jsx(Task$1, {
         task: task2,
         updateTask,
         editTask,
@@ -727,150 +895,62 @@ function ReactTasks(props) {
 }
 __astro_tag_component__(ReactTasks, "@astrojs/react");
 
-const $$Astro$9 = createAstro();
+const $$Astro$9 = createAstro("https://wc-lit-playground.netlify.app/");
 const $$Index$1 = createComponent(async ($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro$9, $$props, $$slots);
   Astro2.self = $$Index$1;
+  const session = await getSession(Astro2.request);
+  if (!session?.user) {
+    return Astro2.redirect("/please-login");
+  }
   let tasks = [];
   try {
-    const response = await fetch("http://localhost:3000/api/tasks/tasks.json");
+    const base = "production" === "development" ? "http://localhost:3000" : "https://wc-lit-playground.netlify.app/";
+    const response = await fetch(base + "/api/tasks/tasks.json");
     const data = await response.json();
     tasks = data.documents;
   } catch (error) {
     console.log(error);
   }
-  return renderTemplate`${renderComponent($$result, "Layout", $$Layout, { "title": "React Task List", "class": "astro-ENZ3LIWP" }, { "main": ($$result2) => renderTemplate`${maybeRenderHead($$result2)}<main class="max-w-4xl relative grow pt-20 astro-ENZ3LIWP">
-		<h1 class="astro-ENZ3LIWP">React Task List</h1>
-        ${renderComponent($$result2, "ReactTasks", ReactTasks, { "client:load": true, "tasks": tasks, "client:component-hydration": "load", "client:component-path": "/Users/zp/Sites/DIGITIAMO/wc-playground/src/components/react/tasks/Tasks", "client:component-export": "default", "class": "astro-ENZ3LIWP" })}
+  return renderTemplate`${renderComponent($$result, "Layout", $$Layout, { "title": "React Task List" }, { "main": ($$result2) => renderTemplate`${maybeRenderHead($$result2)}<main class="max-w-4xl relative grow pt-20">
+		<h1 class="text-red-400 text-3xl mb-2">React Task List</h1>
+        ${renderComponent($$result2, "ReactTasks", ReactTasks, { "client:load": true, "tasks": tasks, "client:component-hydration": "load", "client:component-path": "/Users/zp/Sites/DIGITIAMO/wc-playground/src/components/react/tasks/Tasks", "client:component-export": "default" })}
 	</main>` })}`;
 }, "/Users/zp/Sites/DIGITIAMO/wc-playground/src/pages/tasks/index.astro");
 
 const $$file$7 = "/Users/zp/Sites/DIGITIAMO/wc-playground/src/pages/tasks/index.astro";
 const $$url$7 = "/tasks";
 
-const _page8 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
-    __proto__: null,
-    default: $$Index$1,
-    file: $$file$7,
-    url: $$url$7
+const _page10 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+  __proto__: null,
+  default: $$Index$1,
+  file: $$file$7,
+  url: $$url$7
 }, Symbol.toStringTag, { value: 'Module' }));
 
-const $$Astro$8 = createAstro();
+const $$Astro$8 = createAstro("https://wc-lit-playground.netlify.app/");
 const $$TasksLayout = createComponent(async ($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro$8, $$props, $$slots);
   Astro2.self = $$TasksLayout;
-  return renderTemplate`${maybeRenderHead($$result)}<div${addAttribute("flex flex-col w-full items-center justify-center bg-slate-700 rounded-xl", "class")}>
+  return renderTemplate`${maybeRenderHead($$result)}<div${addAttribute("flex flex-col w-full  justify-center bg-black  rounded-xl", "class")}>
     <h1${addAttribute("text-3xl text-slate-100 m-2", "class")}>Yess, another TodoList :( </h1>
-    <div${addAttribute("flex flex-col w-full items-center md:max-w-xl p-2 rounded-xl bg-slate-400 box-border mb-5", "class")}>
+    <div${addAttribute("flex flex-col w-full items-center  p-2 rounded-xl box-border mb-5", "class")}>
         ${renderSlot($$result, $$slots["default"])}
     </div>
 </div>`;
 }, "/Users/zp/Sites/DIGITIAMO/wc-playground/src/layouts/TasksLayout.astro");
 
-function noop() { }
-function run(fn) {
-    return fn();
-}
-function blank_object() {
-    return Object.create(null);
-}
-function run_all(fns) {
-    fns.forEach(run);
-}
-function subscribe(store, ...callbacks) {
-    if (store == null) {
-        return noop;
-    }
-    const unsub = store.subscribe(...callbacks);
-    return unsub.unsubscribe ? () => unsub.unsubscribe() : unsub;
-}
-
-let current_component;
-function set_current_component(component) {
-    current_component = component;
-}
-const ATTR_REGEX = /[&"]/g;
-const CONTENT_REGEX = /[&<]/g;
-/**
- * Note: this method is performance sensitive and has been optimized
- * https://github.com/sveltejs/svelte/pull/5701
- */
-function escape(value, is_attr = false) {
-    const str = String(value);
-    const pattern = is_attr ? ATTR_REGEX : CONTENT_REGEX;
-    pattern.lastIndex = 0;
-    let escaped = '';
-    let last = 0;
-    while (pattern.test(str)) {
-        const i = pattern.lastIndex - 1;
-        const ch = str[i];
-        escaped += str.substring(last, i) + (ch === '&' ? '&amp;' : (ch === '"' ? '&quot;' : '&lt;'));
-        last = i + 1;
-    }
-    return escaped + str.substring(last);
-}
-function validate_component(component, name) {
-    if (!component || !component.$$render) {
-        if (name === 'svelte:component')
-            name += ' this={...}';
-        throw new Error(`<${name}> is not a valid SSR component. You may need to review your build config to ensure that dependencies are compiled, rather than imported as pre-compiled modules. Otherwise you may need to fix a <${name}>.`);
-    }
-    return component;
-}
-let on_destroy;
-function create_ssr_component(fn) {
-    function $$render(result, props, bindings, slots, context) {
-        const parent_component = current_component;
-        const $$ = {
-            on_destroy,
-            context: new Map(context || (parent_component ? parent_component.$$.context : [])),
-            // these will be immediately discarded
-            on_mount: [],
-            before_update: [],
-            after_update: [],
-            callbacks: blank_object()
-        };
-        set_current_component({ $$ });
-        const html = fn(result, props, bindings, slots);
-        set_current_component(parent_component);
-        return html;
-    }
-    return {
-        render: (props = {}, { $$slots = {}, context = new Map() } = {}) => {
-            on_destroy = [];
-            const result = { title: '', head: '', css: new Set() };
-            const html = $$render(result, props, {}, $$slots, context);
-            run_all(on_destroy);
-            return {
-                html,
-                css: {
-                    code: Array.from(result.css).map(css => css.code).join('\n'),
-                    map: null // TODO
-                },
-                head: result.title + result.head
-            };
-        },
-        $$render
-    };
-}
-function add_attribute(name, value, boolean) {
-    if (value == null || (boolean && !value))
-        return '';
-    const assignment = (boolean && value === true) ? '' : `="${escape(value, true)}"`;
-    return ` ${name}${assignment}`;
-}
-
 const base$3 = "http://localhost:3000/api";
-const url$3 = base$3 + '/tasks';
+const url$4 = base$3 + '/tasks';
 const addTask = async (task) => {
     try {
         if (task._id) {
-            const { data } = await axios.post(url$3 + "/" + task._id + '.json', {
+            const { data } = await axios.post(url$4 + "/" + task._id + '.json', {
                 task: task.task,
             });
             return data
         } else {
-            const { data } = await axios.post(url$3 + "/tasks.json", {
+            const { data } = await axios.post(url$4 + "/tasks.json", {
                 task: task.task,
             });
             return data
@@ -882,10 +962,10 @@ const addTask = async (task) => {
 };
 
 const base$2 = "http://localhost:3000/api";
-const url$2 = base$2 + '/tasks';
+const url$3 = base$2 + '/tasks';
 const updateTask = async (id, completed) => {
     try {
-        const { data } = await axios.post(url$2 + "/" + id + ".json", {
+        const { data } = await axios.post(url$3 + "/" + id + ".json", {
             completed: !completed,
         });
         return data
@@ -895,10 +975,10 @@ const updateTask = async (id, completed) => {
 };
 
 const base$1 = "http://localhost:3000/api";
-const url$1 = base$1 + '/tasks';
+const url$2 = base$1 + '/tasks';
 const deleteTask = async (id) => {
     try {
-        await axios.delete(url$1 + "/" + id + ".json");
+        await axios.delete(url$2 + "/" + id + ".json");
         return id
     } catch (error) {
         console.log(error);
@@ -906,10 +986,10 @@ const deleteTask = async (id) => {
 };
 
 const base = "http://localhost:3000/api";
-const url = base + '/tasks';
+const url$1 = base + '/tasks';
 const loadTasks = async () => {
     try {
-        const { data } = await axios.get(url +'/tasks.json');
+        const { data } = await axios.get(url$1 +'/tasks.json');
         return data
     } catch (error) {
         console.log(error);
@@ -1028,135 +1108,6 @@ action(
     } 
 );
 
-/* src/components/svelte/tasks/FormTextInput.svelte generated by Svelte v3.58.0 */
-
-const FormTextInput$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-	let $itemSelected, $$unsubscribe_itemSelected;
-	$$unsubscribe_itemSelected = subscribe(itemSelected, value => $itemSelected = value);
-
-	$$unsubscribe_itemSelected();
-	return `<input${add_attribute("class", 'pl-2 grow outline-0 rounded-tl rounded-bl border-solid border-2 border-slate-800 text-slate-800', 0)} style="height: inherit" type="text" placeholder="Task to be done..."${add_attribute("value", $itemSelected.task, 0)}>`;
-});
-
-/* src/components/svelte/tasks/Form.svelte generated by Svelte v3.58.0 */
-
-const Form = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-	let $itemSelected, $$unsubscribe_itemSelected;
-	$$unsubscribe_itemSelected = subscribe(itemSelected, value => $itemSelected = value);
-	let { tasks } = $$props;
-
-	if ($$props.tasks === void 0 && $$bindings.tasks && tasks !== void 0) $$bindings.tasks(tasks);
-	$$unsubscribe_itemSelected();
-
-	return `<form class="flex w-full items-center h-10 mb-5">${validate_component(FormTextInput$1, "FormTextInput").$$render($$result, {}, {}, {})}
-    <button type="submit" class="text-xl font-bold cursor-pointer w-24 bg-slate-600 text-white rounded-tr rounded-br border-solid border-2 border-slate-900" style="height: inherit">${escape($itemSelected._id ? "Update" : "Add")}</button></form>`;
-});
-
-const _sfc_main$1 = {
-  __name: 'Task',
-  props: {
-  task: Object
-},
-  setup(__props, { expose }) {
-  expose();
-
-const props = __props;
-
-
-
-const item = ref(props.task);
-// state handled on client
-const toggleComplete = async () => {
-    try {
-        await updateTaskItem({
-            _id:item.value._id, 
-            completed:item.value.completed
-        });
-        item.value = taskItems.get()[item.value._id];
-        
-    } catch (error) {
-        console.log(error);
-    }
-};
-// state handled on server
-const handleDelete = async () => {
-    await deleteTaskItem(item.value._id);
-    window.location.reload();
-};
-// state handled on client, have to find something "smarter..."
-const handleSelect = () => {
-    selectTaskItem(item.value._id);
-    item.value = itemSelected.get();
-};
-
-const __returned__ = { props, item, toggleComplete, handleDelete, handleSelect, ref, get itemSelected() { return itemSelected }, get taskItems() { return taskItems }, get selectTaskItem() { return selectTaskItem }, get updateTaskItem() { return updateTaskItem }, get deleteTaskItem() { return deleteTaskItem } };
-Object.defineProperty(__returned__, '__isScriptSetup', { enumerable: false, value: true });
-return __returned__
-}
-
-};
-
-function _sfc_ssrRender$1(_ctx, _push, _parent, _attrs, $props, $setup, $data, $options) {
-  _push(`<div${
-    ssrRenderAttrs(mergeProps({ class: "flex items-center w-full p-2 m-2 mt-0 border-solid border-slate-900 border-2 rounded-xl" }, _attrs))
-  }><div class="flex align-center grow"><input type="checkbox" class="cursor-pointer text-xl outline-0 px-2"${
-    (ssrIncludeBooleanAttr($setup.item.completed)) ? " checked" : ""
-  }><p class="${
-    ssrRenderClass($setup.item.completed 
-                ? 'grow px-2 line-through text-slate-800'
-                : 'grow px-2 text-slate-900')
-  }">${
-    ssrInterpolate($props.task.task)
-  }</p></div><div class="flex"><button class="outline-none bg-transparent text-black text-xl cursor-pointer px-2"> ✎ </button><button class="outline-none bg-transparent text-black text-xl cursor-pointer px-2"> ✖ </button></div></div>`);
-}
-const _sfc_setup$1 = _sfc_main$1.setup;
-_sfc_main$1.setup = (props, ctx) => {
-  const ssrContext = useSSRContext()
-  ;(ssrContext.modules || (ssrContext.modules = new Set())).add("src/components/vue/tasks/Task.vue");
-  return _sfc_setup$1 ? _sfc_setup$1(props, ctx) : undefined
-};
-const Task$1 = /*#__PURE__*/_export_sfc(_sfc_main$1, [['ssrRender',_sfc_ssrRender$1]]);
-
-const $$Astro$7 = createAstro();
-const $$NoTasks = createComponent(async ($$result, $$props, $$slots) => {
-  const Astro2 = $$result.createAstro($$Astro$7, $$props, $$slots);
-  Astro2.self = $$NoTasks;
-  return renderTemplate`${maybeRenderHead($$result)}<h2${addAttribute("flex items-center justify-center capitalize rounded-xl bg-slate-300 text-slate-800 text-2xl p-4", "class")}>
-    No tasks
-</h2>`;
-}, "/Users/zp/Sites/DIGITIAMO/wc-playground/src/components/NoTasks.astro");
-
-const $$Astro$6 = createAstro();
-const $$MultiFrameworkSsrTasks = createComponent(async ($$result, $$props, $$slots) => {
-  const Astro2 = $$result.createAstro($$Astro$6, $$props, $$slots);
-  Astro2.self = $$MultiFrameworkSsrTasks;
-  let tasks = [];
-  try {
-    const response = await fetch("http://localhost:3000/api/tasks/tasks.json");
-    const data = await response.json();
-    tasks = data.documents;
-    console.log(tasks);
-  } catch (error) {
-    console.log(error);
-  }
-  return renderTemplate`${renderComponent($$result, "Layout", $$Layout, { "title": "Ssr Task List", "class": "astro-P6HUAIOB" }, { "main": ($$result2) => renderTemplate`${maybeRenderHead($$result2)}<main class="max-w-4xl relative grow pt-20 astro-P6HUAIOB">
-		<h1 class="astro-P6HUAIOB">Ssr Task List</h1>
-		${renderComponent($$result2, "TasksLayout", $$TasksLayout, { "class": "astro-P6HUAIOB" }, { "default": ($$result3) => renderTemplate`
-			${renderComponent($$result3, "Form", Form, { "tasks": tasks, "client:idle": true, "client:component-hydration": "idle", "client:component-path": "/Users/zp/Sites/DIGITIAMO/wc-playground/src/components/svelte/tasks/Form.svelte", "client:component-export": "default", "class": "astro-P6HUAIOB" })}
-			${tasks.map((task) => renderTemplate`${renderComponent($$result3, "Task", Task$1, { "task": task, "client:load": true, "client:component-hydration": "load", "client:component-path": "/Users/zp/Sites/DIGITIAMO/wc-playground/src/components/vue/tasks/Task.vue", "client:component-export": "default", "class": "astro-P6HUAIOB" })}`)}${tasks.length === 0 && renderTemplate`${renderComponent($$result3, "NoTasks", $$NoTasks, { "class": "astro-P6HUAIOB" })}`}` })}
-	</main>` })}`;
-}, "/Users/zp/Sites/DIGITIAMO/wc-playground/src/pages/tasks/multi-framework-ssr-tasks.astro");
-
-const $$file$6 = "/Users/zp/Sites/DIGITIAMO/wc-playground/src/pages/tasks/multi-framework-ssr-tasks.astro";
-const $$url$6 = "/tasks/multi-framework-ssr-tasks";
-
-const _page9 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
-    __proto__: null,
-    default: $$MultiFrameworkSsrTasks,
-    file: $$file$6,
-    url: $$url$6
-}, Symbol.toStringTag, { value: 'Module' }));
-
 const FormTextInput = () => {
   const $itemSelected = useStore(itemSelected);
   const handleChange = ({
@@ -1174,7 +1125,7 @@ const FormTextInput = () => {
     }
   };
   return /* @__PURE__ */ jsx("input", {
-    className: "pl-2 grow outline-0 rounded-tl rounded-bl border-solid border-2 border-slate-800 text-slate-800",
+    className: "pl-2 grow outline-0 text-slate-800",
     style: {
       height: "inherit"
     },
@@ -1210,7 +1161,7 @@ const FormRedo = ({
     className: "flex w-full items-center h-10 mb-5",
     children: [/* @__PURE__ */ jsx(FormTextInput, {}), /* @__PURE__ */ jsx("button", {
       type: "submit",
-      className: "text-xl font-bold cursor-pointer w-24 bg-slate-600 text-white rounded-tr rounded-br border-solid border-2 border-slate-900",
+      className: "text-xl font-bold cursor-pointer w-24 bg-red-400 hover:bg-red-500 text-black",
       style: {
         height: "inherit"
       },
@@ -1243,7 +1194,7 @@ const TaskRedo = (props) => {
     setTask(itemSelected.get());
   };
   return /* @__PURE__ */ jsxs("div", {
-    className: "flex items-center w-full p-2 m-2 mt-0 border-solid border-slate-900 border-2 rounded-xl",
+    className: "cursor-pointer group flex items-center w-full p-2 m-2 mt-0 border-b hover:bg-red-400 hover:text-black hover:border-black",
     children: [/* @__PURE__ */ jsxs("div", {
       className: "flex align-center grow",
       children: [/* @__PURE__ */ jsx("input", {
@@ -1252,18 +1203,18 @@ const TaskRedo = (props) => {
         checked: task.completed,
         onChange: toggleComplete
       }), /* @__PURE__ */ jsx("p", {
-        className: task.completed ? "grow px-2 line-through text-slate-800" : "grow px-2 text-slate-900",
+        className: task.completed ? "grow px-2 line-through text-red-300 group-hover:text-black" : "grow px-2 text-red-400 group-hover:text-gray-800",
         children: task.task
       })]
     }), /* @__PURE__ */ jsxs("div", {
       className: "flex",
       children: [/* @__PURE__ */ jsx("button", {
         onClick: handleSelect,
-        className: "outline-none bg-transparent text-black text-xl cursor-pointer px-2",
+        className: "outline-none bg-transparent text-slate-100 group-hover:text-black text-xl cursor-pointer px-2",
         children: "✎"
       }), /* @__PURE__ */ jsx("button", {
         onClick: handleDelete,
-        className: "outline-none bg-transparent text-black text-xl cursor-pointer px-2",
+        className: "outline-none bg-transparent text-slate-100 group-hover:text-black text-xl cursor-pointer px-2",
         children: "✖"
       })]
     })]
@@ -1271,42 +1222,48 @@ const TaskRedo = (props) => {
 };
 __astro_tag_component__(TaskRedo, "@astrojs/react");
 
-const $$Astro$5 = createAstro();
+const $$Astro$7 = createAstro("https://wc-lit-playground.netlify.app/");
+const $$NoTasks = createComponent(async ($$result, $$props, $$slots) => {
+  const Astro2 = $$result.createAstro($$Astro$7, $$props, $$slots);
+  Astro2.self = $$NoTasks;
+  return renderTemplate`${maybeRenderHead($$result)}<h2${addAttribute("flex items-center justify-center capitalize rounded-xl bg-slate-300 text-slate-800 text-2xl p-4", "class")}>
+    No tasks
+</h2>`;
+}, "/Users/zp/Sites/DIGITIAMO/wc-playground/src/components/NoTasks.astro");
+
+const $$Astro$6 = createAstro("https://wc-lit-playground.netlify.app/");
 const $$SplittedTasksSsrReact = createComponent(async ($$result, $$props, $$slots) => {
-  const Astro2 = $$result.createAstro($$Astro$5, $$props, $$slots);
+  const Astro2 = $$result.createAstro($$Astro$6, $$props, $$slots);
   Astro2.self = $$SplittedTasksSsrReact;
+  const session = await getSession(Astro2.request);
+  if (!session?.user) {
+    return Astro2.redirect("/please-login");
+  }
   let tasks = [];
-  let url = location.protocol + "//" + location.hostname;
-  console.log("location");
-  console.log(location);
-  console.log("url");
-  console.log(url);
-  console.log("env");
-  console.log((Object.assign({"PUBLIC_API_BASE":"http://localhost:3000/api","BASE_URL":"\"/\"","MODE":"production","DEV":false,"PROD":true,"SSR":true,"SITE":undefined,"ASSETS_PREFIX":undefined},{})));
-  url += ":3000";
   try {
-    const response = await fetch(url + "/api/tasks/tasks.json");
+    const base = "production" === "development" ? "http://localhost:3000" : "https://wc-lit-playground.netlify.app/";
+    const response = await fetch(base + "/api/tasks/tasks.json");
     const data = await response.json();
     tasks = data.documents;
   } catch (error) {
     console.log(error);
   }
   return renderTemplate`${renderComponent($$result, "Layout", $$Layout, { "title": "Ssr Task List", "class": "astro-JJMTFIXG" }, { "main": ($$result2) => renderTemplate`${maybeRenderHead($$result2)}<main class="max-w-4xl relative grow pt-20 astro-JJMTFIXG">
-		<h1 class="astro-JJMTFIXG">Ssr Task List</h1>
+		<h1 class="text-red-400 text-3xl mb-2 astro-JJMTFIXG">Ssr Task List</h1>
 		${renderComponent($$result2, "TasksLayout", $$TasksLayout, { "class": "astro-JJMTFIXG" }, { "default": ($$result3) => renderTemplate`
 			${renderComponent($$result3, "FormRedo", FormRedo, { "tasks": tasks, "client:idle": true, "client:component-hydration": "idle", "client:component-path": "/Users/zp/Sites/DIGITIAMO/wc-playground/src/components/react/tasks/FormRedo", "client:component-export": "default", "class": "astro-JJMTFIXG" })}
 			${tasks.map((task) => renderTemplate`${renderComponent($$result3, "TaskRedo", TaskRedo, { "task": task, "client:load": true, "client:component-hydration": "load", "client:component-path": "/Users/zp/Sites/DIGITIAMO/wc-playground/src/components/react/tasks/TaskRedo", "client:component-export": "default", "class": "astro-JJMTFIXG" })}`)}${tasks.length === 0 && renderTemplate`${renderComponent($$result3, "NoTasks", $$NoTasks, { "class": "astro-JJMTFIXG" })}`}` })}
 	</main>` })}`;
 }, "/Users/zp/Sites/DIGITIAMO/wc-playground/src/pages/tasks/splitted-tasks-ssr-react.astro");
 
-const $$file$5 = "/Users/zp/Sites/DIGITIAMO/wc-playground/src/pages/tasks/splitted-tasks-ssr-react.astro";
-const $$url$5 = "/tasks/splitted-tasks-ssr-react";
+const $$file$6 = "/Users/zp/Sites/DIGITIAMO/wc-playground/src/pages/tasks/splitted-tasks-ssr-react.astro";
+const $$url$6 = "/tasks/splitted-tasks-ssr-react";
 
-const _page10 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
-    __proto__: null,
-    default: $$SplittedTasksSsrReact,
-    file: $$file$5,
-    url: $$url$5
+const _page11 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+  __proto__: null,
+  default: $$SplittedTasksSsrReact,
+  file: $$file$6,
+  url: $$url$6
 }, Symbol.toStringTag, { value: 'Module' }));
 
 function ReactTasksRedo({
@@ -1360,22 +1317,22 @@ function ReactTasksRedo({
     }
   };
   return /* @__PURE__ */ jsxs("div", {
-    className: "flex flex-col w-full items-center justify-center bg-slate-700 rounded-xl",
+    className: "flex flex-col w-full  justify-center bg-black  rounded-xl",
     children: [/* @__PURE__ */ jsx("h1", {
       className: "text-3xl text-slate-100 m-2",
       children: "Yess, another TodoList :( "
     }), /* @__PURE__ */ jsxs("div", {
-      className: "flex flex-col w-full items-center md:max-w-xl p-2 rounded-xl bg-slate-400 box-border mb-5",
-      children: [/* @__PURE__ */ jsx(Form$1, {
+      className: "flex flex-col w-full items-center  p-2 rounded-xl box-border mb-5",
+      children: [/* @__PURE__ */ jsx(Form, {
         task: $itemSelected,
         addTask,
         handleChange
-      }), Object.keys($taskItems).length < tasks.length ? tasks.map((task) => /* @__PURE__ */ jsx(Task$2, {
+      }), Object.keys($taskItems).length < tasks.length ? tasks.map((task) => /* @__PURE__ */ jsx(Task$1, {
         task,
         updateTask,
         editTask,
         deleteTask
-      }, task._id)) : Object.values($taskItems).map((task) => /* @__PURE__ */ jsx(Task$2, {
+      }, task._id)) : Object.values($taskItems).map((task) => /* @__PURE__ */ jsx(Task$1, {
         task,
         updateTask,
         editTask,
@@ -1389,13 +1346,18 @@ function ReactTasksRedo({
 }
 __astro_tag_component__(ReactTasksRedo, "@astrojs/react");
 
-const $$Astro$4 = createAstro();
+const $$Astro$5 = createAstro("https://wc-lit-playground.netlify.app/");
 const $$Redotasksreact = createComponent(async ($$result, $$props, $$slots) => {
-  const Astro2 = $$result.createAstro($$Astro$4, $$props, $$slots);
+  const Astro2 = $$result.createAstro($$Astro$5, $$props, $$slots);
   Astro2.self = $$Redotasksreact;
+  const session = await getSession(Astro2.request);
+  if (!session?.user) {
+    return Astro2.redirect("/please-login");
+  }
   let tasks;
   try {
-    const response = await fetch("http://localhost:3000/api/tasks/tasks.json");
+    const base = "production" === "development" ? "http://localhost:3000" : "https://wc-lit-playground.netlify.app/";
+    const response = await fetch(base + "/api/tasks/tasks.json");
     const data = await response.json();
     tasks = data.documents;
   } catch (error) {
@@ -1407,14 +1369,14 @@ const $$Redotasksreact = createComponent(async ($$result, $$props, $$slots) => {
 	</main>` })}`;
 }, "/Users/zp/Sites/DIGITIAMO/wc-playground/src/pages/tasks/redotasksreact.astro");
 
-const $$file$4 = "/Users/zp/Sites/DIGITIAMO/wc-playground/src/pages/tasks/redotasksreact.astro";
-const $$url$4 = "/tasks/redotasksreact";
+const $$file$5 = "/Users/zp/Sites/DIGITIAMO/wc-playground/src/pages/tasks/redotasksreact.astro";
+const $$url$5 = "/tasks/redotasksreact";
 
-const _page11 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
-    __proto__: null,
-    default: $$Redotasksreact,
-    file: $$file$4,
-    url: $$url$4
+const _page12 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+  __proto__: null,
+  default: $$Redotasksreact,
+  file: $$file$5,
+  url: $$url$5
 }, Symbol.toStringTag, { value: 'Module' }));
 
 const headers$1 = {
@@ -1515,10 +1477,10 @@ async function post$1({ params, request }) {
 	});
 }
 
-const _page13 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
-    __proto__: null,
-    get: get$1,
-    post: post$1
+const _page14 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+  __proto__: null,
+  get: get$1,
+  post: post$1
 }, Symbol.toStringTag, { value: 'Module' }));
 
 mongoose.set('strictQuery', true);
@@ -1664,11 +1626,11 @@ async function del({ params, request }) {
 	}
 }
 
-const _page14 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
-    __proto__: null,
-    del,
-    get,
-    post
+const _page15 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+  __proto__: null,
+  del,
+  get,
+  post
 }, Symbol.toStringTag, { value: 'Module' }));
 
 const tagName = 'my-element';
@@ -1721,13 +1683,13 @@ class MyButton extends LitElement {
 }
 customElements.define('my-button', MyButton);
 
-const $$Astro$3 = createAstro();
+const $$Astro$4 = createAstro("https://wc-lit-playground.netlify.app/");
 const $$Index = createComponent(async ($$result, $$props, $$slots) => {
-  const Astro2 = $$result.createAstro($$Astro$3, $$props, $$slots);
+  const Astro2 = $$result.createAstro($$Astro$4, $$props, $$slots);
   Astro2.self = $$Index;
-  let posts = await Astro2.glob(/* #__PURE__ */ Object.assign({"../../markdown/lit.md": () => import('../lit.6f2fd5c1.mjs')}), () => "../../markdown/lit.md");
+  let posts = await Astro2.glob(/* #__PURE__ */ Object.assign({"../../markdown/lit.md": () => import('../lit.c8f066d4.mjs')}), () => "../../markdown/lit.md");
   let post = posts[0];
-  let markdownUseless = await Astro2.glob(/* #__PURE__ */ Object.assign({"../../markdown/useless-button.md": () => import('../useless-button.34bf9ca6.mjs')}), () => "../../markdown/useless-button.md");
+  let markdownUseless = await Astro2.glob(/* #__PURE__ */ Object.assign({"../../markdown/useless-button.md": () => import('../useless-button.c54f2f95.mjs')}), () => "../../markdown/useless-button.md");
   let useless = markdownUseless[0];
   return renderTemplate`${renderComponent($$result, "Layout", $$Layout, { "title": "Lit Elements", "class": "astro-TODWRKOZ" }, { "aside": ($$result2) => renderTemplate`${maybeRenderHead($$result2)}<aside class="mt-24 grow astro-TODWRKOZ">
         ${renderComponent($$result2, "LitNavigation", $$LitNavigation, { "class": "astro-TODWRKOZ" })}
@@ -1747,17 +1709,138 @@ const $$Index = createComponent(async ($$result, $$props, $$slots) => {
     </main>` })}`;
 }, "/Users/zp/Sites/DIGITIAMO/wc-playground/src/pages/lit/index.astro");
 
-const $$file$3 = "/Users/zp/Sites/DIGITIAMO/wc-playground/src/pages/lit/index.astro";
-const $$url$3 = "/lit";
+const $$file$4 = "/Users/zp/Sites/DIGITIAMO/wc-playground/src/pages/lit/index.astro";
+const $$url$4 = "/lit";
 
-const _page15 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
-    __proto__: null,
-    default: $$Index,
-    file: $$file$3,
-    url: $$url$3
+const _page16 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+  __proto__: null,
+  default: $$Index,
+  file: $$file$4,
+  url: $$url$4
 }, Symbol.toStringTag, { value: 'Module' }));
 
-const $$Astro$2 = createAstro();
+class MyHeader extends LitElement {
+  static properties = {
+        text: {attribute: true},
+  };
+
+  static styles = css`
+    header {
+      font-size:2em;  
+      border-bottom: solid 1px whitesmoke;
+      margin-mottom:1em;
+      
+      top:0;
+      width:100%;
+    }
+  `;
+  render() {
+    return html`
+      <header>${this.text}</header>
+    `;
+  }
+}
+customElements.define('my-header', MyHeader);
+
+class MyArticle extends LitElement {
+  static properties = {
+        text: {attribute: true},
+  }; 
+  static styles = css`
+    article {
+      font-size:1.5em;  
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      min-height:calc(100vh - 80px);
+    }
+  `; 
+  render() {
+    return html`
+      <article>${this.text}</article>
+    `;
+  }
+}
+customElements.define('my-article', MyArticle);
+
+class MyFooter extends LitElement {
+    static styles = css`
+        footer {
+            padding:1em 2em;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            justify-content:center;
+            color:black;
+            background-color:whitesmoke;
+        }
+    `;   
+    render() {
+        return html`
+        <footer>footer</footer>
+        `;
+    }
+}
+customElements.define('my-footer', MyFooter);
+
+//import './my-header.js';
+//import './my-article.js';
+//import './my-footer.js';
+
+class MyPage extends LitElement {
+  static properties = {
+    article: {attribute: true},
+  };
+
+  constructor() {
+    super();
+    this.article = {};
+  }
+  
+  render() {
+    return html`
+       <my-header 
+        text="${this.article.title}">
+       </my-header>
+       <my-article 
+        text="${this.article.text}">
+       </my-article>
+       <my-footer></my-footer> 
+    `;
+  }
+}
+customElements.define('my-page', MyPage);
+
+const $$Astro$3 = createAstro("https://wc-lit-playground.netlify.app/");
+const $$ComposingTemplates = createComponent(async ($$result, $$props, $$slots) => {
+  const Astro2 = $$result.createAstro($$Astro$3, $$props, $$slots);
+  Astro2.self = $$ComposingTemplates;
+  let posts = await Astro2.glob(/* #__PURE__ */ Object.assign({"../../markdown/lit-composing-templates.md": () => import('../lit-composing-templates.cf640f8c.mjs')}), () => "../../markdown/lit-composing-templates.md");
+  let post = posts[0];
+  return renderTemplate`${renderComponent($$result, "Layout", $$Layout, { "title": "Composing templates" }, { "aside": ($$result2) => renderTemplate`${maybeRenderHead($$result2)}<aside class="mt-24 grow">
+        ${renderComponent($$result2, "LitNavigation", $$LitNavigation, {}, { "default": ($$result3) => renderTemplate`
+            ${renderComponent($$result3, "MyPage", MyPage, { "client:load": true, "article": {
+    title: "Composing Templates",
+    text: "Some awesome text."
+  }, "client:component-hydration": "load", "client:component-path": "/Users/zp/Sites/DIGITIAMO/wc-playground/src/components/wc/lit/my-page", "client:component-export": "MyPage" })}
+        ` })}
+    </aside>`, "main": ($$result2) => renderTemplate`<main class="max-w-4xl relative grow pt-20">
+        ${renderComponent($$result2, "post.Content", post.Content, {})}
+	</main>` })}`;
+}, "/Users/zp/Sites/DIGITIAMO/wc-playground/src/pages/lit/composing-templates.astro");
+
+const $$file$3 = "/Users/zp/Sites/DIGITIAMO/wc-playground/src/pages/lit/composing-templates.astro";
+const $$url$3 = "/lit/composing-templates";
+
+const _page17 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+  __proto__: null,
+  default: $$ComposingTemplates,
+  file: $$file$3,
+  url: $$url$3
+}, Symbol.toStringTag, { value: 'Module' }));
+
+const $$Astro$2 = createAstro("https://wc-lit-playground.netlify.app/");
 const $$LitBasic = createComponent(async ($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro$2, $$props, $$slots);
   Astro2.self = $$LitBasic;
@@ -1775,11 +1858,11 @@ const $$LitBasic = createComponent(async ($$result, $$props, $$slots) => {
 const $$file$2 = "/Users/zp/Sites/DIGITIAMO/wc-playground/src/pages/lit/lit-basic.astro";
 const $$url$2 = "/lit/lit-basic";
 
-const _page17 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
-    __proto__: null,
-    default: $$LitBasic,
-    file: $$file$2,
-    url: $$url$2
+const _page18 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+  __proto__: null,
+  default: $$LitBasic,
+  file: $$file$2,
+  url: $$url$2
 }, Symbol.toStringTag, { value: 'Module' }));
 
 function App$1() {
@@ -1861,11 +1944,11 @@ const PlanetDetail = ({
 };
 __astro_tag_component__(App$1, "@astrojs/react");
 
-const $$Astro$1 = createAstro();
+const $$Astro$1 = createAstro("https://wc-lit-playground.netlify.app/");
 const $$LitReact = createComponent(async ($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro$1, $$props, $$slots);
   Astro2.self = $$LitReact;
-  let posts = await Astro2.glob(/* #__PURE__ */ Object.assign({"../../markdown/lit-react.md": () => import('../lit-react.19aef8d6.mjs')}), () => "../../markdown/lit-react.md");
+  let posts = await Astro2.glob(/* #__PURE__ */ Object.assign({"../../markdown/lit-react.md": () => import('../lit-react.d72d597b.mjs')}), () => "../../markdown/lit-react.md");
   let post = posts[0];
   return renderTemplate`${renderComponent($$result, "Layout", $$Layout, { "title": "Lit React", "class": "astro-4EPOLKAZ" }, { "aside": ($$result2) => renderTemplate`${maybeRenderHead($$result2)}<aside class="mt-24 grow astro-4EPOLKAZ">
         ${renderComponent($$result2, "LitNavigation", $$LitNavigation, { "class": "astro-4EPOLKAZ" })}
@@ -1881,23 +1964,24 @@ const $$LitReact = createComponent(async ($$result, $$props, $$slots) => {
 const $$file$1 = "/Users/zp/Sites/DIGITIAMO/wc-playground/src/pages/lit/lit-react.astro";
 const $$url$1 = "/lit/lit-react";
 
-const _page18 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
-    __proto__: null,
-    default: $$LitReact,
-    file: $$file$1,
-    url: $$url$1
+const _page19 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+  __proto__: null,
+  default: $$LitReact,
+  file: $$file$1,
+  url: $$url$1
 }, Symbol.toStringTag, { value: 'Module' }));
+
+const url = "https://jsonplaceholder.typicode.com/users/";
+
 
 const _sfc_main = {
   __name: 'App',
-  setup(__props, { expose }) {
-  expose();
+  setup(__props, { expose: __expose }) {
+  __expose();
 
 const state = reactive({
   users : []
 });
-
-const url = "https://jsonplaceholder.typicode.com/users/";
 
 const loadUsers = async () => {
   if(state.users.length === 0){
@@ -1933,11 +2017,11 @@ _sfc_main.setup = (props, ctx) => {
 };
 const App = /*#__PURE__*/_export_sfc(_sfc_main, [['ssrRender',_sfc_ssrRender],['__scopeId',"data-v-6bbc60c9"]]);
 
-const $$Astro = createAstro();
+const $$Astro = createAstro("https://wc-lit-playground.netlify.app/");
 const $$LitVue = createComponent(async ($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro, $$props, $$slots);
   Astro2.self = $$LitVue;
-  let posts = await Astro2.glob(/* #__PURE__ */ Object.assign({"../../markdown/lit-vue.md": () => import('../lit-vue.110e50a0.mjs')}), () => "../../markdown/lit-vue.md");
+  let posts = await Astro2.glob(/* #__PURE__ */ Object.assign({"../../markdown/lit-vue.md": () => import('../lit-vue.47fa831a.mjs')}), () => "../../markdown/lit-vue.md");
   let post = posts[0];
   return renderTemplate`${renderComponent($$result, "Layout", $$Layout, { "title": "Lit vue" }, { "aside": ($$result2) => renderTemplate`${maybeRenderHead($$result2)}<aside class="mt-24 grow">
         ${renderComponent($$result2, "LitNavigation", $$LitNavigation, {})}
@@ -1952,11 +2036,11 @@ const $$LitVue = createComponent(async ($$result, $$props, $$slots) => {
 const $$file = "/Users/zp/Sites/DIGITIAMO/wc-playground/src/pages/lit/lit-vue.astro";
 const $$url = "/lit/lit-vue";
 
-const _page19 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
-    __proto__: null,
-    default: $$LitVue,
-    file: $$file,
-    url: $$url
+const _page20 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+  __proto__: null,
+  default: $$LitVue,
+  file: $$file,
+  url: $$url
 }, Symbol.toStringTag, { value: 'Module' }));
 
-export { $$Header as $, _export_sfc as _, $$MetaFrameworksNavigation as a, $$LitNavigation as b, $$TestingNavigation as c, $$Layout as d, _page1 as e, _page2 as f, _page3 as g, _page4 as h, _page5 as i, _page7 as j, _page8 as k, _page9 as l, _page10 as m, _page11 as n, _page12 as o, _page13 as p, _page14 as q, _page15 as r, _page17 as s, _page18 as t, _page19 as u };
+export { $$Header as $, _export_sfc as _, $$MetaFrameworksNavigation as a, $$LitNavigation as b, $$TestingNavigation as c, $$Layout as d, _page0 as e, _page2 as f, _page3 as g, _page4 as h, _page5 as i, _page6 as j, _page7 as k, _page9 as l, _page10 as m, _page11 as n, _page12 as o, _page13 as p, _page14 as q, _page15 as r, _page16 as s, _page17 as t, _page18 as u, _page19 as v, _page20 as w };

@@ -1,3 +1,4 @@
+import "sass"
 // https://astro.build/config
 import { defineConfig } from 'astro/config';
 import lit from '@astrojs/lit';
