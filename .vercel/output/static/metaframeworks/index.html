@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width">
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+		<meta name="generator" content="Astro v2.4.5">
+		<title>What is a JavaScript Meta-framework?</title>
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito&display=swap">
+	<link rel="stylesheet" href="/_astro/index.121b964f.css" />
+<link rel="stylesheet" href="/_astro/index.f60006fc.css" />
+<link rel="stylesheet" href="/_astro/composing-templates.822f5af5.css" /><script type="module" src="/_astro/hoisted.2621464a.js"></script>
+<script>/** @license Copyright 2020 Google LLC (BSD-3-Clause) */
+/** Bundled JS generated from "@astrojs/lit/client-shim.js" */
+var N = Object.defineProperty;
+var i = (t, n) => () => (t && (n = t((t = 0))), n);
+var b = (t, n) => {
+	for (var a in n) N(t, a, { get: n[a], enumerable: !0 });
+};
+function s() {
+	if (d === void 0) {
+		let t = document.createElement('div');
+		(t.innerHTML = '<div><template shadowroot="open"></template></div>'), (d = !!t.firstElementChild.shadowRoot);
+	}
+	return d;
+}
+var d,
+	m = i(() => {});
+var p,
+	c,
+	f,
+	u = i(() => {
+		(p = (t) => t.parentElement === null), (c = (t) => t.tagName === 'TEMPLATE'), (f = (t) => t.nodeType === Node.ELEMENT_NODE);
+	});
+var h,
+	E = i(() => {
+		m();
+		u();
+		h = (t) => {
+			var n;
+			if (s()) return;
+			let a = [],
+				e = t.firstElementChild;
+			for (; e !== t && e !== null; )
+				if (c(e)) a.push(e), (e = e.content);
+				else if (e.firstElementChild !== null) e = e.firstElementChild;
+				else if (f(e) && e.nextElementSibling !== null) e = e.nextElementSibling;
+				else {
+					let o;
+					for (; e !== t && e !== null; )
+						if (p(e)) {
+							o = a.pop();
+							let r = o.parentElement,
+								l = o.getAttribute('shadowroot');
+							if (((e = o), l === 'open' || l === 'closed')) {
+								let y = o.hasAttribute('shadowrootdelegatesfocus');
+								try {
+									r.attachShadow({ mode: l, delegatesFocus: y }).append(o.content);
+								} catch {}
+							} else o = void 0;
+						} else {
+							let r = e.nextElementSibling;
+							if (r != null) {
+								(e = r), o !== void 0 && o.parentElement.removeChild(o);
+								break;
+							}
+							let l = (n = e.parentElement) === null || n === void 0 ? void 0 : n.nextElementSibling;
+							if (l != null) {
+								(e = l), o !== void 0 && o.parentElement.removeChild(o);
+								break;
+							}
+							(e = e.parentElement), o !== void 0 && (o.parentElement.removeChild(o), (o = void 0));
+						}
+				}
+		};
+	});
+var w = i(() => {
+	E();
+});
+var v = {};
+b(v, { hasNativeDeclarativeShadowRoots: () => s, hydrateShadowRoots: () => h });
+var S = i(() => {
+	m();
+	w();
+});
+async function g() {
+	let { hydrateShadowRoots: t } = await Promise.resolve().then(() => (S(), v));
+	t(document.body);
+}
+var x = new DOMParser().parseFromString('<p><template shadowroot="open"></template></p>', 'text/html', { includeShadowRoots: !0 }).querySelector('p');
+(!x || !x.shadowRoot) && g();
+</script></head>
+	<body>
+		<header id="site-header" class="fixed w-full bg-black bg-opacity-50 z-10 top-0 flex justify-between">
+    <nav>
+        <div class="hamburger">
+    <span class="line"></span>
+    <span class="line"></span>
+    <span class="line"></span>
+</div>
+        
+<div class="nav-links astro-PUX6A34N">
+    <ul class="astro-PUX6A34N">
+        <li class="astro-PUX6A34N">
+                <a href="/" class="astro-PUX6A34N">
+                    Home
+                </a>
+                
+            </li><li class="astro-PUX6A34N">
+                <a href="/metaframeworks" class="astro-PUX6A34N">
+                    Metaframeworks
+                </a>
+                
+            </li><li class="astro-PUX6A34N">
+                <a href="/web-components" class="astro-PUX6A34N">
+                    Web components
+                </a>
+                
+            </li><li class="astro-PUX6A34N">
+                <a href="/testing" class="astro-PUX6A34N">
+                    Testing
+                </a>
+                
+            </li><li class="astro-PUX6A34N">
+                <a href="/planets" class="astro-PUX6A34N">
+                    Sw Planets
+                </a>
+                
+            </li><li class="astro-PUX6A34N">
+                <a href="/tasks" class="astro-PUX6A34N">
+                    Tasklist
+                </a>
+                <div class="sublinks astro-PUX6A34N">
+                            <ul class="astro-PUX6A34N">
+                                <li class="astro-PUX6A34N">
+                                    <a href="/tasks/redotasksreact" class="astro-PUX6A34N">Redo react</a>
+                                </li><li class="astro-PUX6A34N">
+                                    <a href="/tasks/splitted-tasks-ssr-react" class="astro-PUX6A34N">Ssr react</a>
+                                </li>
+                                
+                            </ul>
+                        </div>
+            </li>
+    </ul>
+</div>
+    </nav>
+    <div class="flex flex-col items-end pr-4 justify-center">
+        <button class="signin-7bu7o7gmy text-red-300 hover:text-red-400">
+	
+                login
+            
+</button>
+
+
+
+<script>(function(){const provider = "github";
+const options = undefined;
+const authParams = undefined;
+const key = "7bu7o7gmy";
+
+	document
+		.querySelector(`.signin-${key}`)
+		?.addEventListener('click', () => signIn(provider, options, authParams))
+})();</script>
+    </div>
+</header>
+		<div class="container">
+			<main class="max-w-4xl relative grow pt-20">
+        <h1 id="what-is-a-javascript-meta-framework">What is a JavaScript Meta-framework?</h1>
+<p><em><strong>All this text has been copied from <a href="https://www.ombulabs.com/blog/javascript/what-is-a-javascript-meta-framework.html">What is a JavaScript Meta-framework</a></strong></em> by <em>Lewis D’Avanzo</em></p>
+<p>What most developers call JavaScript frameworks (React, Vue, Svelte, etc) can more accurately be thought of as UI Libraries. While they can make writing the front end of websites and apps simpler, they have no opinions at all regarding what goes on further back in the stack. They don’t even have prescribed methods of organizing the folders and files in your projects.</p>
+<p>Full-fledged frameworks (think Rails or Django, Laravel or Symphony), on the other hand, will usually be very opinionated and expect the code to be organized in a certain way, with the hope that this will lead to shorter development time by getting rid of analysis paralysis and bikeshedding.</p>
+<p>Thankfully, there are libraries available to fill that role in the JavaScript ecosystem. Since most UI libraries are called “frameworks”, these more full-featured libraries have taken to calling themselves “meta-frameworks”.</p>
+<p>In a nutshell, they let JavaScript developers focus on the “what” and take care of most of the “how” for you.</p>
+<h2 id="do-i-need-a-meta-framework">“Do I need a Meta-framework?”</h2>
+<p>And the answer is every developer’s favorite – “it depends”.</p>
+<p>If you’re building a simple project with only a couple of pages, probably not. But, if you’re making a site or app with any kind of significant complexity, a meta-framework can help manage it by making many organizational decisions for you.</p>
+<p>If you can answer “yes” to any of the following questions, they may be the right tool for you:</p>
+<ul>
+<li>Are you building a full-stack application, but need some guidance beyond the front end?</li>
+<li>Is SEO important for your app?</li>
+<li>Can your app be built before deployment? (eg, a static site)</li>
+<li>Do you have non-trivial routing needs?</li>
+<li>Do you have performance needs that a single page application can’t meet?</li>
+<li>Do opinionated tools typically improve development velocity for you and your team? (eg, less time making arbitrary decisions means more time actually building things)</li>
+</ul>
+<h2 id="meta-frameworks-concepts--typical-features">Meta Frameworks Concepts &#x26; typical features</h2>
+<p>Even though most meta-frameworks differ from each other in various ways, there are certain key features that are similar between them. Below, I’ll go through a list of some of the things offered by the more popular ones.</p>
+<h2 id="static-site-generation-andor-server-side-rendering">Static-Site Generation and/or Server-Side Rendering</h2>
+<p>When you build a single page application (SPA), your HTML is not built in advance of a client request for your site. Instead, the server will send a mostly blank HTML file that looks something like this:</p>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #E1E4E8">&#x3C;!</span><span style="color: #85E89D">DOCTYPE</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">html</span><span style="color: #E1E4E8">></span></span>
+<span class="line"><span style="color: #E1E4E8">&#x3C;</span><span style="color: #85E89D">html</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">lang</span><span style="color: #E1E4E8">=</span><span style="color: #9ECBFF">"en"</span><span style="color: #E1E4E8">></span></span>
+<span class="line"><span style="color: #E1E4E8">  &#x3C;</span><span style="color: #85E89D">head</span><span style="color: #E1E4E8">></span></span>
+<span class="line"><span style="color: #E1E4E8">    </span><span style="color: #6A737D">&#x3C;!-- import your app bundle --></span></span>
+<span class="line"><span style="color: #E1E4E8">    &#x3C;</span><span style="color: #85E89D">script</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">src</span><span style="color: #E1E4E8">=</span><span style="color: #9ECBFF">"./my-js-bundle.js"</span><span style="color: #E1E4E8">>&#x3C;/</span><span style="color: #85E89D">script</span><span style="color: #E1E4E8">></span></span>
+<span class="line"><span style="color: #E1E4E8">  &#x3C;/</span><span style="color: #85E89D">head</span><span style="color: #E1E4E8">></span></span>
+<span class="line"><span style="color: #E1E4E8">  &#x3C;</span><span style="color: #85E89D">body</span><span style="color: #E1E4E8">></span></span>
+<span class="line"><span style="color: #E1E4E8">    </span><span style="color: #6A737D">&#x3C;!--</span></span>
+<span class="line"><span style="color: #6A737D">      the app bundle will have a reference to this element</span></span>
+<span class="line"><span style="color: #6A737D">      and insert the HTML into the DOM here</span></span>
+<span class="line"><span style="color: #6A737D">    --></span></span>
+<span class="line"><span style="color: #E1E4E8">    &#x3C;</span><span style="color: #85E89D">div</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">id</span><span style="color: #E1E4E8">=</span><span style="color: #9ECBFF">"root"</span><span style="color: #E1E4E8">></span></span>
+<span class="line"><span style="color: #E1E4E8">  &#x3C;/</span><span style="color: #85E89D">body</span><span style="color: #E1E4E8">></span></span>
+<span class="line"><span style="color: #E1E4E8">&#x3C;/</span><span style="color: #85E89D">html</span><span style="color: #E1E4E8">></span></span></code></pre>
+<p>This kind of website can be sub-optimal if SEO is important to your project. When search engines, like Google, index websites, their bots will look at the HTML served before the JavaScript loads, see a mostly blank page, and move on without correctly categorizing your app. (Google says that this is no longer the case for them, but not all bots will execute JavaScript when indexing).</p>
+<p>There are two common solutions this problem – Server-Side Rendering (SSR) and Static Site Generation (SSG). The one you choose will depend on the type of application you’re building.</p>
+<h2 id="ssr">SSR</h2>
+<p>If your app can change based on who visits (like apps where a user logs in), then you might want to go with a server-side rendered app. In this type of app, your pages are built on the server when they are requested, so they arrive at the client as fully-formed HTML files, instead of the mostly blank example above.</p>
+<h2 id="ssg">SSG</h2>
+<p>If your site will look the same to every visitor (ie, no dynamic content – something like a blog or portfolio) then a statically generated site might be the choice for you. In this kind of app, you write your code just like any other JavaScript project, but when you run your build command, the framework will generate a static HTML page for each route that you have defined. This way, you can cut down on the amount of data sent to the client and improve load times for your users.</p>
+<p>Speaking of defining routes, it should be noted that you don’t typically write server-specific code with meta-frameworks. Well, if we aren’t defining functions to handle routing, how do these frameworks figure it out for us?</p>
+<h2 id="hybrid-rendering">Hybrid rendering</h2>
+<p>@todo</p>
+<h2 id="routing">Routing</h2>
+<p>Traditional websites use server-side routing – the client sends a request to a server for a resource at some URL and the server responds with that resource. The important thing to note is that each page would typically involve a new request to the server.</p>
+<p>Modern, JavaScript-based sites will typically use what is called client-side routing. Instead of fetching one page per request, the initial request will fetch the data for every page of the site. Clicking on internal links will trigger a call to the browser’s History API (to change the URL) and then display the associated page. The thing to note here is that this does not involve a new request to the server. Like everything in programming this is a trade-off – you add some additional loading time up front in exchange for faster navigating between pages.</p>
+<p>Without a meta-framework, many JavaScript projects will use component-based routing. Consider this React example, using react-router:</p>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #F97583">import</span><span style="color: #E1E4E8"> { BrowserRouter, Routes, Route } </span><span style="color: #F97583">from</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">'react-router-dom'</span><span style="color: #E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #F97583">const</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">MyApp</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> () </span><span style="color: #F97583">=></span><span style="color: #E1E4E8"> {</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #F97583">return</span><span style="color: #E1E4E8"> (</span></span>
+<span class="line"><span style="color: #E1E4E8">    &#x3C;</span><span style="color: #79B8FF">BrowserRouter</span><span style="color: #E1E4E8">></span></span>
+<span class="line"><span style="color: #E1E4E8">      &#x3C;</span><span style="color: #79B8FF">Routes</span><span style="color: #E1E4E8">></span></span>
+<span class="line"><span style="color: #E1E4E8">        &#x3C;</span><span style="color: #79B8FF">Route</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">path</span><span style="color: #F97583">=</span><span style="color: #9ECBFF">'/'</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">element</span><span style="color: #F97583">=</span><span style="color: #E1E4E8">{&#x3C;</span><span style="color: #79B8FF">HomePage</span><span style="color: #E1E4E8"> />} /></span></span>
+<span class="line"><span style="color: #E1E4E8">        &#x3C;</span><span style="color: #79B8FF">Route</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">path</span><span style="color: #F97583">=</span><span style="color: #9ECBFF">'/about'</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">element</span><span style="color: #F97583">=</span><span style="color: #E1E4E8">{&#x3C;</span><span style="color: #79B8FF">AboutPage</span><span style="color: #E1E4E8"> />} /></span></span>
+<span class="line"><span style="color: #E1E4E8">        &#x3C;</span><span style="color: #79B8FF">Route</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">path</span><span style="color: #F97583">=</span><span style="color: #9ECBFF">'/contact'</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">element</span><span style="color: #F97583">=</span><span style="color: #E1E4E8">{&#x3C;</span><span style="color: #79B8FF">ContactPage</span><span style="color: #E1E4E8"> />} /></span></span>
+<span class="line"><span style="color: #E1E4E8">      &#x3C;/</span><span style="color: #79B8FF">Routes</span><span style="color: #E1E4E8">></span></span>
+<span class="line"><span style="color: #E1E4E8">    &#x3C;/</span><span style="color: #79B8FF">BrowserRouter</span><span style="color: #E1E4E8">></span></span>
+<span class="line"><span style="color: #E1E4E8">  );</span></span>
+<span class="line"><span style="color: #E1E4E8">};</span></span></code></pre>
+<p>These kinds of libraries have APIs that are easy to reason about and they get the job done. But they tend to be a little boilerplate-y and it’s another dependency that you have to manage.</p>
+<p>The popular trend with meta-frameworks right now is file-based routing. Instead of having a root file where you declare your routes using components, the structure of your folders and files will determine the routes in your site. They will typically live in a specially named folder (usually routes or pages) and have a structure that is something like this:</p>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #e1e4e8">    ──pages</span></span>
+<span class="line"><span style="color: #e1e4e8">    ├── about</span></span>
+<span class="line"><span style="color: #e1e4e8">    │   └── index.js</span></span>
+<span class="line"><span style="color: #e1e4e8">    ├── contact</span></span>
+<span class="line"><span style="color: #e1e4e8">    │   └── index.js</span></span>
+<span class="line"><span style="color: #e1e4e8">    └── index.js # the '/' path</span></span></code></pre>
+<p>Most meta-frameworks also support dynamic route names. For example, if you had a blog with a /posts route, you could create a file at <code>pages/posts/[id].js</code> (note: those are actual brackets in the file name, not a placeholder) and the framework will have some way to let you insert that parameter at build time which would render a URL, such as <a href="https://my-cool-blog/posts/1">https://my-cool-blog/posts/1</a>.</p>
+<p>This last point is a nice segue into another common feature of JS meta-frameworks…</p>
+<h2 id="data-fetching">Data Fetching</h2>
+<p>When you have a dynamic route, as in the example above, you might wonder how we fetch the data to let our framework know what post number it should display. In apps with server-side routing, you would have a function that handles requests to /posts/:id that would:</p>
+<ul>
+<li>parse the :id parameter</li>
+<li>fetch the correct resource</li>
+<li>send that resource back to the client</li>
+</ul>
+<p>But since many JS meta-frameworks use client-side routing, they’ll provide you with an API to handle fetch requests so that you can populate your site with data at buildtime (SSG) or runtime (SSR).</p>
+<p>Next.js, a React meta-framework, uses special functions in page components – getServerSideProps, getStaticPaths, or getStaticProps – where you place your logic to fetch external resources.</p>
+<p>This example, based on one from <a href="https://nextjs.org/docs/basic-features/data-fetching/get-server-side-props#using-getserversideprops-to-fetch-data-at-request-time">their docs</a>, shows how you’d fetch data when server-side rendering a page:</p>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #F97583">export</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">async</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">function</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">getServerSideProps</span><span style="color: #E1E4E8">() {</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #6A737D">// Fetch data from external API</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #F97583">const</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">res</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">await</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">fetch</span><span style="color: #E1E4E8">(</span><span style="color: #9ECBFF">`https://my-cms.com/data`</span><span style="color: #E1E4E8">);</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #F97583">const</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">data</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">await</span><span style="color: #E1E4E8"> res.</span><span style="color: #B392F0">json</span><span style="color: #E1E4E8">();</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #6A737D">// Pass data to the page via props</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #F97583">return</span><span style="color: #E1E4E8"> { props: { data } };</span></span>
+<span class="line"><span style="color: #E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #6A737D">// automatically available in your page component</span></span>
+<span class="line"><span style="color: #F97583">const</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">MyApp</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> ({ </span><span style="color: #FFAB70">data</span><span style="color: #E1E4E8"> }) </span><span style="color: #F97583">=></span><span style="color: #E1E4E8"> {</span><span style="color: #F97583">...</span><span style="color: #E1E4E8">};</span></span></code></pre>
+<p>Ok, so the meta-framework will handle routing and data fetching for us – awesome! But that still doesn’t explain how our sites are being served to users. The files in our routes/pages folders only define our UI and API logic. How are these files going to get to our users if we don’t have any server logic?</p>
+<h2 id="serverless-architecture">“Serverless” Architecture</h2>
+<p>In web frameworks like Rails or Django, we typically write the server logic that goes with our views. Modern meta-frameworks tend to focus on a newer style of architecture known as “Serverless” (in quotes because there’s still a server – it’s just someone elses and you don’t have to write it yourself). You may have also heard this style referred to as “JAMStack” Architecture (JavaScript, APIs, Markup).</p>
+<p>Either way, the main purpose of this style is for the developer to focus solely on what your app is serving to the client, not how. The meta-framework will include the necessary code when building to either handle the requests for you (based on how your <code>routes/pages</code> are organized) or serve a single page that uses client-side routing entirely.</p>
+<h2 id="additional-goodies">Additional Goodies</h2>
+<p>Each meta-framework typically provides extra features that attempt to make them stand out from the others.</p>
+<p>Next.js offers framework-specific components like <code>&#x3C;Image /></code>, which extends the native <code>&#x3C;img /></code> tag to include abstractions for lazy-loading and dynamic resizing.</p>
+<p>Nuxt.js uses Vue’s transition component to make custom transitions between pages a breeze.</p>
+<p>SvelteKit has the <code>sveltekit:prefetch</code> attribute for links – this tells the framework to fetch data in advance when a user hovers over a link that will need remote data.</p>
+<p>And this is just the tip of the iceberg – these meta-frameworks are adding improvements all the time.</p>
+<hr>
+<p>Okay that was a lot. Not enough ?</p>
+<h2 id="list-of-most-common-meta-frameworks">List of Most common Meta-frameworks</h2>
+<ul>
+<li><a href="https://svelte.dev/">Svelte</a> &#x26; <a href="https://kit.svelte.dev/">Svelte kit</a></li>
+<li><a href="https://reactjs.org/">React</a> &#x26; <a href="https://nextjs.org/">Next.js</a></li>
+<li><a href="https://reactjs.org/">React</a> &#x26; <a href="https://remix.run/">Remix</a></li>
+<li><a href="https://vuejs.org/">Vue</a> &#x26; <a href="https://nuxt.com/">Nuxt</a></li>
+</ul>
+<h2 id="the-new-generation-yess-already">The new generation (yess, already)</h2>
+<ul>
+<li><a href="https://www.solidjs.com/">Solid</a> &#x26; <a href="https://start.solidjs.com/getting-started/what-is-solidstart">Solid Start</a></li>
+<li><a href="https://astro.build/">Astro</a></li>
+<li><a href="https://qwik.builder.io/">Qwik</a></li>
+<li><a href="https://enhance.dev/docs/">Enhance</a></li>
+</ul>
+<h2 id="useful-links">Useful links</h2>
+<ul>
+<li>
+<p><a href="https://frontendmastery.com/posts/the-new-wave-of-javascript-web-frameworks/">The new wave of Javascript web frameworks</a>  (Make sense of the proliferation of new Javascript web frameworks. A deep dive into the problems at scale and the recent evolution of innovation)</p>
+</li>
+<li>
+<p><a href="https://microfrontend.dev/">Composable Decoupled Frontends aka microfrontends</a></p>
+</li>
+<li>
+<p><a href="https://dev.to/macdonst/series/21146">12 Days of Enhancing</a> (enhance meta framework)</p>
+</li>
+</ul>
+	</main>
+			<aside class="mt-24 grow">
+        <ul class="sticky top-20">
+    <li class="flex w-full bg-black"><a class="w-full p-1 text-red-400 hover:bg-red-400 hover:text-black" href="/metaframeworks#meta-frameworks-concepts--typical-features">Concepts</a></li><li class="flex w-full bg-black"><a class="w-full p-1 text-red-400 hover:bg-red-400 hover:text-black" href="/metaframeworks#static-site-generation-andor-server-side-rendering">Rendering</a></li><li class="flex w-full bg-black"><a class="w-full p-1 text-red-400 hover:bg-red-400 hover:text-black" href="/metaframeworks#ssr">SSR</a></li><li class="flex w-full bg-black"><a class="w-full p-1 text-red-400 hover:bg-red-400 hover:text-black" href="/metaframeworks#ssg">SSG</a></li><li class="flex w-full bg-black"><a class="w-full p-1 text-red-400 hover:bg-red-400 hover:text-black" href="/metaframeworks#hybrid-rendering">Hybrid Rendering</a></li><li class="flex w-full bg-black"><a class="w-full p-1 text-red-400 hover:bg-red-400 hover:text-black" href="/metaframeworks#routing">Routing</a></li><li class="flex w-full bg-black"><a class="w-full p-1 text-red-400 hover:bg-red-400 hover:text-black" href="/metaframeworks#data-fetching">Data Fetching</a></li><li class="flex w-full bg-black"><a class="w-full p-1 text-red-400 hover:bg-red-400 hover:text-black" href="/metaframeworks#list-of-most-common-meta-frameworks">Most common Meta frameworks</a></li><li class="flex w-full bg-black"><a class="w-full p-1 text-red-400 hover:bg-red-400 hover:text-black" href="/metaframeworks#the-new-generation-yess-already">Next Generation</a></li>
+    
+</ul>
+    </aside>
+		</div>
+		
+		
+	</body>
+</html>
+
+<script async>
+    const h1 = document.querySelector('main h1')
+    h1.classList.add('glitched')
+    h1.setAttribute('title', h1.textContent)
+    Array.from(document.querySelectorAll('main h2'))
+    .forEach(h2 => {
+        h2.classList.add('glitched')
+        h2.setAttribute('title', h2.textContent)
+    })
+</script>
