@@ -12,7 +12,7 @@ let wcTxt = wcTxts[0];
 
 let vanillaTxts = await Astro.glob('../markdown/vanilla-wc.md');
 let vanillaTxt = vanillaTxts[0];
-
+export const prerender = true;
 ---
 
 <Layout title="Web Components">

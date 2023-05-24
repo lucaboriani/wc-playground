@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width">
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+		<meta name="generator" content="Astro v2.5.5">
+		<title>Web Components</title>
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito&display=swap">
+	<link rel="stylesheet" href="/_astro/index.121b964f.css" />
+<link rel="stylesheet" href="/_astro/composing-templates.822f5af5.css" />
+<link rel="stylesheet" href="/_astro/web-components.6c9365bc.css" /><script type="module" src="/_astro/hoisted.1f9fd60d.js"></script>
+<script>/** @license Copyright 2020 Google LLC (BSD-3-Clause) */
+/** Bundled JS generated from "@astrojs/lit/client-shim.js" */
+var N = Object.defineProperty;
+var i = (t, n) => () => (t && (n = t((t = 0))), n);
+var b = (t, n) => {
+	for (var a in n) N(t, a, { get: n[a], enumerable: !0 });
+};
+function s() {
+	if (d === void 0) {
+		let t = document.createElement('div');
+		(t.innerHTML = '<div><template shadowroot="open" shadowrootmode="open"></template></div>'),
+			(d = !!t.firstElementChild.shadowRoot);
+	}
+	return d;
+}
+var d,
+	m = i(() => {});
+var p,
+	c,
+	f,
+	u = i(() => {
+		(p = (t) => t.parentElement === null),
+			(c = (t) => t.tagName === 'TEMPLATE'),
+			(f = (t) => t.nodeType === Node.ELEMENT_NODE);
+	});
+var h,
+	E = i(() => {
+		m();
+		u();
+		h = (t) => {
+			var n;
+			if (s()) return;
+			let a = [],
+				e = t.firstElementChild;
+			for (; e !== t && e !== null; )
+				if (c(e)) a.push(e), (e = e.content);
+				else if (e.firstElementChild !== null) e = e.firstElementChild;
+				else if (f(e) && e.nextElementSibling !== null) e = e.nextElementSibling;
+				else {
+					let o;
+					for (; e !== t && e !== null; )
+						if (p(e)) {
+							o = a.pop();
+							let r = o.parentElement,
+								l = o.getAttribute('shadowroot');
+							if (((e = o), l === 'open' || l === 'closed')) {
+								let y = o.hasAttribute('shadowrootdelegatesfocus');
+								try {
+									r.attachShadow({ mode: l, delegatesFocus: y }).append(o.content);
+								} catch {}
+							} else o = void 0;
+						} else {
+							let r = e.nextElementSibling;
+							if (r != null) {
+								(e = r), o !== void 0 && o.parentElement.removeChild(o);
+								break;
+							}
+							let l =
+								(n = e.parentElement) === null || n === void 0 ? void 0 : n.nextElementSibling;
+							if (l != null) {
+								(e = l), o !== void 0 && o.parentElement.removeChild(o);
+								break;
+							}
+							(e = e.parentElement), o !== void 0 && (o.parentElement.removeChild(o), (o = void 0));
+						}
+				}
+		};
+	});
+var w = i(() => {
+	E();
+});
+var v = {};
+b(v, { hasNativeDeclarativeShadowRoots: () => s, hydrateShadowRoots: () => h });
+var S = i(() => {
+	m();
+	w();
+});
+async function g() {
+	let { hydrateShadowRoots: t } = await Promise.resolve().then(() => (S(), v));
+	window.addEventListener('DOMContentLoaded', () => t(document.body), { once: true });
+}
+var x = new DOMParser()
+	.parseFromString(
+		'<p><template shadowroot="open" shadowrootmode="open"></template></p>',
+		'text/html',
+		{
+			includeShadowRoots: !0,
+		}
+	)
+	.querySelector('p');
+(!x || !x.shadowRoot) && g();
+</script></head>
+	<body>
+		<header id="site-header" class="fixed w-full bg-black bg-opacity-50 z-10 top-0 flex justify-between">
+    <nav>
+        <div class="hamburger">
+    <span class="line"></span>
+    <span class="line"></span>
+    <span class="line"></span>
+</div>
+        
+<div class="nav-links astro-PUX6A34N">
+    <ul class="astro-PUX6A34N">
+        <li class="astro-PUX6A34N">
+                <a href="/" class="astro-PUX6A34N">
+                    Home
+                </a>
+                
+            </li><li class="astro-PUX6A34N">
+                <a href="/metaframeworks" class="astro-PUX6A34N">
+                    Metaframeworks
+                </a>
+                
+            </li><li class="astro-PUX6A34N">
+                <a href="/web-components" class="astro-PUX6A34N">
+                    Web components
+                </a>
+                
+            </li><li class="astro-PUX6A34N">
+                <a href="/testing" class="astro-PUX6A34N">
+                    Testing
+                </a>
+                
+            </li><li class="astro-PUX6A34N">
+                <a href="/planets" class="astro-PUX6A34N">
+                    Sw Planets
+                </a>
+                
+            </li><li class="astro-PUX6A34N">
+                <a href="/tasks" class="astro-PUX6A34N">
+                    Tasklist
+                </a>
+                <div class="sublinks astro-PUX6A34N">
+                            <ul class="astro-PUX6A34N">
+                                <li class="astro-PUX6A34N">
+                                    <a href="/tasks/redotasksreact" class="astro-PUX6A34N">Redo react</a>
+                                </li><li class="astro-PUX6A34N">
+                                    <a href="/tasks/splitted-tasks-ssr-react" class="astro-PUX6A34N">Ssr react</a>
+                                </li>
+                                
+                            </ul>
+                        </div>
+            </li>
+    </ul>
+</div>
+    </nav>
+    <div class="flex flex-col items-end pr-4 justify-center">
+        <button class="signin-ke8gmfge5 text-red-300 hover:text-red-400">
+	
+                login
+            
+</button>
+
+
+
+<script>(function(){const provider = "github";
+const options = undefined;
+const authParams = undefined;
+const key = "ke8gmfge5";
+
+	document
+		.querySelector(`.signin-${key}`)
+		?.addEventListener('click', () => signIn(provider, options, authParams))
+})();</script>
+    </div>
+</header>
+		<div class="container">
+			<main class="max-w-4xl relative grow pt-20 astro-LSJJWIS5">
+        <h1 id="web-components">Web Components</h1>
+<p>Web Components is a suite of different technologies allowing you to create reusable custom elements — with their functionality encapsulated away from the rest of your code — and utilize them in your web apps.</p>
+<h2 id="concepts-and-usage">Concepts and usage</h2>
+<p>As developers, we all know that reusing code as much as possible is a good idea. This has traditionally not been so easy for custom markup structures — think of the complex HTML (and associated style and script) you’ve sometimes had to write to render custom UI controls, and how using them multiple times can turn your page into a mess if you are not careful.</p>
+<p>Web Components aims to solve such problems — it consists of three main technologies, which can be used together to create versatile custom elements with encapsulated functionality that can be reused wherever you like without fear of code collisions.</p>
+<ul>
+<li>
+<p>Custom elements: A set of JavaScript APIs that allow you to define custom elements and their behavior, which can then be used as desired in your user interface.</p>
+</li>
+<li>
+<p>Shadow DOM: A set of JavaScript APIs for attaching an encapsulated
+“shadow” DOM tree to an element — which is rendered separately from the main document DOM — and controlling associated functionality. In this way, you can keep an element’s features private, so they can be scripted and styled without the fear of collision with other parts of the document.</p>
+</li>
+<li>
+<p>HTML templates: The <code>&#x3C;template></code> and <code>&#x3C;slot></code> elements enable you to write markup templates that are not displayed in the rendered page. These can then be reused multiple times as the basis of a custom element’s structure.</p>
+</li>
+</ul>
+<p>The basic approach for implementing a web component generally looks something like this:</p>
+<ul>
+<li>
+<p>Create a class in which you specify your web component functionality, using the class syntax.</p>
+</li>
+<li>
+<p>Register your new custom element using the CustomElementRegistry.define() method, passing it the element name to be defined, the class or function in which its functionality is specified, and optionally, what element it inherits from.</p>
+</li>
+<li>
+<p>If required, attach a shadow DOM to the custom element using Element.attachShadow() method. Add child elements, event listeners, etc., to the shadow DOM using regular DOM methods.</p>
+</li>
+<li>
+<p>If required, define an HTML template using <code>&#x3C;template></code> and <code>&#x3C;slot></code>. Again use regular DOM methods to clone the template and attach it to your shadow DOM.</p>
+</li>
+</ul>
+<p>Use your custom element wherever you like on your page, just like you would any regular HTML element.</p>
+        <hr class="astro-LSJJWIS5">
+        This code:
+        <pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"></span>
+<span class="line"></span>
+<span class="line"><span style="color: #F97583">export</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">class</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">MyCounter</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">extends</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">HTMLElement</span><span style="color: #E1E4E8"> {</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #F97583">constructor</span><span style="color: #E1E4E8">() {</span></span>
+<span class="line"><span style="color: #E1E4E8">    </span><span style="color: #79B8FF">super</span><span style="color: #E1E4E8">();</span></span>
+<span class="line"><span style="color: #E1E4E8">    </span><span style="color: #79B8FF">this</span><span style="color: #E1E4E8">.count </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">0</span><span style="color: #E1E4E8">;</span></span>
+<span class="line"><span style="color: #E1E4E8">    </span></span>
+<span class="line"><span style="color: #E1E4E8">    </span><span style="color: #79B8FF">this</span><span style="color: #E1E4E8">.</span><span style="color: #B392F0">attachShadow</span><span style="color: #E1E4E8">({ mode: </span><span style="color: #9ECBFF">'open'</span><span style="color: #E1E4E8"> });</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #E1E4E8">    </span><span style="color: #F97583">const</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">container</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> document.</span><span style="color: #B392F0">createElement</span><span style="color: #E1E4E8">(</span><span style="color: #9ECBFF">'div'</span><span style="color: #E1E4E8">)</span></span>
+<span class="line"><span style="color: #E1E4E8">    container.className </span><span style="color: #F97583">=</span><span style="color: #9ECBFF">'container'</span></span>
+<span class="line"><span style="color: #E1E4E8">    </span><span style="color: #F97583">const</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">dec</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> document.</span><span style="color: #B392F0">createElement</span><span style="color: #E1E4E8">(</span><span style="color: #9ECBFF">'button'</span><span style="color: #E1E4E8">)</span></span>
+<span class="line"><span style="color: #E1E4E8">    dec.id </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">'dec'</span></span>
+<span class="line"><span style="color: #E1E4E8">    dec.textContent </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">'-'</span></span>
+<span class="line"><span style="color: #E1E4E8">    </span><span style="color: #F97583">const</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">span</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> document.</span><span style="color: #B392F0">createElement</span><span style="color: #E1E4E8">(</span><span style="color: #9ECBFF">'span'</span><span style="color: #E1E4E8">)</span></span>
+<span class="line"><span style="color: #E1E4E8">    span.id </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">'count'</span></span>
+<span class="line"><span style="color: #E1E4E8">    </span><span style="color: #F97583">const</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">inc</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> document.</span><span style="color: #B392F0">createElement</span><span style="color: #E1E4E8">(</span><span style="color: #9ECBFF">'button'</span><span style="color: #E1E4E8">)</span></span>
+<span class="line"><span style="color: #E1E4E8">    inc.id </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">'inc'</span></span>
+<span class="line"><span style="color: #E1E4E8">    inc.textContent</span><span style="color: #F97583">=</span><span style="color: #9ECBFF">"+"</span></span>
+<span class="line"><span style="color: #E1E4E8">    </span></span>
+<span class="line"><span style="color: #E1E4E8">    </span><span style="color: #F97583">const</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">style</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> document.</span><span style="color: #B392F0">createElement</span><span style="color: #E1E4E8">(</span><span style="color: #9ECBFF">'style'</span><span style="color: #E1E4E8">);</span></span>
+<span class="line"><span style="color: #E1E4E8">    </span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #E1E4E8">    style.textContent </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">`</span></span>
+<span class="line"><span style="color: #9ECBFF">        * {</span></span>
+<span class="line"><span style="color: #9ECBFF">          box-sizing:border-box;</span></span>
+<span class="line"><span style="color: #9ECBFF">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #9ECBFF">        span {</span></span>
+<span class="line"><span style="color: #9ECBFF">            width: 4rem;</span></span>
+<span class="line"><span style="color: #9ECBFF">            display: inline-block;</span></span>
+<span class="line"><span style="color: #9ECBFF">            text-align: center;</span></span>
+<span class="line"><span style="color: #9ECBFF">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #9ECBFF">        button {</span></span>
+<span class="line"><span style="color: #9ECBFF">          border: none;</span></span>
+<span class="line"><span style="color: #9ECBFF">          font-size: 2em;</span></span>
+<span class="line"><span style="color: #9ECBFF">          border-radius: 10px;</span></span>
+<span class="line"><span style="color: #9ECBFF">          background-color: #425b4d;</span></span>
+<span class="line"><span style="color: #9ECBFF">          color: white;</span></span>
+<span class="line"><span style="color: #9ECBFF">          display: flex;</span></span>
+<span class="line"><span style="color: #9ECBFF">          align-items: center;</span></span>
+<span class="line"><span style="color: #9ECBFF">          justify-content: center;</span></span>
+<span class="line"><span style="color: #9ECBFF">          padding: 0 0.5em;</span></span>
+<span class="line"><span style="color: #9ECBFF">          cursor:pointer;</span></span>
+<span class="line"><span style="color: #9ECBFF">        }</span></span>
+<span class="line"><span style="color: #9ECBFF">        .container {</span></span>
+<span class="line"><span style="color: #9ECBFF">          display:flex;</span></span>
+<span class="line"><span style="color: #9ECBFF">          align-items: center;</span></span>
+<span class="line"><span style="color: #9ECBFF">        }</span></span>
+<span class="line"><span style="color: #9ECBFF">    `</span><span style="color: #E1E4E8">;</span></span>
+<span class="line"><span style="color: #E1E4E8">    </span></span>
+<span class="line"><span style="color: #E1E4E8">    </span><span style="color: #79B8FF">this</span><span style="color: #E1E4E8">.shadowRoot.</span><span style="color: #B392F0">appendChild</span><span style="color: #E1E4E8">(style)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #E1E4E8">    container.</span><span style="color: #B392F0">appendChild</span><span style="color: #E1E4E8">(dec)</span></span>
+<span class="line"><span style="color: #E1E4E8">    container.</span><span style="color: #B392F0">appendChild</span><span style="color: #E1E4E8">(span)</span></span>
+<span class="line"><span style="color: #E1E4E8">    container.</span><span style="color: #B392F0">appendChild</span><span style="color: #E1E4E8">(inc)</span></span>
+<span class="line"><span style="color: #E1E4E8">    </span></span>
+<span class="line"><span style="color: #E1E4E8">    </span></span>
+<span class="line"><span style="color: #E1E4E8">    </span><span style="color: #79B8FF">this</span><span style="color: #E1E4E8">.shadowRoot.</span><span style="color: #B392F0">appendChild</span><span style="color: #E1E4E8">(container);</span></span>
+<span class="line"><span style="color: #E1E4E8">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #B392F0">connectedCallback</span><span style="color: #E1E4E8">() {</span></span>
+<span class="line"><span style="color: #E1E4E8">    </span><span style="color: #79B8FF">this</span><span style="color: #E1E4E8">.shadowRoot.</span><span style="color: #B392F0">getElementById</span><span style="color: #E1E4E8">(</span><span style="color: #9ECBFF">'inc'</span><span style="color: #E1E4E8">).</span><span style="color: #B392F0">onclick</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> () </span><span style="color: #F97583">=></span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">this</span><span style="color: #E1E4E8">.</span><span style="color: #B392F0">inc</span><span style="color: #E1E4E8">();</span></span>
+<span class="line"><span style="color: #E1E4E8">    </span><span style="color: #79B8FF">this</span><span style="color: #E1E4E8">.shadowRoot.</span><span style="color: #B392F0">getElementById</span><span style="color: #E1E4E8">(</span><span style="color: #9ECBFF">'dec'</span><span style="color: #E1E4E8">).</span><span style="color: #B392F0">onclick</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> () </span><span style="color: #F97583">=></span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">this</span><span style="color: #E1E4E8">.</span><span style="color: #B392F0">dec</span><span style="color: #E1E4E8">();</span></span>
+<span class="line"><span style="color: #E1E4E8">    </span><span style="color: #79B8FF">this</span><span style="color: #E1E4E8">.</span><span style="color: #B392F0">update</span><span style="color: #E1E4E8">(</span><span style="color: #79B8FF">this</span><span style="color: #E1E4E8">.count);</span></span>
+<span class="line"><span style="color: #E1E4E8">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #B392F0">inc</span><span style="color: #E1E4E8">() {</span></span>
+<span class="line"><span style="color: #E1E4E8">    </span><span style="color: #79B8FF">this</span><span style="color: #E1E4E8">.</span><span style="color: #B392F0">update</span><span style="color: #E1E4E8">(</span><span style="color: #F97583">++</span><span style="color: #79B8FF">this</span><span style="color: #E1E4E8">.count);</span></span>
+<span class="line"><span style="color: #E1E4E8">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #B392F0">dec</span><span style="color: #E1E4E8">() {</span></span>
+<span class="line"><span style="color: #E1E4E8">    </span><span style="color: #79B8FF">this</span><span style="color: #E1E4E8">.</span><span style="color: #B392F0">update</span><span style="color: #E1E4E8">(</span><span style="color: #F97583">--</span><span style="color: #79B8FF">this</span><span style="color: #E1E4E8">.count);</span></span>
+<span class="line"><span style="color: #E1E4E8">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #B392F0">update</span><span style="color: #E1E4E8">(</span><span style="color: #FFAB70">count</span><span style="color: #E1E4E8">) {</span></span>
+<span class="line"><span style="color: #E1E4E8">    </span><span style="color: #79B8FF">this</span><span style="color: #E1E4E8">.shadowRoot.</span><span style="color: #B392F0">getElementById</span><span style="color: #E1E4E8">(</span><span style="color: #9ECBFF">'count'</span><span style="color: #E1E4E8">).textContent </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> count;</span></span>
+<span class="line"><span style="color: #E1E4E8">  }</span></span>
+<span class="line"><span style="color: #E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #E1E4E8">customElements.</span><span style="color: #B392F0">define</span><span style="color: #E1E4E8">(</span><span style="color: #9ECBFF">'my-counter'</span><span style="color: #E1E4E8">, MyCounter);</span></span></code></pre>	
+        <span class="block my-4 astro-LSJJWIS5">produces:</span>
+        <div class="my-4 astro-LSJJWIS5">
+            <my-counter class="astro-LSJJWIS5"></my-counter>
+            
+                    
+        </div>
+        <h2 id="vanilla-web-component">Vanilla Web Component</h2>
+<p>I’m a big fan of vanilla js, everything you can do with js frameworks can, and actually <em>is accomplished</em> with it.</p>
+<p><em>Class definition</em></p>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #6A737D">// Create a class for the element</span></span>
+<span class="line"><span style="color: #F97583">export</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">class</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">ExpandingList</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">extends</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">HTMLElement</span><span style="color: #E1E4E8"> {</span></span>
+<span class="line"><span style="color: #E1E4E8">    </span><span style="color: #F97583">static</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">get</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">observedAttributes</span><span style="color: #E1E4E8">() {</span></span>
+<span class="line"><span style="color: #E1E4E8">      </span><span style="color: #F97583">return</span><span style="color: #E1E4E8"> [</span><span style="color: #9ECBFF">'elements'</span><span style="color: #E1E4E8">];</span></span>
+<span class="line"><span style="color: #E1E4E8">    }</span></span>
+<span class="line"><span style="color: #E1E4E8">    </span><span style="color: #F97583">constructor</span><span style="color: #E1E4E8">() {</span></span>
+<span class="line"><span style="color: #E1E4E8">      </span><span style="color: #79B8FF">super</span><span style="color: #E1E4E8">();</span></span>
+<span class="line"><span style="color: #E1E4E8">      </span><span style="color: #79B8FF">this</span><span style="color: #E1E4E8">._elements </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> []</span></span>
+<span class="line"><span style="color: #E1E4E8">       </span></span>
+<span class="line"><span style="color: #E1E4E8">    }</span></span>
+<span class="line"><span style="color: #E1E4E8">    </span><span style="color: #B392F0">initList</span><span style="color: #E1E4E8">(){</span></span>
+<span class="line"><span style="color: #E1E4E8">      </span><span style="color: #F97583">const</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">uls</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> Array.</span><span style="color: #B392F0">from</span><span style="color: #E1E4E8">(</span><span style="color: #79B8FF">this</span><span style="color: #E1E4E8">.shadowRoot.</span><span style="color: #B392F0">querySelectorAll</span><span style="color: #E1E4E8">(</span><span style="color: #9ECBFF">'ul'</span><span style="color: #E1E4E8">));</span></span>
+<span class="line"><span style="color: #E1E4E8">      </span><span style="color: #F97583">const</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">lis</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> Array.</span><span style="color: #B392F0">from</span><span style="color: #E1E4E8">(</span><span style="color: #79B8FF">this</span><span style="color: #E1E4E8">.shadowRoot.</span><span style="color: #B392F0">querySelectorAll</span><span style="color: #E1E4E8">(</span><span style="color: #9ECBFF">'li'</span><span style="color: #E1E4E8">));</span></span>
+<span class="line"><span style="color: #E1E4E8">      uls.</span><span style="color: #B392F0">forEach</span><span style="color: #E1E4E8">((</span><span style="color: #FFAB70">ul</span><span style="color: #E1E4E8">, </span><span style="color: #FFAB70">indx</span><span style="color: #E1E4E8">) </span><span style="color: #F97583">=></span><span style="color: #E1E4E8"> {</span></span>
+<span class="line"><span style="color: #E1E4E8">        </span><span style="color: #F97583">if</span><span style="color: #E1E4E8">(indx </span><span style="color: #F97583">!==</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">0</span><span style="color: #E1E4E8">)ul.style.display </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">'none'</span><span style="color: #E1E4E8">;</span></span>
+<span class="line"><span style="color: #E1E4E8">      });</span></span>
+<span class="line"><span style="color: #E1E4E8">      lis.</span><span style="color: #B392F0">forEach</span><span style="color: #E1E4E8">(</span><span style="color: #FFAB70">li</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=></span><span style="color: #E1E4E8"> {</span></span>
+<span class="line"><span style="color: #E1E4E8">        </span></span>
+<span class="line"><span style="color: #E1E4E8">        </span><span style="color: #F97583">if</span><span style="color: #E1E4E8"> (li.</span><span style="color: #B392F0">querySelectorAll</span><span style="color: #E1E4E8">(</span><span style="color: #9ECBFF">'ul'</span><span style="color: #E1E4E8">).</span><span style="color: #79B8FF">length</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">></span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">0</span><span style="color: #E1E4E8">) {</span></span>
+<span class="line"><span style="color: #E1E4E8">          li.</span><span style="color: #B392F0">setAttribute</span><span style="color: #E1E4E8">(</span><span style="color: #9ECBFF">'class'</span><span style="color: #E1E4E8">, </span><span style="color: #9ECBFF">'closed'</span><span style="color: #E1E4E8">);</span></span>
+<span class="line"><span style="color: #E1E4E8">          </span><span style="color: #F97583">const</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">childText</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> li.childNodes[</span><span style="color: #79B8FF">0</span><span style="color: #E1E4E8">];</span></span>
+<span class="line"><span style="color: #E1E4E8">          </span><span style="color: #F97583">const</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">newSpan</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> document.</span><span style="color: #B392F0">createElement</span><span style="color: #E1E4E8">(</span><span style="color: #9ECBFF">'span'</span><span style="color: #E1E4E8">);</span></span>
+<span class="line"><span style="color: #E1E4E8">          newSpan.textContent </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> childText.textContent;</span></span>
+<span class="line"><span style="color: #E1E4E8">          newSpan.style.cursor </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">'pointer'</span><span style="color: #E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #E1E4E8">          newSpan.</span><span style="color: #B392F0">onclick</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> (</span><span style="color: #FFAB70">e</span><span style="color: #E1E4E8">)</span><span style="color: #F97583">=></span><span style="color: #79B8FF">this</span><span style="color: #E1E4E8">.</span><span style="color: #B392F0">showul</span><span style="color: #E1E4E8">(e);</span></span>
+<span class="line"><span style="color: #E1E4E8">          </span></span>
+<span class="line"><span style="color: #E1E4E8">          childText.parentNode.</span><span style="color: #B392F0">insertBefore</span><span style="color: #E1E4E8">(newSpan, childText);</span></span>
+<span class="line"><span style="color: #E1E4E8">          childText.parentNode.</span><span style="color: #B392F0">removeChild</span><span style="color: #E1E4E8">(childText);</span></span>
+<span class="line"><span style="color: #E1E4E8">        }</span></span>
+<span class="line"><span style="color: #E1E4E8">      });</span></span>
+<span class="line"><span style="color: #E1E4E8">    }</span></span>
+<span class="line"><span style="color: #E1E4E8">    </span><span style="color: #B392F0">connectedCallback</span><span style="color: #E1E4E8">() {</span></span>
+<span class="line"><span style="color: #E1E4E8">      </span></span>
+<span class="line"><span style="color: #E1E4E8">      </span><span style="color: #79B8FF">this</span><span style="color: #E1E4E8">.</span><span style="color: #B392F0">attachShadow</span><span style="color: #E1E4E8">({mode: </span><span style="color: #9ECBFF">'open'</span><span style="color: #E1E4E8">})</span></span>
+<span class="line"><span style="color: #E1E4E8">        .</span><span style="color: #B392F0">appendChild</span><span style="color: #E1E4E8">(</span><span style="color: #79B8FF">this</span><span style="color: #E1E4E8">.</span><span style="color: #B392F0">buildStructure</span><span style="color: #E1E4E8">(</span><span style="color: #79B8FF">this</span><span style="color: #E1E4E8">.elements)) </span></span>
+<span class="line"><span style="color: #E1E4E8">      </span><span style="color: #79B8FF">this</span><span style="color: #E1E4E8">.</span><span style="color: #B392F0">initList</span><span style="color: #E1E4E8">() </span></span>
+<span class="line"><span style="color: #E1E4E8">    }</span></span>
+<span class="line"><span style="color: #E1E4E8">    </span><span style="color: #B392F0">attributeChangedCallback</span><span style="color: #E1E4E8">(</span><span style="color: #FFAB70">attrName</span><span style="color: #E1E4E8">, </span><span style="color: #FFAB70">oldVal</span><span style="color: #E1E4E8">, </span><span style="color: #FFAB70">newVal</span><span style="color: #E1E4E8">){</span></span>
+<span class="line"><span style="color: #E1E4E8">      </span><span style="color: #F97583">if</span><span style="color: #E1E4E8">(oldVal </span><span style="color: #F97583">!==</span><span style="color: #E1E4E8"> newVal) {</span></span>
+<span class="line"><span style="color: #E1E4E8">        console.</span><span style="color: #B392F0">log</span><span style="color: #E1E4E8">(oldVal)</span></span>
+<span class="line"><span style="color: #E1E4E8">        console.</span><span style="color: #B392F0">log</span><span style="color: #E1E4E8">(newVal)</span></span>
+<span class="line"><span style="color: #E1E4E8">        </span></span>
+<span class="line"><span style="color: #E1E4E8">      }</span></span>
+<span class="line"><span style="color: #E1E4E8">    }</span></span>
+<span class="line"><span style="color: #E1E4E8">    </span><span style="color: #6A737D">// li click handler</span></span>
+<span class="line"><span style="color: #E1E4E8">    </span><span style="color: #B392F0">showul</span><span style="color: #E1E4E8"> (</span><span style="color: #FFAB70">e</span><span style="color: #E1E4E8">) {</span></span>
+<span class="line"><span style="color: #E1E4E8">      </span><span style="color: #6A737D">// next sibling to the span should be the ul</span></span>
+<span class="line"><span style="color: #E1E4E8">      </span><span style="color: #F97583">const</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">nextul</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> e.target.nextElementSibling;</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span></span>
+<span class="line"><span style="color: #E1E4E8">      </span><span style="color: #6A737D">// Toggle visible state and update class attribute on ul</span></span>
+<span class="line"><span style="color: #E1E4E8">      </span><span style="color: #F97583">if</span><span style="color: #E1E4E8"> (nextul.style.display </span><span style="color: #F97583">==</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">'block'</span><span style="color: #E1E4E8">) {</span></span>
+<span class="line"><span style="color: #E1E4E8">        nextul.style.display </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">'none'</span><span style="color: #E1E4E8">;</span></span>
+<span class="line"><span style="color: #E1E4E8">        nextul.parentNode.</span><span style="color: #B392F0">setAttribute</span><span style="color: #E1E4E8">(</span><span style="color: #9ECBFF">'class'</span><span style="color: #E1E4E8">, </span><span style="color: #9ECBFF">'closed'</span><span style="color: #E1E4E8">);</span></span>
+<span class="line"><span style="color: #E1E4E8">      } </span><span style="color: #F97583">else</span><span style="color: #E1E4E8"> {</span></span>
+<span class="line"><span style="color: #E1E4E8">        nextul.style.display </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">'block'</span><span style="color: #E1E4E8">;</span></span>
+<span class="line"><span style="color: #E1E4E8">        nextul.parentNode.</span><span style="color: #B392F0">setAttribute</span><span style="color: #E1E4E8">(</span><span style="color: #9ECBFF">'class'</span><span style="color: #E1E4E8">, </span><span style="color: #9ECBFF">'open'</span><span style="color: #E1E4E8">);</span></span>
+<span class="line"><span style="color: #E1E4E8">      }</span></span>
+<span class="line"><span style="color: #E1E4E8">    }</span></span>
+<span class="line"><span style="color: #E1E4E8">    </span><span style="color: #B392F0">buildStructure</span><span style="color: #E1E4E8"> (</span><span style="color: #FFAB70">_data</span><span style="color: #E1E4E8">) {</span></span>
+<span class="line"><span style="color: #E1E4E8">        </span><span style="color: #F97583">const</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">l</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> _data.</span><span style="color: #79B8FF">length</span></span>
+<span class="line"><span style="color: #E1E4E8">        </span><span style="color: #F97583">if</span><span style="color: #E1E4E8">(l </span><span style="color: #F97583">></span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">0</span><span style="color: #E1E4E8">){</span></span>
+<span class="line"><span style="color: #E1E4E8">            </span><span style="color: #F97583">const</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">ul</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> document.</span><span style="color: #B392F0">createElement</span><span style="color: #E1E4E8">(</span><span style="color: #9ECBFF">'ul'</span><span style="color: #E1E4E8">)</span></span>
+<span class="line"><span style="color: #E1E4E8">            </span><span style="color: #F97583">for</span><span style="color: #E1E4E8"> (</span><span style="color: #F97583">let</span><span style="color: #E1E4E8"> i</span><span style="color: #F97583">=</span><span style="color: #79B8FF">0</span><span style="color: #E1E4E8">; i </span><span style="color: #F97583">&#x3C;</span><span style="color: #E1E4E8"> l; i</span><span style="color: #F97583">++</span><span style="color: #E1E4E8">) {</span></span>
+<span class="line"><span style="color: #E1E4E8">                </span><span style="color: #F97583">const</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">current</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> _data[i]</span></span>
+<span class="line"><span style="color: #E1E4E8">                </span><span style="color: #F97583">if</span><span style="color: #E1E4E8">(current) {</span></span>
+<span class="line"><span style="color: #E1E4E8">                  </span><span style="color: #F97583">const</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">li</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> document.</span><span style="color: #B392F0">createElement</span><span style="color: #E1E4E8">(</span><span style="color: #9ECBFF">'li'</span><span style="color: #E1E4E8">)</span></span>
+<span class="line"><span style="color: #E1E4E8">                  li.textContent </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> current.title</span></span>
+<span class="line"><span style="color: #E1E4E8">                  ul.</span><span style="color: #B392F0">appendChild</span><span style="color: #E1E4E8">(li)</span></span>
+<span class="line"><span style="color: #E1E4E8">                  </span><span style="color: #F97583">if</span><span style="color: #E1E4E8">(current.nodes) {</span></span>
+<span class="line"><span style="color: #E1E4E8">                    </span><span style="color: #F97583">const</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">subUl</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">this</span><span style="color: #E1E4E8">.</span><span style="color: #B392F0">buildStructure</span><span style="color: #E1E4E8">(current.nodes)</span></span>
+<span class="line"><span style="color: #E1E4E8">                    </span><span style="color: #F97583">if</span><span style="color: #E1E4E8">(subUl){</span></span>
+<span class="line"><span style="color: #E1E4E8">                      li.</span><span style="color: #B392F0">appendChild</span><span style="color: #E1E4E8">(subUl)</span></span>
+<span class="line"><span style="color: #E1E4E8">                    }</span></span>
+<span class="line"><span style="color: #E1E4E8">                  }</span></span>
+<span class="line"><span style="color: #E1E4E8">                }</span></span>
+<span class="line"><span style="color: #E1E4E8">            }</span></span>
+<span class="line"><span style="color: #E1E4E8">            </span><span style="color: #F97583">return</span><span style="color: #E1E4E8"> ul</span></span>
+<span class="line"><span style="color: #E1E4E8">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #E1E4E8">        </span><span style="color: #F97583">return</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">null</span></span>
+<span class="line"><span style="color: #E1E4E8">    }</span></span>
+<span class="line"><span style="color: #E1E4E8">    </span><span style="color: #F97583">get</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">elements</span><span style="color: #E1E4E8">() {</span></span>
+<span class="line"><span style="color: #E1E4E8">      </span><span style="color: #F97583">return</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">this</span><span style="color: #E1E4E8">._elements</span></span>
+<span class="line"><span style="color: #E1E4E8">    }</span></span>
+<span class="line"><span style="color: #E1E4E8">    </span><span style="color: #F97583">set</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">elements</span><span style="color: #E1E4E8">(</span><span style="color: #FFAB70">newVal</span><span style="color: #E1E4E8">) {</span></span>
+<span class="line"><span style="color: #E1E4E8">      </span><span style="color: #79B8FF">this</span><span style="color: #E1E4E8">._elements </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> newVal;</span></span>
+<span class="line"><span style="color: #E1E4E8">      </span><span style="color: #79B8FF">this</span><span style="color: #E1E4E8">.</span><span style="color: #B392F0">initList</span><span style="color: #E1E4E8">()</span></span>
+<span class="line"><span style="color: #E1E4E8">    }</span></span>
+<span class="line"><span style="color: #E1E4E8">}</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #6A737D">// Define the new element</span></span>
+<span class="line"><span style="color: #E1E4E8">customElements.</span><span style="color: #B392F0">define</span><span style="color: #E1E4E8">(</span><span style="color: #9ECBFF">'expanding-list'</span><span style="color: #E1E4E8">, ExpandingList);</span></span></code></pre>
+<p>Usage:</p>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #F97583">import</span><span style="color: #E1E4E8"> { ExpandingList } </span><span style="color: #F97583">from</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">"../components/wc/expandingList"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #E1E4E8">    </span><span style="color: #F97583">const</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">data</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> [</span></span>
+<span class="line"><span style="color: #E1E4E8">        </span><span style="color: #6A737D">//...</span></span>
+<span class="line"><span style="color: #E1E4E8">    ]</span></span>
+<span class="line"><span style="color: #E1E4E8">	</span><span style="color: #F97583">const</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">list</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> document.</span><span style="color: #B392F0">querySelector</span><span style="color: #E1E4E8">(</span><span style="color: #9ECBFF">'expanding-list'</span><span style="color: #E1E4E8">) </span><span style="color: #F97583">as</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">ExpandingList</span></span>
+<span class="line"><span style="color: #E1E4E8">    </span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #E1E4E8">    </span><span style="color: #6A737D">// HERE WE PASS DATA TO THE COMPONENT </span></span>
+<span class="line"><span style="color: #E1E4E8">    </span><span style="color: #6A737D">// see the class' static get observedAttributes()</span></span>
+<span class="line"><span style="color: #E1E4E8">    list.elements </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> data</span></span>
+<span class="line"></span></code></pre>
+<p>But, as we see in the above “Expanding list” example, things can get quite complicated soon.</p>
+<p>Besides Vanilla javascript, there are options to help developers in coding web components (there are many, many, many more) such as :</p>
+<ul>
+<li>
+<p><a href="/lit">Lit</a></p>
+</li>
+<li>
+<p><a href="https://lit.dev/">Lit documentation</a></p>
+</li>
+<li>
+<p><a href="https://open-wc.org/guides/developing-components/code-examples/#lit-html-and-lit-element">Developing Components: Lit Code Examples</a></p>
+</li>
+<li>
+<p><a href="https://vuejs.org/guide/extras/web-components.html#building-custom-elements-with-vue">build web components with Vue</a></p>
+</li>
+<li>
+<p><a href="https://blog.logrocket.com/build-web-components-svelte/">build web components with Svelte</a></p>
+</li>
+<li>
+<p><a href="https://phptuts.github.io/svelte-docs/webcomponents/">Web Components in Svelte - video + links with demo and code</a></p>
+</li>
+</ul>
+    </main>
+			<aside class="aside astro-LSJJWIS5">
+        <ul class="sticky top-20 astro-LSJJWIS5">
+            <ul class="sticky top-20">
+    <li class="flex w-full bg-black"><a class="w-full p-1 text-red-400 hover:bg-red-400 hover:text-black" href="/web-components#vanilla-web-component">Vanilla</a></li><li class="flex w-full bg-black"><a class="w-full p-1 text-red-400 hover:bg-red-400 hover:text-black" href="/lit">Lit</a></li><li class="flex w-full bg-black"><a class="w-full p-1 text-red-400 hover:bg-red-400 hover:text-black" href="/lit/composing-templates">Lit: Composing templates</a></li><li class="flex w-full bg-black"><a class="w-full p-1 text-red-400 hover:bg-red-400 hover:text-black" href="/lit/lit-react">Use Lit in react</a></li><li class="flex w-full bg-black"><a class="w-full p-1 text-red-400 hover:bg-red-400 hover:text-black" href="/lit/lit-vue">Use Lit in Vue</a></li>
+    
+                <div class="flex flex-col grow items-center border border-solid border-slate-100 rounded m-2 p-2 self-start">
+    
+                    <h3 class="astro-LSJJWIS5">... The nth counter</h3>
+                    <p class="astro-LSJJWIS5">A "beautifully" styled Web component example</p>
+                    <p class="instructions astro-LSJJWIS5">
+                        <my-counter class="astro-LSJJWIS5"></my-counter>
+                        
+                    </p>
+                
+</div>
+                
+                <div class="flex flex-col grow items-center border border-solid border-slate-100 rounded m-2 p-2 self-start">
+    
+                    <h3 class="astro-LSJJWIS5">
+                        <span class="font-bold text-3xl astro-LSJJWIS5">shadow dom & encapsulation</span>
+                    </h3>
+                    <button class="border-1  text-slate-100 border-solid astro-LSJJWIS5">
+                        hello
+                    </button>
+        
+                    <h3 class="astro-LSJJWIS5">
+                        <span class="astro-LSJJWIS5">A styled but useless Custom button :(</span>
+                    </h3>
+                    
+                    <custom-button title="a styled button" class="astro-LSJJWIS5"></custom-button>
+                    
+                    
+                
+</div>
+                <div class="flex flex-col grow items-center border border-solid border-slate-100 rounded m-2 p-2 self-start">
+    
+                    <h3 class="astro-LSJJWIS5">Expanding List example</h3>
+                    <p class="instructions astro-LSJJWIS5">
+                        <expanding-list class="astro-LSJJWIS5"></expanding-list>
+                        
+                    </p>
+                
+</div>
+            
+</ul>
+            
+        </ul>
+        
+    </aside>
+		</div>
+		
+		
+	</body>
+</html>
+
+
+
+<script async>
+    document.querySelector('main h1').classList.add('glitched')
+    Array.from(document.querySelectorAll('main h2'))
+    .forEach(h2 => {
+        h2.classList.add('glitched')
+    })
+</script>
