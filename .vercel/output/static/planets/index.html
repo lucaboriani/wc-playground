@@ -4,7 +4,7 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width">
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg">
-		<meta name="generator" content="Astro v2.4.5">
+		<meta name="generator" content="Astro v2.5.5">
 		<title>all planets</title>
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito&display=swap">
 	<link rel="stylesheet" href="/_astro/index.121b964f.css" />
@@ -20,7 +20,8 @@ var b = (t, n) => {
 function s() {
 	if (d === void 0) {
 		let t = document.createElement('div');
-		(t.innerHTML = '<div><template shadowroot="open"></template></div>'), (d = !!t.firstElementChild.shadowRoot);
+		(t.innerHTML = '<div><template shadowroot="open" shadowrootmode="open"></template></div>'),
+			(d = !!t.firstElementChild.shadowRoot);
 	}
 	return d;
 }
@@ -30,7 +31,9 @@ var p,
 	c,
 	f,
 	u = i(() => {
-		(p = (t) => t.parentElement === null), (c = (t) => t.tagName === 'TEMPLATE'), (f = (t) => t.nodeType === Node.ELEMENT_NODE);
+		(p = (t) => t.parentElement === null),
+			(c = (t) => t.tagName === 'TEMPLATE'),
+			(f = (t) => t.nodeType === Node.ELEMENT_NODE);
 	});
 var h,
 	E = i(() => {
@@ -64,7 +67,8 @@ var h,
 								(e = r), o !== void 0 && o.parentElement.removeChild(o);
 								break;
 							}
-							let l = (n = e.parentElement) === null || n === void 0 ? void 0 : n.nextElementSibling;
+							let l =
+								(n = e.parentElement) === null || n === void 0 ? void 0 : n.nextElementSibling;
 							if (l != null) {
 								(e = l), o !== void 0 && o.parentElement.removeChild(o);
 								break;
@@ -85,9 +89,17 @@ var S = i(() => {
 });
 async function g() {
 	let { hydrateShadowRoots: t } = await Promise.resolve().then(() => (S(), v));
-	t(document.body);
+	window.addEventListener('DOMContentLoaded', () => t(document.body), { once: true });
 }
-var x = new DOMParser().parseFromString('<p><template shadowroot="open"></template></p>', 'text/html', { includeShadowRoots: !0 }).querySelector('p');
+var x = new DOMParser()
+	.parseFromString(
+		'<p><template shadowroot="open" shadowrootmode="open"></template></p>',
+		'text/html',
+		{
+			includeShadowRoots: !0,
+		}
+	)
+	.querySelector('p');
 (!x || !x.shadowRoot) && g();
 </script></head>
 	<body>
@@ -145,7 +157,7 @@ var x = new DOMParser().parseFromString('<p><template shadowroot="open"></templa
 </div>
     </nav>
     <div class="flex flex-col items-end pr-4 justify-center">
-        <button class="signin-y2y1duy6z text-red-300 hover:text-red-400">
+        <button class="signin-pt30fyutu text-red-300 hover:text-red-400">
 	
                 login
             
@@ -156,7 +168,7 @@ var x = new DOMParser().parseFromString('<p><template shadowroot="open"></templa
 <script>(function(){const provider = "github";
 const options = undefined;
 const authParams = undefined;
-const key = "y2y1duy6z";
+const key = "pt30fyutu";
 
 	document
 		.querySelector(`.signin-${key}`)

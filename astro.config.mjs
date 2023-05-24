@@ -27,5 +27,9 @@ export default defineConfig({
     }
   }), tailwind(), svelte(), auth()],
   output: "server",
+  //output: "hybrid",
+  /* experimental: {
+    hybridOutput: true,
+  }, */
   adapter: vercel()
 });
