@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width">
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+		<meta name="generator" content="Astro v2.5.5">
+		<title>Lit Elements</title>
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito&display=swap">
+	<link rel="stylesheet" href="/_astro/index.121b964f.css" />
+<link rel="stylesheet" href="/_astro/composing-templates.822f5af5.css" />
+<link rel="stylesheet" href="/_astro/index.e5dfc1dc.css" /><script type="module" src="/_astro/hoisted.2621464a.js"></script>
+<script>/** @license Copyright 2020 Google LLC (BSD-3-Clause) */
+/** Bundled JS generated from "@astrojs/lit/client-shim.js" */
+var N = Object.defineProperty;
+var i = (t, n) => () => (t && (n = t((t = 0))), n);
+var b = (t, n) => {
+	for (var a in n) N(t, a, { get: n[a], enumerable: !0 });
+};
+function s() {
+	if (d === void 0) {
+		let t = document.createElement('div');
+		(t.innerHTML = '<div><template shadowroot="open" shadowrootmode="open"></template></div>'),
+			(d = !!t.firstElementChild.shadowRoot);
+	}
+	return d;
+}
+var d,
+	m = i(() => {});
+var p,
+	c,
+	f,
+	u = i(() => {
+		(p = (t) => t.parentElement === null),
+			(c = (t) => t.tagName === 'TEMPLATE'),
+			(f = (t) => t.nodeType === Node.ELEMENT_NODE);
+	});
+var h,
+	E = i(() => {
+		m();
+		u();
+		h = (t) => {
+			var n;
+			if (s()) return;
+			let a = [],
+				e = t.firstElementChild;
+			for (; e !== t && e !== null; )
+				if (c(e)) a.push(e), (e = e.content);
+				else if (e.firstElementChild !== null) e = e.firstElementChild;
+				else if (f(e) && e.nextElementSibling !== null) e = e.nextElementSibling;
+				else {
+					let o;
+					for (; e !== t && e !== null; )
+						if (p(e)) {
+							o = a.pop();
+							let r = o.parentElement,
+								l = o.getAttribute('shadowroot');
+							if (((e = o), l === 'open' || l === 'closed')) {
+								let y = o.hasAttribute('shadowrootdelegatesfocus');
+								try {
+									r.attachShadow({ mode: l, delegatesFocus: y }).append(o.content);
+								} catch {}
+							} else o = void 0;
+						} else {
+							let r = e.nextElementSibling;
+							if (r != null) {
+								(e = r), o !== void 0 && o.parentElement.removeChild(o);
+								break;
+							}
+							let l =
+								(n = e.parentElement) === null || n === void 0 ? void 0 : n.nextElementSibling;
+							if (l != null) {
+								(e = l), o !== void 0 && o.parentElement.removeChild(o);
+								break;
+							}
+							(e = e.parentElement), o !== void 0 && (o.parentElement.removeChild(o), (o = void 0));
+						}
+				}
+		};
+	});
+var w = i(() => {
+	E();
+});
+var v = {};
+b(v, { hasNativeDeclarativeShadowRoots: () => s, hydrateShadowRoots: () => h });
+var S = i(() => {
+	m();
+	w();
+});
+async function g() {
+	let { hydrateShadowRoots: t } = await Promise.resolve().then(() => (S(), v));
+	window.addEventListener('DOMContentLoaded', () => t(document.body), { once: true });
+}
+var x = new DOMParser()
+	.parseFromString(
+		'<p><template shadowroot="open" shadowrootmode="open"></template></p>',
+		'text/html',
+		{
+			includeShadowRoots: !0,
+		}
+	)
+	.querySelector('p');
+(!x || !x.shadowRoot) && g();
+</script></head>
+	<body>
+		<header id="site-header" class="fixed w-full bg-black bg-opacity-50 z-10 top-0 flex justify-between">
+    <nav>
+        <div class="hamburger">
+    <span class="line"></span>
+    <span class="line"></span>
+    <span class="line"></span>
+</div>
+        
+<div class="nav-links astro-PUX6A34N">
+    <ul class="astro-PUX6A34N">
+        <li class="astro-PUX6A34N">
+                <a href="/" class="astro-PUX6A34N">
+                    Home
+                </a>
+                
+            </li><li class="astro-PUX6A34N">
+                <a href="/metaframeworks" class="astro-PUX6A34N">
+                    Metaframeworks
+                </a>
+                
+            </li><li class="astro-PUX6A34N">
+                <a href="/web-components" class="astro-PUX6A34N">
+                    Web components
+                </a>
+                
+            </li><li class="astro-PUX6A34N">
+                <a href="/testing" class="astro-PUX6A34N">
+                    Testing
+                </a>
+                
+            </li><li class="astro-PUX6A34N">
+                <a href="/planets" class="astro-PUX6A34N">
+                    Sw Planets
+                </a>
+                
+            </li><li class="astro-PUX6A34N">
+                <a href="/tasks" class="astro-PUX6A34N">
+                    Tasklist
+                </a>
+                <div class="sublinks astro-PUX6A34N">
+                            <ul class="astro-PUX6A34N">
+                                <li class="astro-PUX6A34N">
+                                    <a href="/tasks/redotasksreact" class="astro-PUX6A34N">Redo react</a>
+                                </li><li class="astro-PUX6A34N">
+                                    <a href="/tasks/splitted-tasks-ssr-react" class="astro-PUX6A34N">Ssr react</a>
+                                </li>
+                                
+                            </ul>
+                        </div>
+            </li>
+    </ul>
+</div>
+    </nav>
+    <div class="flex flex-col items-end pr-4 justify-center">
+        <button class="signin-i2gazs746 text-red-300 hover:text-red-400">
+	
+                login
+            
+</button>
+
+
+
+<script>(function(){const provider = "github";
+const options = undefined;
+const authParams = undefined;
+const key = "i2gazs746";
+
+	document
+		.querySelector(`.signin-${key}`)
+		?.addEventListener('click', () => signIn(provider, options, authParams))
+})();</script>
+    </div>
+</header>
+		<div class="container">
+			<main class="max-w-4xl relative grow pt-20 astro-TODWRKOZ">
+        <h1 id="lit-element">Lit Element</h1>
+<p><a href="https://lit.dev/">LitElement (Lit)</a> is a simple base class for creating fast, lightweight web components that work in any web page with any framework.</p>
+<p>LitElement uses lit-html to render into shadow DOM, and adds API to manage properties and attributes. Properties are observed by default, and elements update asynchronously when their properties change.</p>
+        <h2 class="astro-TODWRKOZ">Lit Basics:</h2>
+		<p class="astro-TODWRKOZ">
+			a dummy element...
+		</p>
+       <style>astro-island,astro-slot{display:contents}</style><script>(()=>{var r=(s,c,i)=>{let o=async()=>{await(await s())()},n=new IntersectionObserver(e=>{for(let t of e)if(t.isIntersecting){n.disconnect(),o();break}});for(let e=0;e<i.children.length;e++){let t=i.children[e];n.observe(t)}};(self.Astro||(self.Astro={})).visible=r;window.dispatchEvent(new Event("astro:visible"));})();;(()=>{var l;{let c={0:t=>t,1:t=>JSON.parse(t,o),2:t=>new RegExp(t),3:t=>new Date(t),4:t=>new Map(JSON.parse(t,o)),5:t=>new Set(JSON.parse(t,o)),6:t=>BigInt(t),7:t=>new URL(t),8:t=>new Uint8Array(JSON.parse(t)),9:t=>new Uint16Array(JSON.parse(t)),10:t=>new Uint32Array(JSON.parse(t))},o=(t,s)=>{if(t===""||!Array.isArray(s))return s;let[e,n]=s;return e in c?c[e](n):void 0};customElements.get("astro-island")||customElements.define("astro-island",(l=class extends HTMLElement{constructor(){super(...arguments);this.hydrate=()=>{if(!this.hydrator||this.parentElement&&this.parentElement.closest("astro-island[ssr]"))return;let s=this.querySelectorAll("astro-slot"),e={},n=this.querySelectorAll("template[data-astro-template]");for(let r of n){let i=r.closest(this.tagName);!i||!i.isSameNode(this)||(e[r.getAttribute("data-astro-template")||"default"]=r.innerHTML,r.remove())}for(let r of s){let i=r.closest(this.tagName);!i||!i.isSameNode(this)||(e[r.getAttribute("name")||"default"]=r.innerHTML)}let a=this.hasAttribute("props")?JSON.parse(this.getAttribute("props"),o):{};this.hydrator(this)(this.Component,a,e,{client:this.getAttribute("client")}),this.removeAttribute("ssr"),window.removeEventListener("astro:hydrate",this.hydrate),window.dispatchEvent(new CustomEvent("astro:hydrate"))}}connectedCallback(){!this.hasAttribute("await-children")||this.firstChild?this.childrenConnectedCallback():new MutationObserver((s,e)=>{e.disconnect(),this.childrenConnectedCallback()}).observe(this,{childList:!0})}async childrenConnectedCallback(){window.addEventListener("astro:hydrate",this.hydrate);let s=this.getAttribute("before-hydration-url");s&&await import(s),this.start()}start(){let s=JSON.parse(this.getAttribute("opts")),e=this.getAttribute("client");if(Astro[e]===void 0){window.addEventListener(`astro:${e}`,()=>this.start(),{once:!0});return}Astro[e](async()=>{let n=this.getAttribute("renderer-url"),[a,{default:r}]=await Promise.all([import(this.getAttribute("component-url")),n?import(n):()=>()=>{}]),i=this.getAttribute("component-export")||"default";if(!i.includes("."))this.Component=a[i];else{this.Component=a;for(let d of i.split("."))this.Component=this.Component[d]}return this.hydrator=r,this.hydrate},s,this)}attributeChangedCallback(){this.hydrator&&this.hydrate()}},l.observedAttributes=["props"],l))}})();</script><astro-island uid="2746PF" component-url="/_astro/my-element.99fb5e34.js" component-export="MyElement" renderer-url="/_astro/client.7b2c67e7.js" props="{&quot;class&quot;:[0,&quot;astro-TODWRKOZ&quot;]}" ssr="" client="visible" before-hydration-url="/_astro/astro_scripts/before-hydration.js.4b3465f5.js" opts="{&quot;name&quot;:&quot;MyElement&quot;,&quot;value&quot;:true}" await-children=""><my-element><template shadowroot="open" shadowrootmode="open"><!--lit-part o4uvULyuA70=--> <p>Hello world! From my-element</p> <!--/lit-part--></template></my-element></astro-island>
+       <hr class="astro-TODWRKOZ">
+       <p class="astro-TODWRKOZ">
+        ...and a useless button
+        </p>
+        <script>(()=>{var i=t=>{let e=async()=>{await(await t())()};"requestIdleCallback"in window?window.requestIdleCallback(e):setTimeout(e,200)};(self.Astro||(self.Astro={})).idle=i;window.dispatchEvent(new Event("astro:idle"));})();</script><astro-island uid="1Kt4Ly" component-url="/_astro/my-button.71c01bf1.js" component-export="MyButton" renderer-url="/_astro/client.7b2c67e7.js" props="{&quot;text&quot;:[0,&quot;some text&quot;],&quot;class&quot;:[0,&quot;astro-TODWRKOZ&quot;]}" ssr="" client="idle" before-hydration-url="/_astro/astro_scripts/before-hydration.js.4b3465f5.js" opts="{&quot;name&quot;:&quot;MyButton&quot;,&quot;value&quot;:true}" await-children=""><my-button defer-hydration><template shadowroot="open" shadowrootmode="open"><style>
+    button {
+      color: whitesmoke; 
+      background-color:blue; 
+      font-size:2em;  
+      border: solid 2px whitesmoke;
+      border-radius:.25em;
+      padding: 1em .5em;
+      cursor:pointer;
+      transition: all .3s ease;
+    }
+    button:hover {
+        color: black;
+        background-color:whitesmoke;
+    }
+  </style><!--lit-part XfsJ0QF1rCQ=-->
+      <!--lit-node 0--><button >
+        <!--lit-part-->some text<!--/lit-part-->
+      </button>
+    <!--/lit-part--></template></my-button></astro-island>
+        <pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #F97583">import</span><span style="color: #E1E4E8"> {LitElement, html, css} </span><span style="color: #F97583">from</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">'lit'</span><span style="color: #E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #F97583">export</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">class</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">MyButton</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">extends</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">LitElement</span><span style="color: #E1E4E8"> {</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #F97583">static</span><span style="color: #E1E4E8"> </span><span style="color: #FFAB70">properties</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> {</span></span>
+<span class="line"><span style="color: #E1E4E8">        text: {attribute: </span><span style="color: #79B8FF">true</span><span style="color: #E1E4E8">},</span></span>
+<span class="line"><span style="color: #E1E4E8">  };</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #F97583">static</span><span style="color: #E1E4E8"> </span><span style="color: #FFAB70">styles</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">css</span><span style="color: #9ECBFF">`</span></span>
+<span class="line"><span style="color: #9ECBFF">    button {</span></span>
+<span class="line"><span style="color: #9ECBFF">      color: whitesmoke; </span></span>
+<span class="line"><span style="color: #9ECBFF">      background-color:blue; </span></span>
+<span class="line"><span style="color: #9ECBFF">      font-size:2em;  </span></span>
+<span class="line"><span style="color: #9ECBFF">      border: solid 2px whitesmoke;</span></span>
+<span class="line"><span style="color: #9ECBFF">      border-radius:.25em;</span></span>
+<span class="line"><span style="color: #9ECBFF">      padding: 1em .5em;</span></span>
+<span class="line"><span style="color: #9ECBFF">      cursor:pointer;</span></span>
+<span class="line"><span style="color: #9ECBFF">      transition: all .3s ease;</span></span>
+<span class="line"><span style="color: #9ECBFF">    }</span></span>
+<span class="line"><span style="color: #9ECBFF">    button:hover {</span></span>
+<span class="line"><span style="color: #9ECBFF">        color: black;</span></span>
+<span class="line"><span style="color: #9ECBFF">        background-color:whitesmoke;</span></span>
+<span class="line"><span style="color: #9ECBFF">    }</span></span>
+<span class="line"><span style="color: #9ECBFF">  `</span><span style="color: #E1E4E8">;</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #B392F0">render</span><span style="color: #E1E4E8">() {</span></span>
+<span class="line"><span style="color: #E1E4E8">    </span><span style="color: #F97583">return</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">html</span><span style="color: #9ECBFF">`</span></span>
+<span class="line"><span style="color: #9ECBFF">      &#x3C;button @click="${</span><span style="color: #79B8FF">this</span><span style="color: #9ECBFF">.</span><span style="color: #E1E4E8">_handleClick</span><span style="color: #9ECBFF">}"></span></span>
+<span class="line"><span style="color: #9ECBFF">        ${</span><span style="color: #79B8FF">this</span><span style="color: #9ECBFF">.</span><span style="color: #E1E4E8">text</span><span style="color: #9ECBFF">}</span></span>
+<span class="line"><span style="color: #9ECBFF">      &#x3C;/button></span></span>
+<span class="line"><span style="color: #9ECBFF">    `</span><span style="color: #E1E4E8">;</span></span>
+<span class="line"><span style="color: #E1E4E8">  }</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #B392F0">connectedCallback</span><span style="color: #E1E4E8">() {</span></span>
+<span class="line"><span style="color: #E1E4E8">    console.</span><span style="color: #B392F0">log</span><span style="color: #E1E4E8">(</span><span style="color: #9ECBFF">'on connect'</span><span style="color: #E1E4E8">)</span></span>
+<span class="line"><span style="color: #E1E4E8">    </span><span style="color: #79B8FF">super</span><span style="color: #E1E4E8">.</span><span style="color: #B392F0">connectedCallback</span><span style="color: #E1E4E8">();</span></span>
+<span class="line"><span style="color: #E1E4E8">  }</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #B392F0">_handleClick</span><span style="color: #E1E4E8">(){</span></span>
+<span class="line"><span style="color: #E1E4E8">    console.</span><span style="color: #B392F0">log</span><span style="color: #E1E4E8">(</span><span style="color: #9ECBFF">'click'</span><span style="color: #E1E4E8">)</span></span>
+<span class="line"><span style="color: #E1E4E8">    </span></span>
+<span class="line"><span style="color: #E1E4E8">  }</span></span>
+<span class="line"><span style="color: #E1E4E8">}</span></span>
+<span class="line"><span style="color: #E1E4E8">customElements.</span><span style="color: #B392F0">define</span><span style="color: #E1E4E8">(</span><span style="color: #9ECBFF">'my-button'</span><span style="color: #E1E4E8">, MyButton);</span></span></code></pre>
+<p>is used like :</p>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #E1E4E8"> &#x3C;</span><span style="color: #79B8FF">MyButton</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">text</span><span style="color: #F97583">=</span><span style="color: #9ECBFF">"some text"</span><span style="color: #E1E4E8"> /></span></span></code></pre>
+<p>ok maybe this wasn’t the best example :S</p>
+    </main>
+			<aside class="mt-24 grow astro-TODWRKOZ">
+        <ul class="sticky top-20">
+    <li class="flex w-full bg-black"><a class="w-full p-1 text-red-400 hover:bg-red-400 hover:text-black" href="/web-components#vanilla-web-component">Vanilla</a></li><li class="flex w-full bg-black"><a class="w-full p-1 text-red-400 hover:bg-red-400 hover:text-black" href="/lit">Lit</a></li><li class="flex w-full bg-black"><a class="w-full p-1 text-red-400 hover:bg-red-400 hover:text-black" href="/lit/composing-templates">Lit: Composing templates</a></li><li class="flex w-full bg-black"><a class="w-full p-1 text-red-400 hover:bg-red-400 hover:text-black" href="/lit/lit-react">Use Lit in react</a></li><li class="flex w-full bg-black"><a class="w-full p-1 text-red-400 hover:bg-red-400 hover:text-black" href="/lit/lit-vue">Use Lit in Vue</a></li>
+    
+</ul>
+    </aside>
+		</div>
+		
+		
+	</body>
+</html>
