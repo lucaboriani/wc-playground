@@ -1,1 +1,1 @@
-{"runtime":"nodejs18.x","handler":"Sites/DIGITIAMO/wc-playground/dist/entry.mjs","launcherType":"Nodejs"}
+{"runtime":"nodejs16.x","handler":"Sites/DIGITIAMO/wc-playground/dist/entry.mjs","launcherType":"Nodejs"}
