@@ -17,7 +17,7 @@ import vercel from "@astrojs/vercel/serverless";
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://wc-lit-playground-xi.vercel.app/',
+  site: 'https://wc-playground-xi.vercel.app/',
   integrations: [lit(), react(), vue({
     template: {
       compilerOptions: {
