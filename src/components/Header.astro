@@ -4,7 +4,7 @@ import Navigation from '../components/Navigation.astro';
 import Hamburger from '../components/Hamburger.astro';
 import { SignIn, SignOut } from 'auth-astro/components'
 const session = await getSession(Astro.request)
-
+console.log(session.user)
 ---
 <header id="site-header" class="fixed w-full bg-black bg-opacity-50 z-10 top-0 flex justify-between">
     <nav>
