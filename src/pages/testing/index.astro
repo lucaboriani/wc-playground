@@ -9,11 +9,11 @@ const content = await Astro.glob("../../markdown/testing/intro.md")
 
 const post = content[0]
 
-
+const title = "Testing"
 
 
 ---
-<Layout title={slug}>
+<Layout title={title}>
 	<main class="max-w-4xl relative grow pt-20" slot="main">
         <post.Content/>
 	</main>

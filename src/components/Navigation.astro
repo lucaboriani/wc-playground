@@ -74,17 +74,17 @@ const pages = [
     
     }
 </style>
-<div class="nav-links">
-    <ul>
+
+    <ul class="hidden lg:flex items-center space-x-1">
         {pages.map(page => ((
-            <li>
+            <li class="group py-4 px-2 text-gray-500 font-semibold hover:text-emerald-700 transition duration-300">
                 <a href={page.link}>
                     {page.text}
                 </a>
                 {page.children ? 
-                        <div class="sublinks">
+                        <div class="hidden absolute bg-black z-10 transition duration-300 group-hover:block">
                             <ul>
-                                {page.children.map(child => (<li>
+                                {page.children.map(child => (<li class="py-4 px-2 text-gray-500 font-semibold hover:text-emerald-700 transition duration-300">
                                     <a href={child.link}>{child.text}</a>
                                 </li>))}
                                 
@@ -95,4 +95,4 @@ const pages = [
             </li>
         )))}
     </ul>
-</div>
+

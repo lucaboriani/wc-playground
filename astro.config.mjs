@@ -16,18 +16,21 @@ import vercel from "@astrojs/vercel/serverless";
 // https://astro.build/config
 export default defineConfig({
   site: 'https://wc-playground-xi.vercel.app/',
-  integrations: [lit(), react(), vue({
-    template: {
-      compilerOptions: {
-        // treat all tags with a dash as custom elements
-        isCustomElement: tag => tag.includes('-')
+  integrations: [
+    lit(), 
+    react(), 
+    vue({
+      template: {
+        compilerOptions: {
+          // treat all tags with a dash as custom elements
+          isCustomElement: tag => tag.includes('-')
+        }
       }
-    }
-  }), tailwind(), svelte(), auth()],
+    }), 
+    tailwind(), 
+    svelte(), 
+    auth()
+  ],
   output: "server",
-  //output: "hybrid",
-  /* experimental: {
-    hybridOutput: true,
-  }, */
   adapter: vercel()
 });

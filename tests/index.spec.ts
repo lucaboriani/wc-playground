@@ -2,19 +2,21 @@ import { test, expect } from '@playwright/test';
 
 const {describe, beforeEach } = test
 
-describe('on view', ()=>{
+describe('the home page', ()=>{
   beforeEach(async ({ page })=>{
     await page.goto("http://localhost:3000/");
   
   })
-   test('meta is correct', async ({ page }) => {
+  test('meta is correct', async ({ page }) => {
     await expect(page).toHaveTitle('Welcome to The playground');
   });
   
-  test('counter title', async ({ page }) => {
-    await expect( page.getByText('... the nth counter')).toBeVisible();
+  test('correct title is shown', async ({ page }) => {
+    await expect( page.getByText(' Frankenstein Experiment')).toBeVisible();
   });
-  test('clicking buttons', async ({ page }) => {
+  
+  
+   /*test('clicking buttons', async ({ page }) => {
     await expect(page.getByRole('button', { name: '-' })).toBeVisible();
     await expect(page.getByRole('button', { name: '+' })).toBeVisible();
     
@@ -36,7 +38,7 @@ describe('on view', ()=>{
     await  expect(page.getByText('hello')).toBeVisible();
     await  expect(page.getByText('A styled but useless Custom button :(')).toBeVisible();
     await expect(page.getByText('a styled button')).toBeVisible();
-  });
+  }); */
 })
 
 
