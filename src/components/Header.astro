@@ -4,7 +4,7 @@ import Navigation from '../components/Navigation.astro';
 import Hamburger from '../components/Hamburger.astro';
 import { SignIn, SignOut } from 'auth-astro/components'
 const session = await getSession(Astro.request)
-console.log(session?.user)
+
 ---
 <nav class="bg-black shadow-lg">
     <div class="max-w-8xl mx-auto px-4">
@@ -13,7 +13,7 @@ console.log(session?.user)
                 <div>
                     <!-- Website Logo -->
                     <a href="#" class="flex items-center py-4 px-2">
-                        <img src="./favicon.svg" alt="Logo" class="h-8 w-8 mr-2">
+                        <img src={'/favicon.svg'} alt="Logo" class="h-8 w-8 mr-2">
                     </a>
                 </div>
                 <!-- Primary Navbar items -->
