@@ -6,7 +6,7 @@ import { SignIn, SignOut } from 'auth-astro/components'
 const session = await getSession(Astro.request)
 
 ---
-<nav class="bg-black shadow-lg">
+<nav id="site-header" class="bg-black shadow-lg fixed w-full z-1">
     <div class="max-w-8xl mx-auto px-4">
         <div class="flex justify-between">
             <div class="flex space-x-7">
